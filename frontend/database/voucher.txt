@@ -1,0 +1,49 @@
+BẢNG MÃ GIẢM GIÁ
+stt, id voucher, tên chương trình, loại mã giảm giá, % giảm, số lượt sử dụng, số lượt sử dụng của mõi người, 
+giá trị đơn hàng tối thiểu để áp dụng, đối tương áp dụng, sp áp dùng, ngày bắt đầu, ngày kết thúc, trạng thái,  list_use_monoply, img
+{
+    stt: 
+    id voucher,
+    tên chương trình: Giảm 15% cho giá trị đơn hàng của bạn,
+    loại mã giảm giá: Giảm theo % đơn hàng,
+    % giảm: 15%,
+    tông số lượt sử dụng: 1000
+    số lượt sử dụng của mỗi người: 5,
+    giá trị đơn hàng tối thiểu để áp dụng: 500.000 vnđ
+    đối tương áp dụnd: tất cả người dùng
+    sp áp dụng: fruit,
+    Ngày tạo; 22/04/2025
+    Ngày có hiệu lực; 22/04/2025
+    Ngày hết hạn; 22/04/2025
+    trạng thái: còn hiẹu luẹc
+    img
+}
+product_apply: all, fru, jui, fas, veg
+person_apply: all, int, vip, nor 
+status: act, del, expt
+type: A,B,C,D
+CREATE TABLE `doancuacuong`.`voucher` (`STT` INT(10) NULL , `id_voucher` VARCHAR(20) NULL , `name_program_voucher` VARCHAR(50) NULL , 
+`type_voucher` VARCHAR(3) NULL , `percent_decrease` VARCHAR(10) NULL , `total_use_voucher` VARCHAR(10) NULL , `person_use_per` VARCHAR(10) NULL , 
+`price_smallest_apply` VARCHAR(15) NULL , `person_apply` VARCHAR(3) NULL , `product_apply` VARCHAR(3) NULL , `date_create_voucher` VARCHAR(15) NULL , 
+`date_start_effect` VARCHAR(15) NULL , `date_end_effect` VARCHAR(15) NULL , `status_voucher` VARCHAR(3) NULL , `img` VARCHAR(50) NULL , 
+PRIMARY KEY (`id_voucher`)) ENGINE = InnoDB;
+
+ALTER TABLE `voucher` CHANGE `list_user_monoply` `list_user_monoply` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+INSERT INTO doancuacuong.voucher
+(STT, id_voucher, name_program_voucher, type_voucher, percent_decrease, total_use_voucher, person_use_per, price_smallest_apply, person_apply, product_apply, date_create_voucher, date_start_effect, date_end_effect, status_voucher, img)
+VALUES
+(1, 'VCH001', 'Giảm giá đầu tiên', 'A', '5%', '100', '1', '50000', 'all', 'all', '01-05-2025', '05-05-2025', '31-05-2025', 'act', 'img_discount_view-1.webp'),
+(2, 'VCH002', 'Khuyến mãi trái cây', 'B', '10%', '50', '2', '100000', 'vip', 'fru', '01-04-2025', '03-04-2025', '30-04-2025', 'act', 'img_discount_view-2.webp'),
+(3, 'VCH003', 'Fastfood giảm giá', 'C', '4%', '30', '3', '20000', 'nor', 'fas', '10-03-2025', '15-03-2025', '31-03-2025', 'exp', 'img_discount_view-3.webp'),
+(4, 'VCH004', 'Ưu đãi rau củ', 'D', '20%', '20', '1', '30000', 'int', 'veg', '01-01-2025', '05-01-2025', '31-01-2025', 'act', 'img_discount_view-4.webp'),
+(5, 'VCH005', 'Giảm giá nước ép', 'A', '8%', '40', '4', '70000', 'vip', 'jui', '15-02-2025', '20-02-2025', '28-02-2025', 'del', 'img_discount_view-5.webp'),
+(6, 'VCH006', 'Giảm giá bình thường', 'B', '9%', '100', '1', '50000', 'nor', 'all', '01-05-2025', '05-05-2025', '31-05-2025', 'act', 'img_discount_view-6.webp'),
+(7, 'VCH007', 'Ưu đãi đặc biệt', 'C', '3%', '60', '2', '80000', 'int', 'fru', '01-03-2025', '05-03-2025', '31-03-2025', 'act', 'img_discount_view-7.webp'),
+(8, 'VCH008', 'Giảm giá tất cả', 'D', '10%', '150', '5', '60000', 'all', 'all', '01-06-2025', '05-06-2025', '30-06-2025', 'act', 'img_discount_view-8.webp'),
+(9, 'VCH009', 'Ưu đãi nhanh', 'A', '5%', '90', '3', '45000', 'vip', 'fas', '15-04-2025', '20-04-2025', '30-04-2025', 'act', 'img_discount_view-9.webp'),
+(10, 'VCH010', 'Giảm giá rau củ quả', 'B', '9%', '70', '2', '55000', 'int', 'veg', '01-02-2025', '05-02-2025', '28-02-2025', 'exp', 'img_discount_view-10.webp');
+
+ALTER TABLE `voucher` ADD `list_user_monoply` VARCHAR(100) NULL AFTER `img`;
+UPDATE `voucher` SET `list_user_monoply` = 'U001 U002 U003 U004 U005' WHERE `voucher`.`id_voucher` = 'VCH010'
+
+UPDATE `voucher` SET `list_user_monoply` = 'U001 U003 U007 U012' WHERE `voucher`.`id_voucher` = 'VCH008'

@@ -1,0 +1,108 @@
+{
+    id,
+    code,
+    provide_id,
+    stock_id,
+    status,
+    date_receive: "2025-08-26 10:20:00",
+    employee_id,
+    count,
+    subtotal,
+    other_cost,
+    discount: 0,
+    total,
+    note
+    note_cancel,
+    product_provide_id,
+}
+
+data:  
+    {
+        id: 1,
+        code: "zQ11Wx22Er",
+        count: 600,
+        date_receive: "2025-08-26 10:20:00",
+        created_at: "2025-08-26 10:20:00",
+        discount: 0,
+        employee:{
+            id: 1,
+            code: '"EMP005"',
+            name: 'Nguyễn Trần Cường'
+        } ,
+        note: "Lô hàng trái cây miền Bắc",
+        note_cancel: '',
+        other_cost: 100000,
+        products: [
+            {
+                code: "SANPHAM10",
+                img: "/public/images/img_product/product_img-1.jpg",
+                name: "Quả mít",
+                size: {
+                    L: { price: 50000, count: 80 },
+                    M: { price: 40000, count: 120 },
+                    
+                },
+                subtotal: 9800000,
+                totalCount: 260,
+            },
+            {
+                code: "SANPHAM11",
+                img: "/public/images/img_product/product_img-11.jpg",
+                name: "Quả mận",
+                size: {
+                    L: { price: 70000, count: 50 },
+                    M: { price: 50000, count: 70 },
+                    S: { price: 30000, count: 40 },
+                },
+                subtotal: 8600000,
+                totalCount: 160,
+            },
+            {
+                code: "SANPHAM11",
+                img: "/public/images/img_product/product_img-11.jpg",
+                name: "Quả mận",
+                size: {
+                    L: { price: 70000, count: 50 },
+                    M: { price: 50000, count: 70 },
+                    S: { price: 30000, count: 40 },
+                },
+                subtotal: 8600000,
+                totalCount: 160,
+            },
+            {
+                code: "SANPHAM11",
+                img: "/public/images/img_product/product_img-11.jpg",
+                name: "Quả mận",
+                size: {
+                    L: { price: 70000, count: 50 },
+                    M: { price: 50000, count: 70 },
+                    S: { price: 30000, count: 40 },
+                },
+                subtotal: 8600000,
+                totalCount: 160,
+            },
+        ],
+        provide: {
+            id: 1,
+            code: 'SADBOY',
+            name: 'TNHH',
+            address: 'Ngõ 259 Vĩnh Hưng, số nhà 7, quận Hoàng Mai, Hà Nội',
+            phone: "0988870434",
+            email: "nguyentrancuong58@gmail.com",
+            total_debt: 10000000,
+            bank: "MB BANK",
+            account_name: 'NGUYEN TRAN CUONG',
+            account_phone: '0988870434',
+            QR_IMG: '/public/images/QRCUONG.jpeg',
+        },
+        stock: {
+            code: 'STOCK001',
+            name: 'Kho hàng thứ 1',
+            address: 'Hoàng mai',
+            phone: '098870434',
+            email: 'nguyentrancuong58@gmail.com'
+        },
+        subtotal: 18400000,
+        total: 18500000,
+        status: 'SUCCESS'
+    },

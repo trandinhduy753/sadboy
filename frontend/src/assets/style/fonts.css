@@ -1,0 +1,66 @@
+@font-face {
+    font-family: "madini";
+    src: url("@/assets/fonts/Madimi_One/MadimiOne-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "roboto";
+    src: url("@/assets/fonts/Roboto/Roboto-VariableFont_wdth\,wght.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "winky";
+    src: url("@/assets/fonts/Winky_Sans/WinkySans-VariableFont_wght.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "montserrat";
+    src: url("@/assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Oswald";
+    src: url("@/assets/fonts/Oswald/Oswald-VariableFont_wght.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Noto";
+    src: url("@/assets/fonts/Noto_Serif/NotoSerif-VariableFont_wdth,wght.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "EB-Garamond";
+    src: url("@/assets/fonts/EB_Garamond/EBGaramond-VariableFont_wght.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "inter";
+    src: url("@/assets/fonts/Inter/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Luckiest_Guy";
+    src: url("@/assets/fonts/Luckiest_Guy/LuckiestGuy-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@theme {
+    --font-roboto: "roboto", sans-serif;
+    --font-winky: "winky", sans-serif;
+    --font-montserrat: "montserrat", sans-serif;
+    --font-madini: "madini", sans-serif;
+    --font-oswald: "Oswald", sans-serif;
+    --font-noto: "Noto", sans-serif;
+    --font-eb-garamond: "EB-Garamond", sans-serif;
+    --font-inter: "inter", sans-serif;
+    --font-Luckiest_Guy: 'Luckiest_Guy', sans-serif;
+}
+  

@@ -1,0 +1,23 @@
+BẢNG HỢP ĐỒNG   
+STT, ID contrast, tên hợp đồng, loại hợp đồng, giá trị hợp đồn, trạng thái, người tạo
+{
+    STT: '1'
+    ID contrast: 'HĐ1',
+    Tên hợp đồng: hợp đồng thử việc
+    loại hợp đồng: "Dịch vụ",
+    giá trị hợp đồng: '15.000.000đ',
+    trạng thái: 'đang hoạt đông',
+    người tạo: 'nguyễn trần cường'
+}
+CREATE TABLE `doancuacuong`.`contrast` (`STT` INT(10) NOT NULL , `id_constrast` VARCHAR(20) NULL , `name_constrast` VARCHAR(50) NULL , 
+`type_constrast` VARCHAR(15) NULL , `value_constrast` VARCHAR(20) NULL , `status_constrast` VARCHAR(3) NULL , `describe_constrast` VARCHAR(200) NULL , 
+PRIMARY KEY (`id_constrast`)) ENGINE = InnoDB;
+
+INSERT INTO contrast (STT, id_constrast, name_constrast, type_constrast, value_constrast, status_constrast, describe_constrast) VALUES
+(1, 'C001', 'Hợp đồng lao động chính thức', 'Loại hợp đồng', 'Chính thức', 'ACT', 'Hợp đồng lao động không xác định thời hạn'),
+(2, 'C002', 'Hợp đồng thử việc', 'Loại hợp đồng', 'Thử việc', 'ACT', 'Hợp đồng thử việc trong thời gian quy định'),
+(3, 'C003', 'Mức lương cơ bản', 'Tiền lương', '15,000,000 VND', 'ACT', 'Mức lương cơ bản theo hợp đồng'),
+(4, 'C004', 'Thời gian làm việc', 'Thời gian', '8 tiếng/ngày', 'ACT', 'Thời gian làm việc theo quy định công ty'),
+(5, 'C005', 'Chế độ nghỉ phép', 'Quyền lợi', '12 ngày/năm', 'ACT', 'Số ngày nghỉ phép hàng năm theo luật lao động'),
+(6, 'C006', 'Thưởng lễ tết', 'Chính sách', 'Có', 'ACT', 'Chính sách thưởng vào các dịp lễ, tết'),
+(7, 'C007', 'Bảo hiểm xã hội', 'Chính sách', 'Đầy đủ', 'ACT', 'Chế độ đóng bảo hiểm xã hội theo quy định');

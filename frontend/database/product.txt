@@ -1,0 +1,34 @@
+{
+    id,
+    code, 
+    name,
+    img,
+    sort_description,
+    long_description,
+    category,
+    created_at,
+    gift,
+    place,
+    star,
+    count_comment,
+    original_price: {
+        'S': 40000
+        'M': 50000
+        'L': 70000
+    },
+    sale_price: {
+        'S': 30000
+        'M': 40000
+        'L': 60000
+    },
+    proportion_discount: 15,
+    date_start_sale: '2003-12-25 12:35:55',
+    count_stock: 500,
+    count_sale: 150,
+    status: 
+    update_by:
+    unit,
+    provide_id,
+    stock_id,
+    
+}

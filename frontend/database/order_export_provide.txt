@@ -1,0 +1,50 @@
+BẢNG DANH SÁCH CÁC ĐƠN TRẢ HÀNG
+STT, ID___, ngày trả, tráng thái, người quản lý trả hàng, d/s sản phẩm, số lương, total_price, id provide, id stock
+{
+    STT,
+    id__
+    ngày trả, 
+    tráng thái, 
+    id_employee, 
+    d/s sản phẩm, 
+    số lương, 
+    total_price, 
+    id provide, 
+    id stock
+}
+CREATE TABLE `doancuacuong`.`order_export_provide` (`STT` INT(10) NULL , `id_order_export` VARCHAR(20) NULL , `date_return_order_export` VARCHAR(15) NULL , 
+`status_order_export` VARCHAR(3) NULL , `list_product_order_export` VARCHAR(50) NULL , `number_product_order_export` VARCHAR(10) NULL , 
+`total_price_order_export` VARCHAR(10) NULL , `id_employee` VARCHAR(20) NULL , `id_provide` VARCHAR(20) NULL , `id_stock` VARCHAR(20) NULL , 
+PRIMARY KEY (`id_order_export`)) ENGINE = InnoDB;
+ALTER TABLE `order_export_provide` CHANGE `list_product_order_export` `list_product_order_export` VARCHAR(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+
+INSERT INTO `doancuacuong`.`order_export_provide`
+(`STT`, `id_order_export`, `date_return_order_export`, `status_order_export`, `list_product_order_export`, 
+ `number_product_order_export`, `total_price_order_export`, `id_employee`, `id_provide`, `id_stock`)
+VALUES
+(1, 'EXP001', '01-07-2025', 'ACT', 'PRO001-S, PRO005-M, PRO012-L', '80', '1200000', 'E009', 'P002', 'S003'),
+(2, 'EXP002', '02-07-2025', 'DEL', 'PRO003-M, PRO006-S, PRO010-L', '100', '1500000', 'E021', 'P005', 'S006'),
+(3, 'EXP003', '03-07-2025', 'COF', 'PRO008-S, PRO015-M-L, PRO020-S', '90', '1350000', 'E031', 'P008', 'S009'),
+(4, 'EXP004', '04-07-2025', 'SHP', 'PRO007-L, PRO011-M, PRO019-S', '85', '1275000', 'E042', 'P011', 'S012'),
+(5, 'EXP005', '05-07-2025', 'LOK', 'PRO009-S, PRO017-L, PRO024-M', '110', '1650000', 'E009', 'P001', 'S002'),
+(6, 'EXP006', '06-07-2025', 'ACT', 'PRO002-M, PRO022-S, PRO033-L-S', '95', '1425000', 'E021', 'P003', 'S005'),
+(7, 'EXP007', '07-07-2025', 'DEL', 'PRO026-S, PRO030-M-L, PRO037-M', '120', '1800000', 'E031', 'P010', 'S010'),
+(8, 'EXP008', '08-07-2025', 'COF', 'PRO021-L, PRO028-M, PRO035-S', '105', '1575000', 'E042', 'P006', 'S008'),
+(9, 'EXP009', '09-07-2025', 'SHP', 'PRO004-S, PRO013-M, PRO038-L', '75', '1125000', 'E009', 'P007', 'S004'),
+(10, 'EXP010', '10-07-2025', 'LOK', 'PRO016-L, PRO032-M, PRO040-S', '130', '1950000', 'E021', 'P004', 'S011');
+
+
+INSERT INTO `doancuacuong`.`order_export_provide`
+(`STT`, `id_order_export`, `date_return_order_export`, `status_order_export`, `list_product_order_export`,
+`number_product_order_export`, `total_price_order_export`, `id_employee`, `id_provide`, `id_stock`)
+VALUES
+(11, 'EXP011', '11-07-2025', 'COF', 'PRO002-L, PRO017-M, PRO008-M, PRO014-L, PRO029-S', '67', '1469180', 'E031', 'P013', 'S003'),
+(12, 'EXP012', '12-07-2025', 'COF', 'PRO005-M, PRO006-L, PRO007-S, PRO019-L', '88', '1374377', 'E042', 'P014', 'S004'),
+(13, 'EXP013', '13-07-2025', 'ACT', 'PRO010-L, PRO021-M, PRO011-S', '86', '1263547', 'E042', 'P010', 'S015'),
+(14, 'EXP014', '14-07-2025', 'SHP', 'PRO036-L, PRO019-S, PRO038-L, PRO033-S', '92', '1444923', 'E031', 'P011', 'S007'),
+(15, 'EXP015', '15-07-2025', 'COF', 'PRO039-S, PRO035-S, PRO015-S', '97', '1476106', 'E009', 'P004', 'S002'),
+(16, 'EXP016', '16-07-2025', 'DEL', 'PRO030-L, PRO038-L, PRO012-L, PRO021-M', '73', '1403322', 'E042', 'P006', 'S012'),
+(17, 'EXP017', '17-07-2025', 'DEL', 'PRO005-L, PRO010-L, PRO033-S', '66', '1141289', 'E042', 'P008', 'S015'),
+(18, 'EXP018', '18-07-2025', 'LOK', 'PRO040-S, PRO028-M, PRO023-L', '76', '1058058', 'E042', 'P005', 'S012'),
+(19, 'EXP019', '19-07-2025', 'SHP', 'PRO001-L, PRO022-M, PRO019-S, PRO039-M', '58', '1471667', 'E009', 'P009', 'S009'),
+(20, 'EXP020', '20-07-2025', 'ACT', 'PRO012-S, PRO009-S, PRO008-S, PRO024-M', '71', '1295273', 'E042', 'P014', 'S006');

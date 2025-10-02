@@ -1,0 +1,218 @@
+<script setup lang="ts">
+    import { ref } from 'vue';
+    const date2=ref("");
+    import ApexCharts from 'vue3-apexcharts';
+    const series_money = [
+    {
+        name: "Công nợ",
+        data: [0, 25, 45, 30, 80, 40, 0, 45, 30, 60, 0, 25],
+    },
+    ];
+    const chartOptions_money = {
+    chart: {
+        type: "bar",
+        toolbar: { show: false },
+    },
+    plotOptions: {
+        bar: {
+        borderRadius: 4,
+        horizontal: false,
+        columnWidth: "50%",
+        },
+    },
+    dataLabels: {
+        enabled: false,
+    },
+    tooltip: {
+        enabled: true,
+        y: {
+        formatter: (val) => `${val} triệu VNĐ`
+        }
+    },
+    xaxis: {
+        categories: ["T1", "T2", "T3", "T4", "T5","T6","T7","T8","T9","T10","T11","T12"],
+    },
+    colors: ["#3B82F6"],
+    };
+    const series_order = ref([
+    {
+        name: 'Đơn hàng',
+        data: [10, 15, 12, 18, 16, 20, 10, 15, 12, 18, 16, 20],
+    },
+    ]);
+    const chartOptions_order = ref({
+  chart: {
+    type: 'line',
+    toolbar: {
+      show: false,
+    },
+    zoom: {
+      enabled: false,
+    },
+  },
+  stroke: {
+    curve: 'smooth',
+    width: 2,
+    colors: ['orange'],
+  },
+  markers: {
+    size: 0,
+  },
+  tooltip: {
+    enabled: true,
+    x: {
+      show: false,
+    },
+    y: {
+      formatter: function (val) {
+        return val;
+      },
+    },
+  },
+  grid: {
+    show: false,
+  },
+  xaxis: {
+    show: false,
+  },
+  yaxis: {
+    show: false,
+  },
+});
+    import { useStore, mapActions } from 'vuex';
+    import { useRoute, useRouter} from 'vue-router';
+    import {useMapActions } from '@/composables'
+    const route=useRoute();
+    const router=useRouter();
+    const store= useStore()
+    const { change_show_comp } =useMapActions('', ['change_show_comp']);
+    function handle_change_show_comp(data)
+    {
+        change_show_comp(data)
+    }
+</script>
+
+<template>
+    <div class="grid grid-cols-12 gap-5 pt-3">
+        <div class="col-span-4">
+            <p class="text-2xl text-black dark:text-gray-300">Công nợ nhà vận chuyển</p>
+            <div class="mt-5">
+                <p class="mb-1 text-black dark:text-gray-400">Thời gian</p>
+                <VueDatePicker
+                v-model="date2"
+                :enable-time-picker="false"
+                input-class="border border-gray-300 dark:border-gray-700 rounded-md px-4 py-2 text-sm bg-white dark:bg-gray-800 text-black dark:text-gray-200"
+                menu-class="rounded-lg bg-white dark:bg-gray-800 text-black dark:text-gray-200"
+                />
+            </div>
+        </div>
+
+        <div class="col-span-12">
+            <div class="flex items-center bg-white dark:bg-gray-800 transition-all duration-500 px-2 py-3">
+                <p @click="handle_change_show_comp('debt_provide')" class="pb-2 cursor-pointer mr-10 text-black dark:text-gray-300 hover:text-[var(--maincolor)] dark:hover:text-[var(--maincolor)]" >
+                    Nhà cung cấp
+                </p>
+                <p class="pb-2 border-b-2 border-[var(--maincolor)] mr-10 text-black dark:text-gray-300" >
+                    Nhà vận chuyển
+                </p>
+            </div>
+        </div>
+
+        <div class="col-span-12 bg-white dark:bg-gray-800 transition-all duration-500 py-5">
+            <div class="grid grid-cols-12">
+                <div class="col-span-3 text-center">
+                <p class="font-bold text-[var(--color_text-gray)] dark:text-gray-400">Nợ phải trả đầu kỳ</p>
+                <p class="text-xl font-bold text-blue-400 dark:text-blue-500">5 tỷ</p>
+                </div>
+                <div class="col-span-3 text-center">
+                <p class="font-bold text-[var(--color_text-gray)] dark:text-gray-400">Nợ phát sinh</p>
+                <p class="text-xl font-bold text-red-400 dark:text-red-500">+ 500 triệu</p>
+                </div>
+                <div class="col-span-3 text-center">
+                <p class="font-bold text-[var(--color_text-gray)] dark:text-gray-400">Nợ đã trả</p>
+                <p class="text-xl font-bold text-green-400 dark:text-green-500">- 350 triệu</p>
+                </div>
+                <div class="col-span-3 text-center">
+                <p class="font-bold text-[var(--color_text-gray)] dark:text-gray-400">Nợ phải trả cuối kỳ</p>
+                <p class="text-xl font-bold text-blue-400 dark:text-blue-500">6 tỷ</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-span-7 bg-white dark:bg-gray-800 transition-all duration-500 px-5 py-3">
+            <p class="text-lg font-semibold mb-2 text-black dark:text-gray-300">Công nợ theo thời gian</p>
+            <ApexCharts
+                width="100%"
+                height="200"
+                :options="chartOptions_money"
+                :series="series_money"
+            />
+        </div>
+
+        <div class="col-span-5 bg-white dark:bg-gray-800 transition-all duration-500 px-5 py-3">
+            <p class="text-lg font-semibold mb-2 text-black dark:text-gray-300">Đơn hàng xuất theo thời gian</p>
+            <ApexCharts type="line" :options="chartOptions_order" :series="series_order"></ApexCharts>
+        </div>
+
+        <div class="col-span-12 px-5 bg-white dark:bg-gray-800 transition-all duration-500 mt-5 py-5">
+            <div class="border-b-2 border-[var(--maincolor)] pb-2 text-black dark:text-gray-300">Danh sách</div>
+
+            <div class="mt-5 flex items-center justify-between">
+                <Menu as="div" class="relative block text-left">
+                    <MenuButton>
+                        <div class="w-50 h-9 transition-all duration-500 flex items-center justify-between px-3 border border-[var(--color_border)] dark:border-gray-700 py-1 rounded-[0.2rem] text-black dark:text-gray-300 bg-white dark:bg-gray-800">
+                            <span>Điều kiện lọc</span>
+                            <font-awesome-icon :icon="['fas', 'angle-down']" />
+                        </div>
+                    </MenuButton>
+                    <MenuItems class="absolute left-0 mt-2 p-1 origin-top-right bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-50 w-50 text-black dark:text-gray-300">
+                        <div class="py-1">
+                        <MenuItem class="mb-1 cursor-pointer">
+                            <p class="block px-2 py-1 hover:bg-[var(--background-color-gray)] dark:hover:bg-gray-700 rounded-[0.2rem]">Theo thời gian</p>
+                        </MenuItem>
+                        <MenuItem class="mb-1 cursor-pointer">
+                            <p class="block px-2 py-1 hover:bg-[var(--background-color-gray)] dark:hover:bg-gray-700 rounded-[0.2rem]">Người nộp</p>
+                        </MenuItem>
+                        <MenuItem class="mb-1 cursor-pointer">
+                            <p class="block px-2 py-1 hover:bg-[var(--background-color-gray)] dark:hover:bg-gray-700 rounded-[0.2rem]">Số tiền</p>
+                        </MenuItem>
+                        </div>
+                    </MenuItems>
+                </Menu>
+                <div class="w-full ml-3">
+                    <input type="text" class="border w-full transition-all duration-500 border-[var(--color_border)] dark:border-gray-700 rounded-[0.2rem] pl-2 py-2 text-sm bg-white dark:bg-gray-800 text-black dark:text-gray-200" placeholder="Tìm kiếm nhà vận chuyển" />
+                </div>
+            </div>
+            <div class="grid grid-cols-17 gap-2 text-sm mt-5 text-black dark:text-gray-300">
+                <div class="col-span-5">Tên nhà vận chuyển</div>
+                <div class="col-span-3 text-right">Nợ phải trả đầu kỳ</div>
+                <div class="col-span-3 text-right">Nợ phát sinh</div>
+                <div class="col-span-3 text-right">Nợ đã trả</div>
+                <div class="col-span-3 text-right">Nợ phải trả cuối kỳ</div>
+            </div>
+
+        <!-- chẵn trắng, lẻ xám -->
+        <div class="grid grid-cols-17 gap-2 text-sm mt-4 bg-gray-100 dark:bg-gray-800 transition-all duration-500 py-4 px-2 text-black dark:text-gray-300" v-for="i in 5" :key="i" >
+            <router-link
+                :to="{ name: 'debt_ship_detail_ad', query: { showopt: 'shop_ad_t', index: i } }"
+                custom
+                v-slot="{ href, navigate, isActive }"
+                >
+                <div @click="navigate" class="col-span-5 cursor-pointer text-blue-500 dark:text-blue-400 hover:underline">
+                    TNHHHH
+                </div>
+            </router-link>
+            <div class="col-span-3 text-right text-blue-700 dark:text-blue-400">4.888.888 đ</div>
+            <div class="col-span-3 text-right text-red-500 dark:text-red-400">0 đ</div>
+            <div class="col-span-3 text-right text-green-500 dark:text-green-400">0 đ</div>
+            <div class="col-span-3 text-right text-blue-700 dark:text-blue-400">4.888.888 đ</div>
+        </div>
+        </div>
+
+    </div>
+  
+</template>
+
+<style scoped>
+
+</style>

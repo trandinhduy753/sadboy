@@ -1,0 +1,48 @@
+{
+    STT: 1,
+    id employee: 
+    img: '/img',
+    tên: 'nguyễn trần cương',
+    email: nguyentrancuong58@gmail.com,
+    sdt: 0988870434,
+    address: 'ngõ 259 vĩnh hưng',
+    deleted_at: deleted_at //xoá mềm
+    giới tính: 'nam',
+    ngày sinh: 22-10-2003,
+    ngày bắt đầu làm việc: '22-10-2025',
+    lương: 3.000.000 vnđ
+    bằng cấp: đại học,
+    tình trạng hôn nhân: độc thân,
+    hiệu xuất làm việc: 90%,
+    ngày ký hợp đồng: 22-10-2003,
+    ngày hết hiệu lực: 22-10-2004,
+    id-ca: ca 01 //kèm theo dữ liệu tương ứng,
+    id-chức vụ: cv-01 //kèm theo dữ liệu tương ứng,
+    id phòng ban: pb-01//kèm theo dữ liêu tương ứng,
+    id trợ cấp: tc-01// kèm theo dữ liệu tương ướng,
+    id hợp đồng: hd-01//kèm theo dữ liệu tương ứng
+
+
+    id,
+    code,
+    name,
+    email, 
+    phone,
+    img,
+    address, 
+    gender,
+    date_birth,
+    date_start_work,
+    salary,
+    diploma,
+    status,
+    date_sign_contrast,
+    date_effect_contrast,
+    date_end_contrast,
+    work_shift (other table),
+    position (other table)
+    department (other table)
+    grant (other table)
+    contrast (other table)
+
+}

@@ -1,0 +1,38 @@
+BẢNG KHO
+STT, id_kho, ten kho, dia chi, trạng thái, ngày tạo, id_employee
+{
+    stt: 1,
+    id kho,
+    tên kho,
+    dia chi,
+    trang thai, 
+    ngay tao,
+    id employee,
+}
+status: {
+    ope: //đang hoạt động
+    del: // đã bị xoá
+    bui: //đang xây dựng
+    uno: //đã ngừng hoạt động
+}
+CREATE TABLE `doancuacuong`.`stock` (`STT` INT(10) NULL , `id_stock` VARCHAR(20) NULL , `name_stock` VARCHAR(50) NULL , `address_stock` VARCHAR(100) NULL , 
+`status_stock` VARCHAR(3) NULL , `date_create_stock` VARCHAR(15) NULL , `id_employee` VARCHAR(20) NULL , PRIMARY KEY (`id_stock`)) ENGINE = InnoDB;
+
+INSERT INTO doancuacuong.stock 
+(STT, id_stock, name_stock, address_stock, status_stock, date_create_stock, id_employee) VALUES
+(1, 'S001', 'Kho Trung Tâm A', '123 Đường A, Quận 1, TP.HCM', 'ope', '01-01-2025', 'E012'),
+(2, 'S002', 'Kho Hàng B', '456 Đường B, Quận 3, TP.HCM', 'del', '05-01-2025', 'E034'),
+(3, 'S003', 'Kho Nội Thành C', '789 Đường C, Quận 5, TP.HCM', 'bui', '10-01-2025', 'E007'),
+(4, 'S004', 'Kho Ngoại Thành D', '101 Đường D, Huyện Hóc Môn', 'uno', '12-01-2025', 'E025'),
+(5, 'S005', 'Kho Bình Thạnh', '234 Đường E, Quận Bình Thạnh', 'ope', '15-01-2025', 'E045'),
+(6, 'S006', 'Kho Gò Vấp', '567 Đường F, Quận Gò Vấp', 'bui', '17-01-2025', 'E001'),
+(7, 'S007', 'Kho Thủ Đức', '678 Đường G, TP.Thủ Đức', 'ope', '20-01-2025', 'E018'),
+(8, 'S008', 'Kho Tân Bình', '789 Đường H, Quận Tân Bình', 'del', '22-01-2025', 'E054'),
+(9, 'S009', 'Kho Quận 7', '890 Đường I, Quận 7', 'uno', '25-01-2025', 'E009'),
+(10, 'S010', 'Kho Quận 2', '901 Đường K, TP.Thủ Đức', 'ope', '27-01-2025', 'E030'),
+(11, 'S011', 'Kho Nhà Bè', '112 Đường L, Huyện Nhà Bè', 'del', '28-01-2025', 'E058'),
+(12, 'S012', 'Kho Củ Chi', '131 Đường M, Huyện Củ Chi', 'bui', '29-01-2025', 'E042'),
+(13, 'S013', 'Kho Bình Chánh', '151 Đường N, Huyện Bình Chánh', 'uno', '30-01-2025', 'E016'),
+(14, 'S014', 'Kho Quận 4', '161 Đường O, Quận 4', 'ope', '02-02-2025', 'E005'),
+(15, 'S015', 'Kho Quận 8', '171 Đường P, Quận 8', 'bui', '03-02-2025', 'E021');
+

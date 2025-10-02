@@ -1,0 +1,25 @@
+BẢNG CHỢ CẤP
+STT, id_grant, tên phụ cấp, mô tả, số tiền, đơn vị, loại, từ ngày, đến ngày, trạng thái
+{
+    STT: 1,
+    id_grant: 'phụ cấp 01',
+    tên phụ cấp: 'phụ cấp bữa ăn'
+    mô tả: 'chi trả tiền ăn cho nhân viên',
+    số tiên: 500000 vnd,
+    đơn vị: 30.000vnđ/ ngày,
+    loại: 'theo số tiên',
+    áp dụng từ ngày: '22-10-2003'
+    đến ngày:'22-10-2003',
+    trạng thái: còn hiệu lực
+}
+CREATE TABLE `doancuacuong`.`grant` (`STT` INT(10) NULL , `id_grant` VARCHAR(20) NULL , `name_grant` VARCHAR(50) NULL , 
+`money_grant` VARCHAR(15) NULL , `unit_money_grant` VARCHAR(15) NULL , `type_grant` VARCHAR(50) NULL , `date_apply_grant` VARCHAR(15) NULL , 
+`date_end_grant` VARCHAR(15) NULL , `status_grant` VARCHAR(3) NULL , `describe_grant` VARCHAR(200) NULL , PRIMARY KEY (`id_grant`)) ENGINE = InnoDB;
+
+INSERT INTO `grant` (STT, id_grant, name_grant, money_grant, unit_money_grant, type_grant, date_apply_grant, date_end_grant, status_grant, describe_grant) VALUES
+(1, 'GR001', 'Trợ cấp học tập', '1000000', 'VND', 'Học bổng', '01-01-2025', '31-12-2025', 'ACT', 'Trợ cấp dành cho sinh viên có thành tích học tập xuất sắc'),
+(2, 'GR002', 'Trợ cấp khó khăn', '500000', 'VND', 'Hỗ trợ xã hội', '01-02-2025', '30-06-2025', 'ACT', 'Trợ cấp hỗ trợ cho người gặp khó khăn tài chính'),
+(3, 'GR003', 'Trợ cấp công tác', '200', 'USD', 'Hỗ trợ công tác', '15-03-2025', '20-03-2025', 'EXP', 'Trợ cấp dành cho nhân viên đi công tác nước ngoài'),
+(4, 'GR004', 'Trợ cấp y tế', '1500000', 'VND', 'Hỗ trợ y tế', '10-01-2025', '31-12-2025', 'ACT', 'Trợ cấp cho nhân viên điều trị bệnh'),
+(5, 'GR005', 'Trợ cấp nhà ở', '3000000', 'VND', 'Hỗ trợ nhà ở', '01-01-2025', '31-12-2025', 'ACT', 'Trợ cấp hỗ trợ chi phí nhà ở cho nhân viên'),
+(6, 'GR006', 'Trợ cấp năng suất', '100', 'USD', 'Thưởng', '01-04-2025', '30-04-2025', 'ACT', 'Thưởng năng suất làm việc cao');

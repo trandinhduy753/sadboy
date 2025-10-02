@@ -1,0 +1,94 @@
+BẢNG NGƯỜI DÙNG
+STT, id user, name user, email, img, nơi sinh, ngày tạo tài khoản, trạng thái, phone, ngày sinh, mật khẩu, giới tính, type user
+{
+    STT: 1,
+    id user; user 01,
+    name: nguyễn trần cường,
+    email: nguyentrancuong58@gmail.com,
+    img: 
+    nơi sinh:
+    ngày tạo tài khoản: 22-10-2003,
+    trạng thái: hoạt động,
+    phone: 0988870434,
+    ngày sinh: 22-10-2003,
+    mật khẩu: cuong1234,
+    giới tính: nam, 
+    type: VIP,
+
+}
+type, VIP, normal, inter, note
+status: act, exp - hết hạn, del
+gender: M, L
+CREATE TABLE `doancuacuong`.`user` (`STT` INT(10) NULL , `id_user` VARCHAR(20) NULL , `name_user` VARCHAR(50) NULL , 
+`email_user` VARCHAR(50) NULL , `img_user` VARCHAR(50) NULL , `place_of_birth` VARCHAR(50) NULL , 
+`date_create_acccount` VARCHAR(15) NULL , `status_user` VARCHAR(3) NULL , `phone_user` VARCHAR(15) NULL , 
+`date_of_birth` VARCHAR(15) NULL , `password` VARCHAR(15) NULL , `gender_user` VARCHAR(3) NULL , 
+`type_user` VARCHAR(3) NULL , PRIMARY KEY (`id_user`)) ENGINE = InnoDB;
+
+ALTER TABLE `user` CHANGE `status_user` `status_user` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+ALTER TABLE `user` CHANGE `gender_user` `gender_user` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+ALTER TABLE `user` CHANGE `type_user` `type_user` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+
+INSERT INTO doancuacuong.user (STT, id_user, name_user, email_user, img_user, place_of_birth, date_create_acccount, status_user, phone_user, date_of_birth, password, gender_user, type_user) VALUES
+(1, 'U001', 'Nguyen Van A', 'nguyenvana@gmail.com', 'img_user.jpg', 'Hà Nội', '12/01/2023', 'act', '0912345678', '15/04/1990', 'Pass1234!', 'M', 'VIP'),
+(2, 'U002', 'Tran Thi B', 'tranthib@gmail.com', 'img_user.jpg', 'TP HCM', '05/05/2022', 'exp', '0908765432', '01/09/1995', 'Abc123!@', 'F', 'nor'),
+(3, 'U003', 'Le Van C', 'levanc@gmail.com', 'img_user.jpg', 'Đà Nẵng', '23/03/2021', 'del', '0933333333', '30/12/1988', 'LePass123!', 'M', 'int'),
+(4, 'U004', 'Pham Thi D', 'phamthid@gmail.com', 'img_user.jpg', 'Cần Thơ', '10/11/2020', 'act', '0987654321', '10/05/1992', 'MyPass999!', 'F', 'not'),
+(5, 'U005', 'Hoang Van E', 'hoangvane@gmail.com', 'img_user.jpg', 'Huế', '08/07/2022', 'exp', '0977777777', '22/08/1985', 'Hello123!', 'M', 'VIP'),
+(6, 'U006', 'Dang Thi F', 'dangthif@gmail.com', 'img_user.jpg', 'Hải Phòng', '18/12/2023', 'act', '0966666666', '18/03/1991', 'MyCode123!', 'F', 'int'),
+(7, 'U007', 'Vu Van G', 'vuvang@gmail.com', 'img_user.jpg', 'Nam Định', '30/06/2021', 'del', '0955555555', '02/02/1987', 'PassVu87!', 'M', 'not'),
+(8, 'U008', 'Do Thi H', 'dothih@gmail.com', 'img_user.jpg', 'Quảng Ninh', '14/09/2020', 'act', '0944444444', '05/07/1996', 'HtPass88!', 'F', 'nor'),
+(9, 'U009', 'Bui Van I', 'buivani@gmail.com', 'img_user.jpg', 'Hòa Bình', '01/01/2022', 'exp', '0932222222', '12/12/1989', 'Secure123!', 'M', 'VIP'),
+(10, 'U010', 'Ngo Thi J', 'ngothij@gmail.com', 'img_user.jpg', 'Vĩnh Phúc', '19/04/2021', 'del', '0921111111', '19/06/1993', 'JjPass123!', 'F', 'not'),
+(11, 'U011', 'Cao Van K', 'caovank@gmail.com', 'img_user.jpg', 'Bắc Ninh', '06/06/2022', 'act', '0919988776', '10/10/1984', 'KkPass123!', 'M', 'VIP'),
+(12, 'U012', 'Mai Thi L', 'maithil@gmail.com', 'img_user.jpg', 'Thái Bình', '22/10/2023', 'act', '0905566778', '03/03/1997', 'Lily2023!', 'F', 'int'),
+(13, 'U013', 'Nguyen Van M', 'nguyenvanm@gmail.com', 'img_user.jpg', 'Hà Nam', '28/02/2020', 'exp', '0988123456', '29/02/1992', 'PassM123!', 'M', 'nor'),
+(14, 'U014', 'Tran Thi N', 'tranthin@gmail.com', 'img_user.jpg', 'Ninh Bình', '17/08/2021', 'del', '0977441122', '20/10/1986', 'Npass123!', 'F', 'not'),
+(15, 'U015', 'Le Van O', 'levano@gmail.com', 'img_user.jpg', 'Thanh Hóa', '13/05/2022', 'act', '0966332211', '15/01/1980', 'PassO123!', 'M', 'VIP'),
+(16, 'U016', 'Pham Thi P', 'phamthip@gmail.com', 'img_user.jpg', 'Nghệ An', '25/12/2020', 'act', '0955447766', '25/12/1994', 'Ppass123!', 'F', 'int'),
+(17, 'U017', 'Hoang Van Q', 'hoangvanq@gmail.com', 'img_user.jpg', 'Hà Tĩnh', '09/09/2019', 'exp', '0944332211', '09/09/1982', 'Qpass123!', 'M', 'nor'),
+(18, 'U018', 'Dang Thi R', 'dangthir@gmail.com', 'img_user.jpg', 'Quảng Bình', '03/03/2023', 'act', '0933445566', '08/03/1993', 'Rpass123!', 'F', 'not'),
+(19, 'U019', 'Vu Van S', 'vuvans@gmail.com', 'img_user.jpg', 'Quảng Trị', '20/07/2021', 'del', '0922998877', '01/01/1988', 'Spass123!', 'M', 'VIP'),
+(20, 'U020', 'Do Thi T', 'dothit@gmail.com', 'img_user.jpg', 'Huế', '11/11/2022', 'act', '0911223344', '11/11/1990', 'Tpass123!', 'F', 'nor');
+
+INSERT INTO doancuacuong.user (STT, id_user, name_user, email_user, img_user, place_of_birth, date_create_acccount, status_user, phone_user, date_of_birth, password, gender_user, type_user) VALUES
+(21, 'U021', 'Nguyen Van U', 'nguyenvanu@gmail.com', 'img_user.jpg', 'Bình Định', '01/01/2023', 'exp', '0911234567', '02/02/1985', 'Upass123!', 'M', 'VIP'),
+(22, 'U022', 'Tran Thi V', 'tranthiv@gmail.com', 'img_user.jpg', 'Quảng Nam', '15/05/2022', 'act', '0922345678', '15/06/1991', 'Vpass123!', 'F', 'nor'),
+(23, 'U023', 'Le Van W', 'levanw@gmail.com', 'img_user.jpg', 'Phú Yên', '20/04/2021', 'del', '0933456789', '10/10/1986', 'Wpass123!', 'M', 'not'),
+(24, 'U024', 'Pham Thi X', 'phamthix@gmail.com', 'img_user.jpg', 'Khánh Hòa', '30/09/2020', 'act', '0944567890', '25/12/1993', 'Xpass123!', 'F', 'VIP'),
+(25, 'U025', 'Hoang Van Y', 'hoangvany@gmail.com', 'img_user.jpg', 'Lâm Đồng', '18/12/2022', 'exp', '0955678901', '12/01/1980', 'Ypass123!', 'M', 'int'),
+(26, 'U026', 'Dang Thi Z', 'dangthiz@gmail.com', 'img_user.jpg', 'Đắk Lắk', '07/07/2021', 'del', '0966789012', '08/08/1988', 'Zpass123!', 'F', 'not'),
+(27, 'U027', 'Vu Van AA', 'vuvanaa@gmail.com', 'img_user.jpg', 'Gia Lai', '10/10/2023', 'act', '0977890123', '05/05/1983', 'AApass123!', 'M', 'nor'),
+(28, 'U028', 'Do Thi AB', 'dothiab@gmail.com', 'img_user.jpg', 'Kon Tum', '05/03/2022', 'exp', '0988901234', '30/09/1992', 'ABpass123!', 'F', 'VIP'),
+(29, 'U029', 'Bui Van AC', 'buivanac@gmail.com', 'img_user.jpg', 'An Giang', '16/06/2020', 'del', '0910012345', '01/03/1987', 'ACpass123!', 'M', 'int'),
+(30, 'U030', 'Ngo Thi AD', 'ngothiad@gmail.com', 'img_user.jpg', 'Kiên Giang', '29/08/2021', 'act', '0921123456', '18/04/1990', 'ADpass123!', 'F', 'not'),
+(31, 'U031', 'Cao Van AE', 'caovanae@gmail.com', 'img_user.jpg', 'Bạc Liêu', '09/09/2023', 'exp', '0932234567', '20/06/1982', 'AEpass123!', 'M', 'VIP'),
+(32, 'U032', 'Mai Thi AF', 'maithiaf@gmail.com', 'img_user.jpg', 'Cà Mau', '11/11/2022', 'del', '0943345678', '22/02/1994', 'AFpass123!', 'F', 'int'),
+(33, 'U033', 'Nguyen Van AG', 'nguyenvanag@gmail.com', 'img_user.jpg', 'Trà Vinh', '12/12/2021', 'act', '0954456789', '15/07/1981', 'AGpass123!', 'M', 'nor'),
+(34, 'U034', 'Tran Thi AH', 'tranthiah@gmail.com', 'img_user.jpg', 'Vĩnh Long', '08/01/2023', 'exp', '0965567890', '27/09/1995', 'AHpass123!', 'F', 'VIP'),
+(35, 'U035', 'Le Van AI', 'levanai@gmail.com', 'img_user.jpg', 'Long An', '13/04/2022', 'del', '0976678901', '11/11/1989', 'AIpass123!', 'M', 'int'),
+(36, 'U036', 'Pham Thi AJ', 'phamthiaj@gmail.com', 'img_user.jpg', 'Tây Ninh', '20/07/2021', 'act', '0987789012', '10/10/1990', 'AJpass123!', 'F', 'not'),
+(37, 'U037', 'Hoang Van AK', 'hoangvanak@gmail.com', 'img_user.jpg', 'Bình Dương', '25/05/2020', 'exp', '0918890123', '28/12/1984', 'AKpass123!', 'M', 'VIP'),
+(38, 'U038', 'Dang Thi AL', 'dangthial@gmail.com', 'img_user.jpg', 'Bình Phước', '15/03/2023', 'act', '0929901234', '13/01/1996', 'ALpass123!', 'F', 'int'),
+(39, 'U039', 'Vu Van AM', 'vuvanam@gmail.com', 'img_user.jpg', 'Đồng Nai', '07/07/2022', 'del', '0930012345', '16/06/1986', 'AMpass123!', 'M', 'not'),
+(40, 'U040', 'Do Thi AN', 'dothian@gmail.com', 'img_user.jpg', 'Đồng Tháp', '01/02/2021', 'act', '0941123456', '03/03/1991', 'ANpass123!', 'F', 'nor'),
+(41, 'U041', 'Nguyen Van AO', 'nguyenvanao@gmail.com', 'img_user.jpg', 'Bến Tre', '23/11/2020', 'exp', '0952234567', '17/07/1983', 'AOpass123!', 'M', 'VIP'),
+(42, 'U042', 'Tran Thi AP', 'tranthiap@gmail.com', 'img_user.jpg', 'Tiền Giang', '03/04/2021', 'del', '0963345678', '29/08/1992', 'APpass123!', 'F', 'int'),
+(43, 'U043', 'Le Van AQ', 'levanaq@gmail.com', 'img_user.jpg', 'Hậu Giang', '06/06/2023', 'act', '0974456789', '06/06/1987', 'AQpass123!', 'M', 'not'),
+(44, 'U044', 'Pham Thi AR', 'phamthiar@gmail.com', 'img_user.jpg', 'Sóc Trăng', '10/10/2022', 'exp', '0985567890', '08/05/1990', 'ARpass123!', 'F', 'VIP'),
+(45, 'U045', 'Hoang Van AS', 'hoangvanas@gmail.com', 'img_user.jpg', 'TP HCM', '17/09/2021', 'del', '0916678901', '25/12/1985', 'ASpass123!', 'M', 'nor'),
+(46, 'U046', 'Dang Thi AT', 'dangthiat@gmail.com', 'img_user.jpg', 'Hà Nội', '12/12/2023', 'act', '0927789012', '14/02/1993', 'ATpass123!', 'F', 'int'),
+(47, 'U047', 'Vu Van AU', 'vuvanau@gmail.com', 'img_user.jpg', 'Nam Định', '29/03/2020', 'exp', '0938890123', '01/01/1982', 'AUpass123!', 'M', 'not'),
+(48, 'U048', 'Do Thi AV', 'dothiav@gmail.com', 'img_user.jpg', 'Hải Phòng', '08/05/2022', 'del', '0949901234', '22/11/1994', 'AVpass123!', 'F', 'VIP'),
+(49, 'U049', 'Nguyen Van AW', 'nguyenvanaw@gmail.com', 'img_user.jpg', 'Thái Nguyên', '04/02/2023', 'act', '0950012345', '10/10/1980', 'AWpass123!', 'M', 'nor'),
+(50, 'U050', 'Tran Thi AX', 'tranthiax@gmail.com', 'img_user.jpg', 'Phú Thọ', '17/01/2021', 'exp', '0961123456', '21/06/1995', 'AXpass123!', 'F', 'not'),
+(51, 'U051', 'Le Van AY', 'levanay@gmail.com', 'img_user.jpg', 'Yên Bái', '11/04/2020', 'act', '0972234567', '12/03/1984', 'AYpass123!', 'M', 'VIP'),
+(52, 'U052', 'Pham Thi AZ', 'phamthiaz@gmail.com', 'img_user.jpg', 'Lào Cai', '05/06/2022', 'del', '0983345678', '17/09/1990', 'AZpass123!', 'F', 'int'),
+(53, 'U053', 'Hoang Van BA', 'hoangvanba@gmail.com', 'img_user.jpg', 'Hà Giang', '22/07/2023', 'act', '0914456789', '05/05/1988', 'BApass123!', 'M', 'not'),
+(54, 'U054', 'Dang Thi BB', 'dangthibb@gmail.com', 'img_user.jpg', 'Cao Bằng', '13/08/2021', 'exp', '0925567890', '18/10/1993', 'BBpass123!', 'F', 'nor'),
+(55, 'U055', 'Vu Van BC', 'vuvanbc@gmail.com', 'img_user.jpg', 'Bắc Kạn', '01/01/2022', 'del', '0936678901', '19/09/1981', 'BCpass123!', 'M', 'VIP'),
+(56, 'U056', 'Do Thi BD', 'dothibd@gmail.com', 'img_user.jpg', 'Tuyên Quang', '15/02/2020', 'act', '0947789012', '22/04/1992', 'BDpass123!', 'F', 'int'),
+(57, 'U057', 'Nguyen Van BE', 'nguyenvanbe@gmail.com', 'img_user.jpg', 'Điện Biên', '20/09/2023', 'exp', '0958890123', '23/07/1986', 'BEpass123!', 'M', 'not'),
+(58, 'U058', 'Tran Thi BF', 'tranthibf@gmail.com', 'img_user.jpg', 'Sơn La', '27/10/2022', 'del', '0969901234', '11/11/1991', 'BFpass123!', 'F', 'nor'),
+(59, 'U059', 'Le Van BG', 'levanbg@gmail.com', 'img_user.jpg', 'Lạng Sơn', '18/11/2021', 'act', '0970012345', '04/04/1983', 'BGpass123!', 'M', 'VIP'),
+(60, 'U060', 'Pham Thi BH', 'phamthibh@gmail.com', 'img_user.jpg', 'Bắc Giang', '31/12/2023', 'exp', '0981123456', '08/08/1996', 'BHpass123!', 'F', 'int');

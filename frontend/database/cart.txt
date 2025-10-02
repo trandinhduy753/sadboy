@@ -1,0 +1,29 @@
+STT, id_cart, id_product, note, id_user
+
+CREATE TABLE `doancuacuong`.`cart` (`STT` INT(10) NULL , `id_cart` VARCHAR(20) NULL , 
+`id_product` VARCHAR(200) NULL , `note` VARCHAR(7000) NULL , `id_user` VARCHAR(20) NULL , 
+PRIMARY KEY (`id_cart`)) ENGINE = InnoDB;
+ALTER TABLE `cart` ADD `size` VARCHAR(10) NULL AFTER `id_user`;
+ALTER TABLE `cart` ADD `number` INT(20) NULL AFTER `size`;
+
+INSERT INTO doancuacuong.cart (STT, id_cart, id_product, note, id_user, size, number) VALUES
+(1, 'CA001', 'PRO024', 'Ghi chú sản phẩm', 'U037', 'S', 1),
+(2, 'CA002', 'PRO031', 'Ghi chú sản phẩm', 'U043', 'M', 1),
+(3, 'CA003', 'PRO007', 'Ghi chú sản phẩm', 'U046', 'S', 1),
+(4, 'CA004', 'PRO033', 'Ghi chú sản phẩm', 'U016', 'M', 1),
+(5, 'CA005', 'PRO024', 'Ghi chú sản phẩm', 'U040', 'L', 1),
+(6, 'CA006', 'PRO018', 'Ghi chú sản phẩm', 'U027', 'L', 1),
+(7, 'CA007', 'PRO011', 'Ghi chú sản phẩm', 'U013', 'M', 1),
+(8, 'CA008', 'PRO038', 'Ghi chú sản phẩm', 'U029', 'S', 1),
+(9, 'CA009', 'PRO001', 'Ghi chú sản phẩm', 'U044', 'M', 1),
+(10, 'CA010', 'PRO006', 'Ghi chú sản phẩm', 'U038', 'S', 1),
+(11, 'CA011', 'PRO028', 'Ghi chú sản phẩm', 'U018', 'L', 1),
+(12, 'CA012', 'PRO005', 'Ghi chú sản phẩm', 'U035', 'M', 1),
+(13, 'CA013', 'PRO020', 'Ghi chú sản phẩm', 'U019', 'M', 1),
+(14, 'CA014', 'PRO031', 'Ghi chú sản phẩm', 'U036', 'M', 2),
+(15, 'CA015', 'PRO017', 'Ghi chú sản phẩm', 'U004', 'S', 1),
+(16, 'CA016', 'PRO036', 'Ghi chú sản phẩm', 'U052', 'M', 1),
+(17, 'CA017', 'PRO037', 'Ghi chú sản phẩm', 'U045', 'S', 1),
+(18, 'CA018', 'PRO004', 'Ghi chú sản phẩm', 'U030', 'M', 1),
+(19, 'CA019', 'PRO026', 'Ghi chú sản phẩm', 'U022', 'S', 1),
+(20, 'CA020', 'PRO020', 'Ghi chú sản phẩm', 'U012', 'S', 1);

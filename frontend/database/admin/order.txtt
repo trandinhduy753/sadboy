@@ -1,0 +1,50 @@
+{
+    id,
+    code,
+    name,
+    date_create,
+    date_delivery,
+    pay,
+    discount_coude,
+    status,
+    unit_shipping,
+    note,
+    subtotal,
+    money_discount,
+    money_ship,
+    total,
+    product_id, [1,2,3,4,5]
+    user_id,
+    address
+
+
+    id,
+    code,
+    name,
+    date_create,
+    date_delivery,
+    pay,
+    discount_coude,
+    status,
+    unit_shipping,
+    note,
+    product_id: [
+        "dưa hấu": [
+            {
+                "số lượng": 1,
+                'size: M
+                'Thàh tiên': 30000
+            }
+        ]
+    ],
+    subtotal,
+    money_discount,
+    money_ship,
+    total,
+
+    
+    name_user,
+    email_user,
+    address_user,
+    phone_user
+}

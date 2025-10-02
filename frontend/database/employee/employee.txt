@@ -1,0 +1,132 @@
+BẢNG NHÂN VIÊN
+STT, id_employee, img, tên nhân viên, email, sđt, địa chỉ nhân viên, giới tính, ngày sinh, ngày bắt đầu làm việc, lương,bằng cấp, tình trạng hôn nhân,
+perform, ngày ký hợp đồng, ngày hết hiệu lực, ngày hết hạn, id ca, id position, id phòng ban, id trợ cấp, in hợp đồng
+{
+    STT: 1,
+    id employee: employee-01,
+    img: '/img',
+    tên: 'nguyễn trần cương',
+    email: nguyentrancuong58@gmail.com,
+    sdt: 0988870434,
+    address: 'ngõ 259 vĩnh hưng',
+    giới tính: 'nam',
+    ngày sinh: 22-10-2003,
+    ngày bắt đầu làm việc: '22-10-2025',
+    lương: 3.000.000 vnđ
+    bằng cấp: đại học,
+    tình trạng hôn nhân: độc thân,
+    hiệu xuất làm việc: 90%,
+    ngày ký hợp đồng: 22-10-2003,
+    ngày hết hiệu lực: 22-10-2004,
+    id-ca: ca 01 //kèm theo dữ liệu tương ứng,
+    id-chức vụ: cv-01 //kèm theo dữ liệu tương ứng,
+    id phòng ban: pb-01//kèm theo dữ liêu tương ứng,
+    id trợ cấp: tc-01// kèm theo dữ liệu tương ướng,
+    id hợp đồng: hd-01//kèm theo dữ liệu tương ứng
+}
+hiệu xuất: {
+    S: 100%,
+    A: 90%
+    B: 80%
+    C: 70%
+    D: 60%
+}
+giới tính: {
+    M: nam
+    F: nữ
+}
+bằng cấp; {
+    D: đại học,
+    T: trung học phổ thông,
+    S: THCS,
+    C: cao đẳng
+}
+tình trang hôn nhân: {
+    M: kết hôn,
+    S: độc thân,
+    L: ly thân
+}
+CREATE TABLE `doancuacuong`.`employee` (`STT` INT(10) NULL , `id_employee` VARCHAR(20) NULL , `name_employee` VARCHAR(50) NULL , 
+`img_employee` VARCHAR(50) NULL , `email_employee` VARCHAR(50) NULL , `phone_employee` VARCHAR(15) NULL , `address_employee` VARCHAR(100) NULL , 
+`gender_employee` VARCHAR(3) NULL , `date_of_birth_employee` VARCHAR(15) NULL , `date_start_work` VARCHAR(15) NULL , 
+`salary_employee` VARCHAR(30) NULL , `diploma_employee` VARCHAR(3) NULL , `status_employee` VARCHAR(3) NULL , `performance` VARCHAR(3) NULL , 
+`date_sign_constrast` VARCHAR(15) NULL , `date_end_constrast` VARCHAR(15) NULL , `id_work_shift` VARCHAR(20) NULL , `id_position` VARCHAR(20) NULL , 
+`id_grant` VARCHAR(20) NULL , `id_department` VARCHAR(20) NULL , `id_constrast` VARCHAR(20) NULL , PRIMARY KEY (`id_employee`)) ENGINE = InnoDB;
+
+ALTER TABLE `employee` CHANGE `gender_employee` `gender_employee` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+ALTER TABLE `employee` CHANGE `diploma_employee` `diploma_employee` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+ALTER TABLE `employee` CHANGE `status_employee` `status_employee` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+ALTER TABLE `employee` CHANGE `performance` `performance` VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+
+
+INSERT INTO doancuacuong.employee
+(STT, id_employee, name_employee, img_employee, email_employee, phone_employee, address_employee, gender_employee, date_of_birth_employee, date_start_work, salary_employee, diploma_employee, status_employee, performance, date_sign_constrast, date_end_constrast, id_work_shift, id_position, id_grant, id_department, id_constrast)
+VALUES
+(1, 'E001', 'Nguyen Van A', 'img_user.jpg', 'nguyenvana@gmail.com', '0912345671', 'Hanoi', 'M', '01-01-1990', '10-05-2015', '1000', 'D', 'M', 'A', '10-05-2015', '10-05-2025', 'WS1', 'CEO', 'GR001', 'IT', 'C001'),
+(2, 'E002', 'Tran Thi B', 'img_user.jpg', 'tranthib@gmail.com', '0912345672', 'Hanoi', 'F', '02-02-1992', '11-06-2016', '900', 'T', 'S', 'B', '11-06-2016', '11-06-2024', 'WS2', 'CFO', 'GR002', 'FN', 'C002'),
+(3, 'E003', 'Le Van C', 'img_user.jpg', 'levanc@gmail.com', '0912345673', 'Hanoi', 'M', '03-03-1985', '12-07-2010', '1100', 'S', 'L', 'S', '12-07-2010', '12-07-2023', 'WS3', 'CTO', 'GR003', 'IT', 'C003'),
+(4, 'E004', 'Pham Thi D', 'img_user.jpg', 'phamthid@gmail.com', '0912345674', 'Hanoi', 'F', '04-04-1995', '13-08-2018', '850', 'C', 'TS', 'C', '13-08-2018', '13-08-2021', 'WS4', 'HRM', 'GR004', 'HC', 'C004'),
+(5, 'E005', 'Hoang Van E', 'img_user.jpg', 'hoangvane@gmail.com', '0912345675', 'Hanoi', 'M', '05-05-1988', '14-09-2012', '950', 'D', 'M', 'B', '14-09-2012', '14-09-2022', 'WS5', 'DEV', 'GR005', 'IT', 'C005'),
+(6, 'E006', 'Dang Thi F', 'img_user.jpg', 'dangthif@gmail.com', '0912345676', 'Hanoi', 'F', '06-06-1991', '15-10-2014', '900', 'T', 'S', 'A', '15-10-2014', '15-10-2024', 'WS6', 'PM', 'GR006', 'KD', 'C006'),
+(7, 'E007', 'Bui Van G', 'img_user.jpg', 'buivang@gmail.com', '0912345677', 'Hanoi', 'M', '07-07-1993', '16-11-2017', '800', 'S', 'L', 'B', '16-11-2017', '16-11-2023', 'WS7', 'SALE', 'GR001', 'QA', 'C007'),
+(8, 'E008', 'Do Thi H', 'img_user.jpg', 'dothih@gmail.com', '0912345678', 'Hanoi', 'F', '08-08-1994', '17-12-2019', '850', 'C', 'TS', 'C', '17-12-2019', '17-12-2022', 'WS1', 'CSKH', 'GR002', 'CSKH', 'C001'),
+(9, 'E009', 'Vu Van I', 'img_user.jpg', 'vuvani@gmail.com', '0912345679', 'Hanoi', 'M', '09-09-1990', '18-01-2013', '900', 'D', 'M', 'A', '18-01-2013', '18-01-2023', 'WS2', 'QA', 'GR003', 'KT', 'C002'),
+(10, 'E010', 'Ngo Thi K', 'img_user.jpg', 'ngothik@gmail.com', '0912345680', 'Hanoi', 'F', '10-10-1987', '19-02-2011', '950', 'T', 'S', 'B', '19-02-2011', '19-02-2021', 'WS3', 'COO', 'GR004', 'HR', 'C003'),
+(11, 'E011', 'Tran Van L', 'img_user.jpg', 'tranvanl@gmail.com', '0912345681', 'Hanoi', 'M', '11-11-1992', '20-03-2015', '1000', 'S', 'L', 'S', '20-03-2015', '20-03-2025', 'WS4', 'TTS', 'GR005', 'NCPT', 'C004'),
+(12, 'E012', 'Pham Thi M', 'img_user.jpg', 'phamthim@gmail.com', '0912345682', 'Hanoi', 'F', '12-12-1991', '21-04-2016', '850', 'C', 'TS', 'C', '21-04-2016', '21-04-2024', 'WS5', 'CMO', 'GR006', 'MK', 'C005'),
+(13, 'E013', 'Le Van N', 'img_user.jpg', 'levann@gmail.com', '0912345683', 'Hanoi', 'M', '13-01-1993', '22-05-2018', '900', 'D', 'M', 'B', '22-05-2018', '22-05-2025', 'WS6', 'TL', 'GR001', 'KD', 'C006'),
+(14, 'E014', 'Hoang Thi O', 'img_user.jpg', 'hoangthio@gmail.com', '0912345684', 'Hanoi', 'F', '14-02-1989', '23-06-2013', '950', 'T', 'S', 'A', '23-06-2013', '23-06-2023', 'WS7', 'HRM', 'GR002', 'HC', 'C007'),
+(15, 'E015', 'Dang Van P', 'img_user.jpg', 'dangvanp@gmail.com', '0912345685', 'Hanoi', 'M', '15-03-1986', '24-07-2010', '1100', 'S', 'L', 'S', '24-07-2010', '24-07-2020', 'WS1', 'DEV', 'GR003', 'IT', 'C001'),
+(16, 'E016', 'Bui Thi Q', 'img_user.jpg', 'buithiq@gmail.com', '0912345686', 'Hanoi', 'F', '16-04-1990', '25-08-2014', '800', 'C', 'TS', 'C', '25-08-2014', '25-08-2024', 'WS2', 'SALE', 'GR004', 'QA', 'C002'),
+(17, 'E017', 'Do Van R', 'img_user.jpg', 'dovanr@gmail.com', '0912345687', 'Hanoi', 'M', '17-05-1992', '26-09-2017', '850', 'D', 'M', 'B', '26-09-2017', '26-09-2025', 'WS3', 'PM', 'GR005', 'KD', 'C003'),
+(18, 'E018', 'Vu Thi S', 'img_user.jpg', 'vuthis@gmail.com', '0912345688', 'Hanoi', 'F', '18-06-1995', '27-10-2019', '900', 'T', 'S', 'A', '27-10-2019', '27-10-2022', 'WS4', 'CSKH', 'GR006', 'CSKH', 'C004'),
+(19, 'E019', 'Ngo Van T', 'img_user.jpg', 'ngovant@gmail.com', '0912345689', 'Hanoi', 'M', '19-07-1993', '28-11-2018', '950', 'S', 'L', 'S', '28-11-2018', '28-11-2024', 'WS5', 'CEO', 'GR001', 'IT', 'C005'),
+(20, 'E020', 'Tran Thi U', 'img_user.jpg', 'tranthiu@gmail.com', '0912345690', 'Hanoi', 'F', '20-08-1988', '29-12-2012', '1000', 'C', 'TS', 'C', '29-12-2012', '29-12-2022', 'WS6', 'CFO', 'GR002', 'FN', 'C006');
+
+INSERT INTO doancuacuong.employee
+(STT, id_employee, name_employee, img_employee, email_employee, phone_employee, address_employee, gender_employee, date_of_birth_employee, date_start_work, salary_employee, diploma_employee, status_employee, performance, date_sign_constrast, date_end_constrast, id_work_shift, id_position, id_grant, id_department, id_constrast)
+VALUES
+(21, 'E021', 'Le Thi V', 'img_user.jpg', 'lethiv@gmail.com', '0912345691', 'Hanoi', 'F', '21-09-1991', '15-01-2015', '880', 'D', 'M', 'A', '15-01-2015', '15-01-2025', 'WS1', 'QA', 'GR003', 'QA', 'C001'),
+(22, 'E022', 'Nguyen Van W', 'img_user.jpg', 'nguyenvanw@gmail.com', '0912345692', 'Hanoi', 'M', '22-10-1987', '16-02-2012', '1050', 'T', 'S', 'B', '16-02-2012', '16-02-2022', 'WS2', 'COO', 'GR004', 'HC', 'C002'),
+(23, 'E023', 'Tran Thi X', 'img_user.jpg', 'tranthix@gmail.com', '0912345693', 'Hanoi', 'F', '23-11-1990', '17-03-2014', '900', 'S', 'L', 'C', '17-03-2014', '17-03-2024', 'WS3', 'PM', 'GR005', 'KD', 'C003'),
+(24, 'E024', 'Pham Van Y', 'img_user.jpg', 'phamvany@gmail.com', '0912345694', 'Hanoi', 'M', '24-12-1989', '18-04-2011', '950', 'C', 'TS', 'A', '18-04-2011', '18-04-2021', 'WS4', 'DEV', 'GR006', 'IT', 'C004'),
+(25, 'E025', 'Hoang Thi Z', 'img_user.jpg', 'hoangthiz@gmail.com', '0912345695', 'Hanoi', 'F', '25-01-1992', '19-05-2016', '870', 'D', 'M', 'B', '19-05-2016', '19-05-2026', 'WS5', 'SALE', 'GR001', 'QA', 'C005'),
+(26, 'E026', 'Dang Van AA', 'img_user.jpg', 'dangvanaa@gmail.com', '0912345696', 'Hanoi', 'M', '26-02-1985', '20-06-2009', '1100', 'T', 'S', 'S', '20-06-2009', '20-06-2019', 'WS6', 'CEO', 'GR002', 'IT', 'C006'),
+(27, 'E027', 'Bui Thi BB', 'img_user.jpg', 'buithibb@gmail.com', '0912345697', 'Hanoi', 'F', '27-03-1994', '21-07-2018', '820', 'S', 'L', 'C', '21-07-2018', '21-07-2028', 'WS7', 'CSKH', 'GR003', 'CSKH', 'C007'),
+(28, 'E028', 'Do Van CC', 'img_user.jpg', 'dovanc@gmail.com', '0912345698', 'Hanoi', 'M', '28-04-1993', '22-08-2017', '860', 'C', 'TS', 'A', '22-08-2017', '22-08-2027', 'WS1', 'TL', 'GR004', 'HC', 'C001'),
+(29, 'E029', 'Vu Thi DD', 'img_user.jpg', 'vuthidd@gmail.com', '0912345699', 'Hanoi', 'F', '29-05-1991', '23-09-2014', '900', 'D', 'M', 'B', '23-09-2014', '23-09-2024', 'WS2', 'HRM', 'GR005', 'HR', 'C002'),
+(30, 'E030', 'Ngo Van EE', 'img_user.jpg', 'ngovane@gmail.com', '0912345700', 'Hanoi', 'M', '30-06-1988', '24-10-2012', '980', 'T', 'S', 'S', '24-10-2012', '24-10-2022', 'WS3', 'CFO', 'GR006', 'FN', 'C003'),
+(31, 'E031', 'Le Thi FF', 'img_user.jpg', 'lethiff@gmail.com', '0912345701', 'Hanoi', 'F', '31-07-1990', '25-11-2015', '870', 'S', 'L', 'C', '25-11-2015', '25-11-2025', 'WS4', 'QA', 'GR001', 'QA', 'C004'),
+(32, 'E032', 'Nguyen Van GG', 'img_user.jpg', 'nguyenvangg@gmail.com', '0912345702', 'Hanoi', 'M', '01-08-1987', '26-12-2010', '1020', 'C', 'TS', 'A', '26-12-2010', '26-12-2020', 'WS5', 'DEV', 'GR002', 'IT', 'C005'),
+(33, 'E033', 'Tran Thi HH', 'img_user.jpg', 'tranthihh@gmail.com', '0912345703', 'Hanoi', 'F', '02-09-1993', '27-01-2017', '830', 'D', 'M', 'B', '27-01-2017', '27-01-2027', 'WS6', 'PM', 'GR003', 'KD', 'C006'),
+(34, 'E034', 'Pham Van II', 'img_user.jpg', 'phamvanii@gmail.com', '0912345704', 'Hanoi', 'M', '03-10-1989', '28-02-2013', '900', 'T', 'S', 'S', '28-02-2013', '28-02-2023', 'WS7', 'SALE', 'GR004', 'QA', 'C007'),
+(35, 'E035', 'Hoang Thi JJ', 'img_user.jpg', 'hoangthijj@gmail.com', '0912345705', 'Hanoi', 'F', '04-11-1992', '29-03-2016', '870', 'S', 'L', 'C', '29-03-2016', '29-03-2026', 'WS1', 'CSKH', 'GR005', 'CSKH', 'C001'),
+(36, 'E036', 'Dang Van KK', 'img_user.jpg', 'dangvankk@gmail.com', '0912345706', 'Hanoi', 'M', '05-12-1985', '30-04-2008', '1100', 'C', 'TS', 'A', '30-04-2008', '30-04-2018', 'WS2', 'CEO', 'GR006', 'IT', 'C002'),
+(37, 'E037', 'Bui Thi LL', 'img_user.jpg', 'buithill@gmail.com', '0912345707', 'Hanoi', 'F', '06-01-1994', '01-05-2019', '820', 'D', 'M', 'B', '01-05-2019', '01-05-2029', 'WS3', 'HRM', 'GR001', 'HC', 'C003'),
+(38, 'E038', 'Do Van MM', 'img_user.jpg', 'dovanmm@gmail.com', '0912345708', 'Hanoi', 'M', '07-02-1993', '02-06-2018', '860', 'T', 'S', 'S', '02-06-2018', '02-06-2028', 'WS4', 'CTO', 'GR002', 'IT', 'C004'),
+(39, 'E039', 'Vu Thi NN', 'img_user.jpg', 'vuthinn@gmail.com', '0912345709', 'Hanoi', 'F', '08-03-1991', '03-07-2015', '900', 'S', 'L', 'C', '03-07-2015', '03-07-2025', 'WS5', 'TL', 'GR003', 'KD', 'C005'),
+(40, 'E040', 'Ngo Van OO', 'img_user.jpg', 'ngovanoo@gmail.com', '0912345710', 'Hanoi', 'M', '09-04-1988', '04-08-2012', '980', 'D', 'M', 'A', '04-08-2012', '04-08-2022', 'WS6', 'CFO', 'GR004', 'FN', 'C006');
+
+INSERT INTO doancuacuong.employee
+(STT, id_employee, name_employee, img_employee, email_employee, phone_employee, address_employee, gender_employee, date_of_birth_employee, date_start_work, salary_employee, diploma_employee, status_employee, performance, date_sign_constrast, date_end_constrast, id_work_shift, id_position, id_grant, id_department, id_constrast)
+VALUES
+(41, 'E041', 'Le Van PP', 'img_user.jpg', 'levanpp@gmail.com', '0912345711', 'Hanoi', 'M', '10-05-1986', '05-09-2011', '980', 'T', 'S', 'B', '05-09-2011', '05-09-2021', 'WS7', 'DEV', 'GR005', 'IT', 'C007'),
+(42, 'E042', 'Nguyen Thi QQ', 'img_user.jpg', 'nguyenthqq@gmail.com', '0912345712', 'Hanoi', 'F', '11-06-1992', '06-10-2016', '850', 'D', 'M', 'A', '06-10-2016', '06-10-2026', 'WS1', 'QA', 'GR001', 'QA', 'C001'),
+(43, 'E043', 'Tran Van RR', 'img_user.jpg', 'tranvanrr@gmail.com', '0912345713', 'Hanoi', 'M', '12-07-1989', '07-11-2014', '940', 'C', 'TS', 'S', '07-11-2014', '07-11-2024', 'WS2', 'PM', 'GR002', 'KD', 'C002'),
+(44, 'E044', 'Pham Thi SS', 'img_user.jpg', 'phamthiss@gmail.com', '0912345714', 'Hanoi', 'F', '13-08-1990', '08-12-2015', '900', 'S', 'L', 'C', '08-12-2015', '08-12-2025', 'WS3', 'CSKH', 'GR003', 'CSKH', 'C003'),
+(45, 'E045', 'Hoang Van TT', 'img_user.jpg', 'hoangvantt@gmail.com', '0912345715', 'Hanoi', 'M', '14-09-1987', '09-01-2013', '1020', 'T', 'S', 'B', '09-01-2013', '09-01-2023', 'WS4', 'SALE', 'GR004', 'KD', 'C004'),
+(46, 'E046', 'Dang Thi UU', 'img_user.jpg', 'dangthiuu@gmail.com', '0912345716', 'Hanoi', 'F', '15-10-1991', '10-02-2017', '870', 'D', 'M', 'A', '10-02-2017', '10-02-2027', 'WS5', 'HRM', 'GR005', 'HR', 'C005'),
+(47, 'E047', 'Bui Van VV', 'img_user.jpg', 'buivanvv@gmail.com', '0912345717', 'Hanoi', 'M', '16-11-1985', '11-03-2010', '1100', 'C', 'TS', 'S', '11-03-2010', '11-03-2020', 'WS6', 'CTO', 'GR006', 'IT', 'C006'),
+(48, 'E048', 'Do Thi WW', 'img_user.jpg', 'dothiww@gmail.com', '0912345718', 'Hanoi', 'F', '17-12-1993', '12-04-2018', '830', 'S', 'L', 'B', '12-04-2018', '12-04-2028', 'WS7', 'TL', 'GR001', 'KD', 'C007'),
+(49, 'E049', 'Vu Van XX', 'img_user.jpg', 'vuvanxx@gmail.com', '0912345719', 'Hanoi', 'M', '18-01-1990', '13-05-2016', '900', 'T', 'S', 'C', '13-05-2016', '13-05-2026', 'WS1', 'CFO', 'GR002', 'FN', 'C001'),
+(50, 'E050', 'Ngo Thi YY', 'img_user.jpg', 'ngothiyy@gmail.com', '0912345720', 'Hanoi', 'F', '19-02-1992', '14-06-2017', '860', 'D', 'M', 'A', '14-06-2017', '14-06-2027', 'WS2', 'DEV', 'GR003', 'IT', 'C002'),
+(51, 'E051', 'Le Van ZZ', 'img_user.jpg', 'levanzz@gmail.com', '0912345721', 'Hanoi', 'M', '20-03-1988', '15-07-2013', '970', 'S', 'L', 'B', '15-07-2013', '15-07-2023', 'WS3', 'PM', 'GR004', 'KD', 'C003'),
+(52, 'E052', 'Nguyen Thi AAA', 'img_user.jpg', 'nguyenthiaaa@gmail.com', '0912345722', 'Hanoi', 'F', '21-04-1994', '16-08-2019', '820', 'C', 'TS', 'S', '16-08-2019', '16-08-2029', 'WS4', 'QA', 'GR005', 'QA', 'C004'),
+(53, 'E053', 'Tran Van BBB', 'img_user.jpg', 'tranvanbbb@gmail.com', '0912345723', 'Hanoi', 'M', '22-05-1991', '17-09-2016', '890', 'D', 'M', 'A', '17-09-2016', '17-09-2026', 'WS5', 'CSKH', 'GR006', 'CSKH', 'C005'),
+(54, 'E054', 'Pham Thi CCC', 'img_user.jpg', 'phamthiccc@gmail.com', '0912345724', 'Hanoi', 'F', '23-06-1989', '18-10-2014', '940', 'T', 'S', 'B', '18-10-2014', '18-10-2024', 'WS6', 'SALE', 'GR001', 'KD', 'C006'),
+(55, 'E055', 'Hoang Van DDD', 'img_user.jpg', 'hoangvaddd@gmail.com', '0912345725', 'Hanoi', 'M', '24-07-1987', '19-11-2012', '1020', 'S', 'L', 'S', '19-11-2012', '19-11-2022', 'WS7', 'HRM', 'GR002', 'HR', 'C007'),
+(56, 'E056', 'Dang Thi EEE', 'img_user.jpg', 'dangthieee@gmail.com', '0912345726', 'Hanoi', 'F', '25-08-1990', '20-12-2015', '880', 'C', 'TS', 'C', '20-12-2015', '20-12-2025', 'WS1', 'CTO', 'GR003', 'IT', 'C001'),
+(57, 'E057', 'Bui Van FFF', 'img_user.jpg', 'buivanfff@gmail.com', '0912345727', 'Hanoi', 'M', '26-09-1986', '21-01-2011', '980', 'D', 'M', 'A', '21-01-2011', '21-01-2021', 'WS2', 'TL', 'GR004', 'KD', 'C002'),
+(58, 'E058', 'Do Thi GGG', 'img_user.jpg', 'dothiggg@gmail.com', '0912345728', 'Hanoi', 'F', '27-10-1993', '22-02-2018', '830', 'T', 'S', 'B', '22-02-2018', '22-02-2028', 'WS3', 'DEV', 'GR005', 'IT', 'C003'),
+(59, 'E059', 'Vu Van HHH', 'img_user.jpg', 'vuvanhhh@gmail.com', '0912345729', 'Hanoi', 'M', '28-11-1991', '23-03-2016', '900', 'S', 'L', 'C', '23-03-2016', '23-03-2026', 'WS4', 'CFO', 'GR006', 'FN', 'C004'),
+(60, 'E060', 'Ngo Thi III', 'img_user.jpg', 'ngothiii@gmail.com', '0912345730', 'Hanoi', 'F', '29-12-1988', '24-04-2013', '950', 'D', 'M', 'S', '24-04-2013', '24-04-2023', 'WS5', 'PM', 'GR001', 'KD', 'C005');

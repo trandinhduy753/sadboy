@@ -1,0 +1,13 @@
+CREATE TABLE `doancuacuong`.`branch` (`STT` VARCHAR(10) NULL , `id_branch` VARCHAR(20) NULL , `name` VARCHAR(300) NULL , `status` VARCHAR(10) NULL , 
+`note` VARCHAR(400) NULL , `date_create` VARCHAR(30) NULL , `id_employee` VARCHAR(20) NOT NULL , PRIMARY KEY (`id_branch`)) ENGINE = InnoDB;
+INSERT INTO doancuacuong.branch (STT, id_branch, name, status, note, date_create, id_employee) VALUES
+('1', 'BR001', 'Chi nhánh Hà Nội', 'ACT', 'Chi nhánh chính tại Hà Nội', '2024-01-15', 'E002'),
+('2', 'BR002', 'Chi nhánh TP.HCM', 'ACT', 'Chi nhánh phía Nam', '2024-02-10', 'E005'),
+('3', 'BR003', 'Chi nhánh Đà Nẵng', 'DEL', 'Ngừng hoạt động do sáp nhập', '2023-08-21', 'E008'),
+('4', 'BR004', 'Chi nhánh Hải Phòng', 'EXP', 'Hết thời hạn hợp đồng thuê', '2023-12-01', 'E012'),
+('5', 'BR005', 'Chi nhánh Cần Thơ', 'ACT', 'Phát triển thị trường miền Tây', '2024-04-05', 'E016'),
+('6', 'BR006', 'Chi nhánh Nghệ An', 'ACT', 'Chi nhánh miền Trung', '2024-03-03', 'E020'),
+('7', 'BR007', 'Chi nhánh Bình Dương', 'DEL', 'Đã chuyển vào TP.HCM', '2023-07-17', 'E025'),
+('8', 'BR008', 'Chi nhánh Lâm Đồng', 'ACT', 'Khu vực cao nguyên', '2024-05-01', 'E030'),
+('9', 'BR009', 'Chi nhánh Huế', 'EXP', 'Đang chờ gia hạn hợp đồng', '2024-01-28', 'E034'),
+('10','BR010', 'Chi nhánh Quảng Ninh', 'ACT', 'Gần khu công nghiệp Cẩm Phả', '2024-06-10', 'E038');

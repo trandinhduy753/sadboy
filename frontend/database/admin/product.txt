@@ -1,0 +1,205 @@
+{
+    id,
+    code, 
+    name,
+    imgs,
+    slug,
+    sort_description,
+    long_description,
+    category,
+    price: 100000,
+    created_at,
+    gift,
+    place,
+    star,
+    count_comment,
+    import_price,
+    original_price: {
+        'S': 40000
+        'M': 50000
+        'L': 70000
+    },
+    sale_price: {
+        'S': 30000
+        'M': 40000
+        'L': 60000
+    },
+    proportion_discount: 15,
+    date_start_sale: '2003-12-25 12:35:55',
+    date_end_sale: '2004-12-25 12:35:55',
+    count_stock: 500,
+    count_sale: 150,
+    status: 
+    update_by:
+    unit,
+    provide_id,
+    stock_id,
+    
+
+
+    id: 1,
+        code: 'SADBOY',
+        name: 'Quả dưa hấu',
+        imgs: [
+          '/images/img_product/product_img-5B.png',
+          '/images/img_product/product_img-5A.jpg',
+          '/images/img_product/product_img-5.png',
+          '/images/img_product/product_img-5C.jpg',
+          '/images/img_product/product_img-5D.jpg',
+          '/images/img_product/product_img-5E.jpg'
+        ],
+        sort_description: "Quả dưa hấu là một loại trái cây ngọt, mọng nước, thường có vỏ xanh và ruột đỏ, rất giàu vitamin và khoáng chất. Loại quả này không chỉ có hương vị thơm ngon.",
+        long_description: '<p class="text-red-500">Hiện tại chưa có</p>',
+        category: 'Fruit Juicy',
+        import_price: {
+          'S': 20000,
+          'M': 25000,
+          'L': 30000
+        },
+        created_at: '2025-12-25 08:25:55',
+        gift: 'no',
+        place: 'Hà Nội',
+        star: 4.8,
+        count_comment: '45',
+        original_price: {
+          'S': 40000,
+          'M': 50000,
+          'L': 70000
+        },
+        sale_price: {
+          'S': 30000,
+          'M': 40000,
+          'L': 60000
+        },
+        OR: '12356789111',
+        proportion_discount: 15,
+        date_start_sale: '2003-12-25 12:35:55',
+        date_end_sale: '2003-12-25 12:35:55',
+        count_stock: 500,
+        count_sale: 150,
+        status: 'INSTOCK',
+        updated_by: 'Nguyễn Trần Cường',
+        unit: 'Cân',
+        provide: {
+          id: 1,
+          code: 'Mã nhà cung cấp',
+          name: 'TNHH SADBOY',
+        },
+        stock: {
+          id: 1,
+          code: 'Mã kho',
+          name: 'Kho 001'
+        },
+        comments: [
+          {
+            id: 1,
+            code: "CMT001",    
+            name: "nguyễn trần cường12",
+            img: '/public/images/img_product/product_img-10B.jpg',
+            email: 'nguyentrancuog58@gmail.com',
+            star: 5,
+            created_at: '2003-12-12 12-12-12',
+            content: 'Nội dung của bình luận',
+            imgs: [
+                '/public/images/img_product/product_img-11A.jpg',
+                '/public/images/img_product/product_img-11B.jpg',
+                '/public/images/img_product/product_img-11C.jpg',
+                '/public/images/img_product/product_img-13.png',
+                
+            ],
+            likes: 123,
+            dislikes: 345,
+            feedbacks: [
+                {
+                    id: 2,
+                    img: '/public/images/img_user/img_user.jpg',
+                    code: 'sadboy',
+                    name: 'trandinhduy123',
+                    email: 'trandinhduy@gmail.com',
+                    likes: 13,
+                    dislikes: 1,
+                    created_at: '2025-12-25 12:25:55',
+                    content: 'Phản hồi của người dùng khác',
+                    imgs: [
+                        '/public/images/img_product/product_img-11A.jpg',
+                        '/public/images/img_product/product_img-11B.jpg',
+                        '/public/images/img_product/product_img-13.png',
+                        
+                    ],
+                },
+                {
+                  id: 3,
+                  img: '/public/images/img_user/img_user.jpg',
+                  code: 'sadboy',
+                  name: 'trandinhduy',
+                  email: 'trandinhduy@gmail.com',
+                  likes: 13,
+                  dislikes: 1,
+                  created_at: '2025-12-25 12:25:55',
+                  content: 'Phản hồi của người dùng khác',
+                  imgs: [
+                      '/public/images/img_product/product_img-11A.jpg',
+                      '/public/images/img_product/product_img-11B.jpg',
+                      '/public/images/img_product/product_img-13.png',
+                      
+                  ],
+              },
+            ]
+          },
+          {
+            id: 4,
+            code: "CMT002",    
+            name: "nguyễn trần cường34",
+            img: '/public/images/img_product/product_img-10B.jpg',
+            email: 'nguyentrancuog58@gmail.com',
+            star: 5,
+            created_at: '2003-12-12 12-12-12',
+            content: 'Nội dung của bình luận',
+            imgs: [
+                '/public/images/img_product/product_img-11A.jpg',
+                '/public/images/img_product/product_img-11B.jpg',
+                '/public/images/img_product/product_img-11C.jpg',
+                '/public/images/img_product/product_img-13.png',
+                
+            ],
+            likes: 123,
+            dislikes: 345,
+            feedbacks: [
+                {
+                    id: 5,
+                    img: '/public/images/img_user/img_user.jpg',
+                    code: 'sadboy',
+                    name: 'trandinhduy',
+                    email: 'trandinhduy@gmail.com',
+                    likes: 13,
+                    dislikes: 1,
+                    created_at: '2025-12-25 12:25:55',
+                    content: 'Phản hồi của người dùng khác',
+                    imgs: [
+                        '/public/images/img_product/product_img-11A.jpg',
+                        '/public/images/img_product/product_img-11B.jpg',
+                        '/public/images/img_product/product_img-13.png',
+                        
+                    ],
+                },
+                {
+                  id: 6,
+                  img: '/public/images/img_user/img_user.jpg',
+                  code: 'sadboy',
+                  name: 'trandinhduy',
+                  email: 'trandinhduy@gmail.com',
+                  likes: 13,
+                  dislikes: 1,
+                  created_at: '2025-12-25 12:25:55',
+                  content: 'Phản hồi của người dùng khác',
+                  imgs: [
+                      '/public/images/img_product/product_img-11A.jpg',
+                      '/public/images/img_product/product_img-11B.jpg',
+                      '/public/images/img_product/product_img-13.png',
+                      
+                  ],
+              },
+            ]
+          }
+        ]
+}

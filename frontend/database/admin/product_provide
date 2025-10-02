@@ -1,0 +1,14 @@
+{
+    id,
+    code,
+    name,
+    img,
+    price: {
+        'S': 40000
+        'M': 50000
+        'L': 70000
+    },
+    description,
+    provide_id
+}
+

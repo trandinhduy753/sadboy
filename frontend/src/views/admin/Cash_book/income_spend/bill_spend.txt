@@ -1,0 +1,138 @@
+
+
+
+<script setup lang="ts">
+    import { useStore, mapActions } from 'vuex';
+    import { useMapActions } from '@/composables'
+    const store=useStore();
+    const { change_show_comp } = useMapActions('', ['change_show_comp']);
+    function handle_change_show_comp(data)
+    {
+        change_show_comp(data)
+    }
+</script>
+
+<template>
+    <div class="flex items-center gap-2 bg-white dark:bg-gray-800 transition-all duration-500 py-2 pl-3">
+        <font-awesome-icon @click="handle_change_show_comp('Cash_books')"  :icon="['fas', 'arrow-left']"  class="cursor-pointer text-2xl p-3 hover:text-[var(--maincolor)]  hover:scale-[1.2] transition-all duration-200  dark:text-gray-300 dark:hover:text-[var(--dark_maincolor)]" />
+        <p class="text-black dark:text-gray-300 ">Tạo phiếu chi</p>
+    </div>
+    <form action="" class=" mt-2">
+        <div class="grid grid-cols-12 gap-5">
+            <div class="col-span-8 row-span-4 bg-white dark:bg-gray-800 transition-all duration-500 px-5  pb-10 pt-5">
+                <p class="border-b border-[var(--color_border)] pb-2 font-bold mt-2 dark:border-gray-600 dark:text-gray-300"> Thông tin phiếu chi </p>
+                <div class="grid grid-cols-12 mt-4 gap-5">
+                    <div class="col-span-6">
+                        <label for="moneybill" class="font-bold text-black dark:text-gray-300">Số tiền chi</label>
+                        <input type="text" name="moneybill" id="moneybill"  class="bg-white transition-all duration-500 dark:bg-gray-800 text-black dark:text-gray-300 w-full border-1 border-[var(--color_border)] rounded-sm pl-2 py-1 mt-1 outline-none">
+                        <span class="input-config-error block text-black dark:text-gray-300"></span>
+                    </div>
+
+                    <div class="col-span-6">
+                        <label for="moneybill" class="font-bold text-black dark:text-gray-300">Lý do chi</label>
+                        <input type="text" id="moneybill" placeholder="Nhập lý do chi" class="placeholder:text-sm w-full mt-1 outline-none border border-[var(--color_border)] rounded-sm pl-2 py-1
+                            dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300">
+                    </div>
+
+                    <div class="col-span-6">
+                        <p for="moneybill" class="font-bold text-black dark:text-gray-300">Đối tượng nhận</p>
+                        <Menu as="div" class="relative block text-left">
+                            <MenuButton class="w-full">
+                                <div class="bg-white transition-all duration-500 dark:bg-gray-800 border-1 border-[var(--color_border)] py-1 mt-1 rounded-sm text-left flex items-center justify-between px-2 cursor-pointer">
+                                    <span class="text-black dark:text-gray-300">--Khách hàng--</span>
+                                    <font-awesome-icon :icon="['fas', 'angle-down']" class="dark:text-white"  />
+                                </div>
+                            </MenuButton>
+
+                            <MenuItems class="absolute left-0 mt-2 w-full p-1 origin-top-right bg-white dark:bg-gray-800 border rounded-md shadow-lg z-50">
+                                <div class="py-1 h-40 overflow-y-auto custom-scrollbar">
+                                    <MenuItem class="mb-1 cursor-pointer">
+                                        <p class="block mb-2 px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-[0.2rem] text-black dark:text-gray-300">Khách hàng</p>
+                                    </MenuItem>
+                                    <MenuItem class="mb-1 cursor-pointer">
+                                        <p class="block mb-2 px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-[0.2rem] text-black dark:text-gray-300">Nhà cung cấp</p>
+                                    </MenuItem>
+                                    <MenuItem class="mb-1 cursor-pointer">
+                                        <p class="block mb-2 px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-[0.2rem] text-black dark:text-gray-300">Khác</p>
+                                    </MenuItem>
+                                </div>
+                            </MenuItems>
+                        </Menu>
+                    </div>
+                    <div class="col-span-6 flex flex-col">
+                        <label for="nameaccept" class="font-bold text-black dark:text-gray-300">Tên đối tượng nhận</label>
+                        <input type="text" id="nameaccept" class="bg-white transition-all duration-500 dark:bg-gray-800 mt-1 border-1 border-[var(--color_border)] outline-none py-1 pl-2 rounded-sm text-black dark:text-gray-300">
+                        <span class="input-config-error text-red-500 dark:text-red-400"></span>
+                    </div>
+                    <div class="col-span-12">
+                        <div class="flex items-center gap-2 mt-1">
+                            <input id="report" type="checkbox" class="text-black dark:text-gray-300">
+                            <label for="report" class="text-black dark:text-gray-300">Ghi nhận vào báo cáo kết quả kinh doanh</label>
+                        </div>
+                    </div>      
+                </div>
+            </div>
+            <div class="col-span-4 bg-white transition-all duration-500 dark:bg-gray-800 text-black dark:text-gray-300 px-5 pt-7 pb-7">
+                <p class="font-bold border-b-1 border-[var(--color_border)] pb-2">Thông tin bổ sung</p>
+                <div class="mt-5">
+                    <p>Chi nhánh tạo phiếu</p>
+                    <Menu as="div" class="relative block text-left">
+                        <MenuButton class="w-full">
+                            <div class="bg-white transition-all duration-500 dark:bg-gray-800 border-1 border-[var(--color_border)] py-1 mt-1 rounded-sm text-left flex items-center justify-between px-2 cursor-pointer">
+                                <span>--Tổng bộ--</span>
+                                <font-awesome-icon :icon="['fas', 'angle-down']" class="dark:text-white" />
+                            </div>
+                        </MenuButton>
+
+                        <MenuItems class="absolute left-0 mt-2 w-full p-1 origin-top-right bg-white dark:bg-gray-800 border rounded-md shadow-lg z-50">
+                            <div class="py-1 h-40 overflow-y-auto custom-scrollbar">
+                                <MenuItem class="mb-1 cursor-pointer">
+                                    <p class="block mb-2 px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-[0.2rem]">Tổng bộ</p>
+                                </MenuItem>
+                                <MenuItem class="mb-1 cursor-pointer">
+                                    <p class="block mb-2 px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-[0.2rem]">Chi nhánh A</p>
+                                </MenuItem>
+                                <MenuItem class="mb-1 cursor-pointer">
+                                    <p class="block mb-2 px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-[0.2rem]">Chi nhánh B</p>
+                                </MenuItem>
+                                <MenuItem class="mb-1 cursor-pointer">
+                                    <p class="block mb-2 px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-[0.2rem]">Chi nhánh C</p>
+                                </MenuItem>
+                            </div>
+                        </MenuItems>
+                    </Menu>
+                </div>
+                <div class="mt-4 flex flex-col">
+                    <label for="Codepref">Mã tham chiếu</label>
+                    <input type="text" class="bg-white transition-all duration-500 dark:bg-gray-800 py-1 mt-1 outline-none border-1 border-[var(--color_border)] rounded-sm pl-2 text-black dark:text-gray-300" id="Codepref">
+                </div>
+            </div>
+
+            <div class="col-span-4 py-7 bg-white transition-all duration-500 dark:bg-gray-800 px-5">
+                <p class="font-bold pb-3 border-b-1 border-[var(--color_border)] dark:text-gray-300">Hình ảnh chứng từ thanh toán</p>
+                <div class="h-30 bg-gray-50 dark:bg-gray-700 transition-all duration-500 border-1 border-[var(--color_border)]">
+                    <label for="img_pay" class="text-[var(--color_text-gray)] dark:text-gray-300 cursor-pointer h-full w-full flex items-center justify-center">Thêm ảnh ở đây, tối đa 2 ảnh</label>
+                    <input type="file" class="hidden" id="img_pay">
+                    <div class="flex items-center justify-center hidden h-30">
+                        <img class="h-25 w-50%" src="/public/images/img_product/product_img-1.jpg" alt="">
+                        <img class="h-25 w-50%" src="/public/images/img_product/product_img-1.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-span-12 flex flex-col bg-white dark:bg-gray-800 text-black dark:text-gray-300 px-5 py-7">
+                <div class="flex items-center mt-5">
+                    <div class="px-4 py-2 cursor-pointer rounded-sm mr-5 bg-green-300 dark:bg-green-600 hover:bg-green-200 dark:hover:bg-green-700 text-green-900 dark:text-green-300 font-bold border-1 border-green-900 dark:border-green-300">Lưu lại</div>
+                    <div class="px-4 py-2 cursor-pointer rounded-sm mr-3 bg-red-300 dark:bg-red-600 hover:bg-red-200 dark:hover:bg-red-700 text-red-900 dark:text-red-300 font-bold border-1 border-red-900 dark:border-red-300">Huỷ bỏ</div>
+                </div>
+            </div>
+
+            
+        </div>
+    </form>
+  
+</template>
+
+<style scoped>
+
+</style>

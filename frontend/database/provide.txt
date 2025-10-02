@@ -1,0 +1,43 @@
+BẢNG NHÀ CUNG CẤP
+STT, ID provide, nảm provide, trang thái, tên công ty, mã thế, nơ, tổng mua,  số lương đơn đặt, số đơn hàng trả, email, phone,img, address
+{
+    stt,
+    id provide,
+    tên: NCC: Trần Đình Duy
+    tên công ty: TNHH SADBOY
+    mã thế: 123456789,
+    nợ: 75.000.000 vnđ
+    tông mua: 150.000.000 vnđ,
+    số lượng đặt: 15,
+    só lượng trẩL 25,
+    email
+    phone
+    img
+    address,
+    status
+}
+status_provide: ACT, DEL, SIG
+CREATE TABLE `doancuacuong`.`provide` (`STT` INT(10) NULL , `id_provide` VARCHAR(20) NULL , `name_provide` VARCHAR(50) NULL , 
+`name_company` VARCHAR(50) NULL , `code_tax` VARCHAR(20) NULL , `debt_provide` VARCHAR(10) NULL , `total_buy_provide` VARCHAR(10) NULL , 
+`number_order_provide` VARCHAR(10) NULL , `number_return_provide` VARCHAR(10) NULL , `email` VARCHAR(50) NULL , `phone` VARCHAR(15) NULL , 
+`img` VARCHAR(50) NULL , `address` VARCHAR(100) NULL , PRIMARY KEY (`id_provide`)) ENGINE = InnoDB;
+ALTER TABLE `provide` ADD `status_provide` VARCHAR(3) NULL AFTER `address`;
+
+INSERT INTO doancuacuong.provide 
+(STT, id_provide, name_provide, name_company, code_tax, debt_provide, total_buy_provide, number_order_provide, number_return_provide, email, phone, img, address, status_provide)
+VALUES
+(1, 'P001', 'Nguyen Van A', 'ABC Corp', 'TX001', '1000', '5000', '10', '1', 'a1@abc.com', '0900000001', 'img_provide_1.webp', '123 Street A', 'ACT'),
+(2, 'P002', 'Tran Thi B', 'XYZ Co', 'TX002', '2000', '6000', '12', '2', 'b2@xyz.com', '0900000002', 'img_provide_2.webp', '456 Street B', 'DEL'),
+(3, 'P003', 'Le Van C', 'DEF Ltd', 'TX003', '3000', '7000', '14', '3', 'c3@def.com', '0900000003', 'img_provide_3.webp', '789 Street C', 'SIG'),
+(4, 'P004', 'Pham Thi D', 'GHI Inc', 'TX004', '4000', '8000', '11', '0', 'd4@ghi.com', '0900000004', 'img_provide_4.webp', '101 Street D', 'ACT'),
+(5, 'P005', 'Vo Van E', 'JKL Group', 'TX005', '1500', '9000', '13', '1', 'e5@jkl.com', '0900000005', 'img_provide_5.webp', '202 Street E', 'DEL'),
+(6, 'P006', 'Nguyen Thi F', 'MNO Corp', 'TX006', '2200', '3000', '8', '1', 'f6@mno.com', '0900000006', 'img_provide_6.webp', '303 Street F', 'SIG'),
+(7, 'P007', 'Tran Van G', 'PQR Ltd', 'TX007', '1800', '4000', '6', '2', 'g7@pqr.com', '0900000007', 'img_provide_7.webp', '404 Street G', 'ACT'),
+(8, 'P008', 'Le Thi H', 'STU Co', 'TX008', '3500', '4500', '9', '3', 'h8@stu.com', '0900000008', 'img_provide_8.webp', '505 Street H', 'DEL'),
+(9, 'P009', 'Pham Van I', 'VWX Inc', 'TX009', '2750', '4800', '7', '2', 'i9@vwx.com', '0900000009', 'img_provide_9.webp', '606 Street I', 'SIG'),
+(10, 'P010', 'Vo Thi J', 'YZA Corp', 'TX010', '1250', '3500', '5', '1', 'j10@yza.com', '0900000010', 'img_provide_10.webp', '707 Street J', 'ACT'),
+(11, 'P011', 'Dang Van K', 'BCD Ltd', 'TX011', '900', '2200', '4', '0', 'k11@bcd.com', '0900000011', 'img_provide_1.webp', '808 Street K', 'DEL'),
+(12, 'P012', 'Nguyen Thi L', 'EFG Co', 'TX012', '1600', '3300', '6', '1', 'l12@efg.com', '0900000012', 'img_provide_2.webp', '909 Street L', 'SIG'),
+(13, 'P013', 'Tran Van M', 'HIJ Inc', 'TX013', '700', '1900', '3', '0', 'm13@hij.com', '0900000013', 'img_provide_3.webp', '1001 Street M', 'ACT'),
+(14, 'P014', 'Le Thi N', 'KLM Group', 'TX014', '1250', '2600', '4', '2', 'n14@klm.com', '0900000014', 'img_provide_4.webp', '1102 Street N', 'DEL'),
+(15, 'P015', 'Pham Van O', 'NOP Ltd', 'TX015', '1450', '3000', '5', '1', 'o15@nop.com', '0900000015', 'img_provide_5.webp', '1203 Street O', 'SIG');

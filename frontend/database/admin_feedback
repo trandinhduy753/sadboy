@@ -1,0 +1,50 @@
+CREATE TABLE `doancuacuong`.`admin_feedback` (`STT` INT(10) NULL , `id_admin_feed` VARCHAR(20) NULL , `content` VARCHAR(1000) NULL , 
+`number_like` VARCHAR(10) NULL , `number_dislike` VARCHAR(10) NULL , `date` VARCHAR(30) NULL , `id_comment` VARCHAR(20) NULL , 
+`id_employee` VARCHAR(20) NULL , PRIMARY KEY (`id_admin_feed`)) ENGINE = InnoDB;
+
+ALTER TABLE `admin_feedback` ADD `imgs` VARCHAR(500) NULL AFTER `id_employee`;
+
+INSERT INTO `doancuacuong`.`admin_feedback`
+(`STT`, `id_admin_feed`, `content`, `number_like`, `number_dislike`, `date`, `id_comment`, `id_employee`, `imgs`)
+VALUES
+(1, 'AF001', 'Cảm ơn bạn đã đóng góp.', '12', '1', '04-06-2025', 'CMT001', 'E002', 'NULL'),
+(2, 'AF002', 'Góp ý rất hữu ích.', '8', '0', '02-06-2025', 'CMT002', 'E004', 'NULL'),
+(3, 'AF003', 'Chúng tôi sẽ cải thiện.', '10', '2', '01-06-2025', 'CMT003', 'E005', 'NULL'),
+(4, 'AF004', 'Câu hỏi hay lắm.', '15', '1', '03-06-2025', 'CMT004', 'E006', 'NULL'),
+(5, 'AF005', 'Phản hồi sẽ được xem xét.', '5', '0', '31-05-2025', 'CMT005', 'E007', 'NULL'),
+(6, 'AF006', 'Đã chuyển cho bộ phận kỹ thuật.', '7', '2', '30-05-2025', 'CMT006', 'E008', 'NULL'),
+(7, 'AF007', 'Chúng tôi rất cảm kích.', '9', '0', '29-05-2025', 'CMT007', 'E009', 'NULL'),
+(8, 'AF008', 'Chúng tôi sẽ cập nhật sớm.', '11', '1', '28-05-2025', 'CMT008', 'E010', 'NULL'),
+(9, 'AF009', 'Cảm ơn bạn đã phản ánh.', '6', '0', '27-05-2025', 'CMT009', 'E011', 'NULL'),
+(10, 'AF010', 'Chúng tôi sẽ điều chỉnh.', '8', '1', '26-05-2025', 'CMT010', 'E012', 'NULL'),
+(11, 'AF011', 'Thông tin đã được lưu.', '4', '0', '25-05-2025', 'CMT011', 'E013', 'NULL'),
+(12, 'AF012', 'Góp ý của bạn rất có giá trị.', '12', '1', '24-05-2025', 'CMT012', 'E014', 'NULL'),
+(13, 'AF013', 'Chúng tôi ghi nhận.', '10', '0', '23-05-2025', 'CMT013', 'E015', 'NULL'),
+(14, 'AF014', 'Cảm ơn bạn đã nhận xét.', '7', '2', '22-05-2025', 'CMT014', 'E016', 'NULL'),
+(15, 'AF015', 'Sẽ cải tiến sớm.', '9', '1', '21-05-2025', 'CMT015', 'E017', 'NULL'),
+(16, 'AF016', 'Chúng tôi đang xem xét.', '8', '0', '20-05-2025', 'CMT016', 'E018', 'NULL'),
+(17, 'AF017', 'Ghi nhận phản hồi.', '11', '1', '19-05-2025', 'CMT017', 'E019', 'NULL'),
+(18, 'AF018', 'Cảm ơn bạn.', '5', '0', '18-05-2025', 'CMT018', 'E020', 'NULL'),
+(19, 'AF019', 'Ý kiến đáng chú ý.', '6', '1', '17-05-2025', 'CMT019', 'E021', 'NULL'),
+(20, 'AF020', 'Chúng tôi sẽ phản hồi lại sớm.', '13', '2', '16-05-2025', 'CMT020', 'E022', 'NULL'),
+(21, 'AF021', 'Đã chuyển đến nhóm liên quan.', '7', '0', '15-05-2025', 'CMT001', 'E023', 'NULL'),
+(22, 'AF022', 'Đóng góp tích cực.', '9', '1', '14-05-2025', 'CMT002', 'E024', 'NULL'),
+(23, 'AF023', 'Chúng tôi đã lưu lại ý kiến.', '6', '0', '13-05-2025', 'CMT003', 'E025', 'NULL'),
+(24, 'AF024', 'Phản hồi có ích cho chúng tôi.', '10', '1', '12-05-2025', 'CMT004', 'E026', 'NULL'),
+(25, 'AF025', 'Cảm ơn, đang xử lý.', '11', '2', '11-05-2025', 'CMT005', 'E027', 'NULL'),
+(26, 'AF026', 'Sẽ cập nhật trong thời gian tới.', '8', '0', '10-05-2025', 'CMT006', 'E028', 'NULL'),
+(27, 'AF027', 'Câu hỏi rất hợp lý.', '14', '1', '09-05-2025', 'CMT007', 'E029', 'NULL'),
+(28, 'AF028', 'Đã ghi chú lại.', '7', '0', '08-05-2025', 'CMT008', 'E030', 'NULL'),
+(29, 'AF029', 'Phản hồi giúp ích cho hệ thống.', '9', '1', '07-05-2025', 'CMT009', 'E031', 'NULL'),
+(30, 'AF030', 'Đánh giá đã được ghi nhận.', '5', '0', '06-05-2025', 'CMT010', 'E032', 'NULL'),
+(31, 'AF031', 'Ý kiến được lưu trữ.', '6', '1', '05-05-2025', 'CMT011', 'E033', 'NULL'),
+(32, 'AF032', 'Đã chuyển phản ánh lên cấp trên.', '12', '0', '04-05-2025', 'CMT012', 'E034', 'NULL'),
+(33, 'AF033', 'Chúng tôi sẽ kiểm tra lại.', '10', '1', '03-05-2025', 'CMT013', 'E035', 'NULL'),
+(34, 'AF034', 'Chúng tôi đang cập nhật.', '8', '0', '02-05-2025', 'CMT014', 'E036', 'NULL'),
+(35, 'AF035', 'Phản hồi sẽ được hiển thị.', '9', '1', '01-05-2025', 'CMT015', 'E037', 'NULL'),
+(36, 'AF036', 'Cảm ơn nhận xét tích cực.', '11', '0', '30-04-2025', 'CMT016', 'E038', 'NULL'),
+(37, 'AF037', 'Đang tiến hành xử lý.', '7', '0', '29-04-2025', 'CMT017', 'E039', 'NULL'),
+(38, 'AF038', 'Phản hồi đúng thời điểm.', '8', '1', '28-04-2025', 'CMT018', 'E040', 'NULL'),
+(39, 'AF039', 'Ghi nhận thông tin.', '6', '0', '27-04-2025', 'CMT019', 'E041', 'NULL'),
+(40, 'AF040', 'Ý kiến sẽ giúp ích nhiều.', '10', '1', '26-04-2025', 'CMT020', 'E042', 'NULL');
+

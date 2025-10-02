@@ -1,0 +1,86 @@
+BẢNG CHỨA DANH SÁHC NGƯƠI DÙNG MÃ GIẢM GIÁ
+stt, id___, id_user, id_voucher
+CREATE TABLE `doancuacuong`.`list_use_vouchuer` (`STT` INT(10) NULL , `id_list_use` VARCHAR(20) NULL , `id_user` VARCHAR(20) NULL , 
+`id_voucher` VARCHAR(20) NULL , PRIMARY KEY (`id_list_use`)) ENGINE = InnoDB;
+
+INSERT INTO `doancuacuong`.`list_use_vouchuer` (`STT`, `id_list_use`, `id_user`, `id_voucher`) VALUES
+(1, 'LS001', 'U001', 'VCH001'),
+(2, 'LS002', 'U002', 'VCH001'),
+(3, 'LS003', 'U003', 'VCH001'),
+(4, 'LS004', 'U004', 'VCH001'),
+(5, 'LS005', 'U005', 'VCH001'),
+(6, 'LS006', 'U006', 'VCH002'),
+(7, 'LS007', 'U007', 'VCH002'),
+(8, 'LS008', 'U008', 'VCH002'),
+(9, 'LS009', 'U009', 'VCH002'),
+(10, 'LS010', 'U010', 'VCH002'),
+(11, 'LS011', 'U011', 'VCH003'),
+(12, 'LS012', 'U012', 'VCH003'),
+(13, 'LS013', 'U013', 'VCH003'),
+(14, 'LS014', 'U014', 'VCH003'),
+(15, 'LS015', 'U015', 'VCH003'),
+(16, 'LS016', 'U016', 'VCH004'),
+(17, 'LS017', 'U017', 'VCH004'),
+(18, 'LS018', 'U018', 'VCH004'),
+(19, 'LS019', 'U019', 'VCH004'),
+(20, 'LS020', 'U020', 'VCH004'),
+(21, 'LS021', 'U021', 'VCH005'),
+(22, 'LS022', 'U022', 'VCH005'),
+(23, 'LS023', 'U023', 'VCH005'),
+(24, 'LS024', 'U024', 'VCH005'),
+(25, 'LS025', 'U025', 'VCH005'),
+(26, 'LS026', 'U026', 'VCH006'),
+(27, 'LS027', 'U027', 'VCH006'),
+(28, 'LS028', 'U028', 'VCH006'),
+(29, 'LS029', 'U029', 'VCH006'),
+(30, 'LS030', 'U030', 'VCH006'),
+(31, 'LS031', 'U031', 'VCH007'),
+(32, 'LS032', 'U032', 'VCH007'),
+(33, 'LS033', 'U033', 'VCH007'),
+(34, 'LS034', 'U034', 'VCH007'),
+(35, 'LS035', 'U035', 'VCH007'),
+(36, 'LS036', 'U036', 'VCH008'),
+(37, 'LS037', 'U037', 'VCH008'),
+(38, 'LS038', 'U038', 'VCH008'),
+(39, 'LS039', 'U039', 'VCH008'),
+(40, 'LS040', 'U040', 'VCH008'),
+(41, 'LS041', 'U041', 'VCH009'),
+(42, 'LS042', 'U042', 'VCH009'),
+(43, 'LS043', 'U043', 'VCH009'),
+(44, 'LS044', 'U044', 'VCH009'),
+(45, 'LS045', 'U045', 'VCH009'),
+(46, 'LS046', 'U046', 'VCH010'),
+(47, 'LS047', 'U047', 'VCH010'),
+(48, 'LS048', 'U048', 'VCH010'),
+(49, 'LS049', 'U049', 'VCH010'),
+(50, 'LS050', 'U050', 'VCH010'),
+(51, 'LS051', 'U051', 'VCH001'),
+(52, 'LS052', 'U052', 'VCH002'),
+(53, 'LS053', 'U053', 'VCH003'),
+(54, 'LS054', 'U054', 'VCH004'),
+(55, 'LS055', 'U055', 'VCH005'),
+(56, 'LS056', 'U056', 'VCH006'),
+(57, 'LS057', 'U057', 'VCH007'),
+(58, 'LS058', 'U058', 'VCH008'),
+(59, 'LS059', 'U059', 'VCH009'),
+(60, 'LS060', 'U060', 'VCH010'),
+(61, 'LS061', 'U001', 'VCH002'),
+(62, 'LS062', 'U002', 'VCH003'),
+(63, 'LS063', 'U003', 'VCH004'),
+(64, 'LS064', 'U004', 'VCH005'),
+(65, 'LS065', 'U005', 'VCH006'),
+(66, 'LS066', 'U006', 'VCH007'),
+(67, 'LS067', 'U007', 'VCH008'),
+(68, 'LS068', 'U008', 'VCH009'),
+(69, 'LS069', 'U009', 'VCH010'),
+(70, 'LS070', 'U010', 'VCH001');
+ALTER TABLE `list_use_vouchuer` ADD `date` VARCHAR(30) NULL AFTER `id_voucher`;
+
+-- Update dates for all records
+UPDATE `list_use_vouchuer` SET `date` = '01-01-2024' WHERE `STT` BETWEEN 1 AND 10;
+UPDATE `list_use_vouchuer` SET `date` = '02-01-2024' WHERE `STT` BETWEEN 11 AND 20;
+UPDATE `list_use_vouchuer` SET `date` = '03-01-2024' WHERE `STT` BETWEEN 21 AND 30;
+UPDATE `list_use_vouchuer` SET `date` = '04-01-2024' WHERE `STT` BETWEEN 31 AND 40;
+UPDATE `list_use_vouchuer` SET `date` = '05-01-2024' WHERE `STT` BETWEEN 41 AND 50;
+UPDATE `list_use_vouchuer` SET `date` = '06-01-2024' WHERE `STT` BETWEEN 51 AND 60;
+UPDATE `list_use_vouchuer` SET `date` = '07-01-2024' WHERE `STT` BETWEEN 61 AND 70;
