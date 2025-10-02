@@ -1,0 +1,94 @@
+Rất hay 👍 Trong Laravel, khi validate request, bạn thường dùng đến các validation rules có sẵn. Mình liệt kê một số cái hay dùng và hay gặp thực tế nhé:
+
+📌 Các rule hay dùng nhất trong Laravel Validation
+🔹 Kiểu dữ liệu & bắt buộc
+
+required → Bắt buộc phải có dữ liệu.
+
+nullable → Cho phép null (kết hợp với rule khác).
+
+string → Chuỗi.
+
+integer → Số nguyên.
+
+numeric → Số (nguyên hoặc thực).
+
+boolean → true, false, 1, 0.
+
+array → Phải là mảng.
+
+date → Ngày hợp lệ (Y-m-d, d/m/Y...).
+
+email → Đúng định dạng email.
+
+url → Đúng định dạng URL.
+
+🔹 Độ dài & giới hạn
+
+max:255 → Tối đa 255 ký tự (hoặc số).
+
+min:3 → Tối thiểu 3 ký tự (hoặc số).
+
+between:3,10 → Trong khoảng 3 đến 10.
+
+size:10 → Bắt buộc đúng bằng 10 (số hoặc ký tự).
+
+🔹 Ràng buộc cơ sở dữ liệu
+
+unique:table,column → Giá trị phải duy nhất trong bảng/column.
+
+'email' => 'required|email|unique:users,email'
+
+
+exists:table,column → Giá trị phải tồn tại trong bảng/column.
+
+'role_id' => 'required|exists:roles,id'
+
+🔹 File upload
+
+file → Bắt buộc là file.
+
+image → Chỉ cho phép ảnh (jpeg, png, bmp, gif, svg, webp).
+
+mimes:jpg,png,pdf → Chỉ cho phép định dạng này.
+
+mimetypes:application/pdf → Kiểm tra MIME type.
+
+max:2048 → Giới hạn dung lượng file (KB).
+
+🔹 Ngày giờ
+
+after:today → Ngày phải sau hôm nay.
+
+before:today → Ngày phải trước hôm nay.
+
+after_or_equal:2025-01-01 → Ngày sau hoặc bằng 2025-01-01.
+
+before_or_equal:tomorrow.
+
+🔹 So sánh & điều kiện
+
+confirmed → Phải có field _confirmation đi kèm và trùng (ví dụ: password + password_confirmation).
+
+same:field → Phải giống field khác.
+
+different:field → Phải khác field khác.
+
+in:admin,user,guest → Giá trị chỉ được nằm trong danh sách.
+
+not_in:test,abc → Giá trị không được nằm trong danh sách.
+
+🔹 Regex
+
+regex:/^[0-9]{10}$/ → Chuỗi phải đúng 10 số (thường dùng cho số điện thoại).
+
+📌 Ví dụ thực tế
+$request->validate([
+    'name' => 'required|string|max:255',
+    'email' => 'required|email|unique:users,email',
+    'password' => 'required|min:8|confirmed',
+    'phone' => 'nullable|regex:/^[0-9]{10,11}$/',
+    'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    'dob' => 'nullable|date|before:today',
+    'role_id' => 'required|exists:roles,id'
+]);

@@ -1,0 +1,108 @@
+Bảng khoá phụ nó mới đảo ngược quan hệ thôi nhé
+ví duj: employeeDetails có positio_id thì nó sẽ đảo ngược (belongto) với positions
+positions hasone với EmployeeDetail;
+
+có nhiều quan hệ với nhau
+employee 1-1 employeeDetails
+postions 1-n với employeeDetails
+
+Employee::with(['detail.position]);
+$employee->detail->position->name;
+$employee->detail->status
+đều được nhé
+
+$employees = $this->model::with('position')->select('id', 'code', 'name', 'email', 'phone', 'img', 'address', 'gender')
+->skip($start)->take($end)->get();
+
+$employees = $this->model::with(['detail.position'])->select('id', 'code', 'name', 'email', 'phone', 'img', 'address', 'gender')
+->skip($start)->take($end)->get();
+// cả 2 trường hợp đều được
+
+model employee
+public function position()
+{
+    return $this->hasOneThrough(
+        Position::class,          // Model cuối cùng (Position)
+        EmployeeDetails::class,   // Model trung gian (EmployeeDetails)
+        'employee_id',            // Khóa ngoại ở EmployeeDetails trỏ tới Employee
+        'id',                     // Khóa chính ở Position (mặc định là id)
+        'id',                     // Khóa chính ở Employee
+        'position_id'             // Khóa ngoại ở EmployeeDetails trỏ tới Position
+    );
+}
+$employee->detail->position->name //chỉ cần có quan hệ là nó đều truy xuất đc hết
+//nên duyệt lại các trường nếu muốn config lại các hiển thị
+
+
+
+
+Mã code	Tên	Khi nào dùng	Ví dụ
+200 OK	                        Thành công	Request thành công, có dữ liệu trả về	- GET danh sách nhân viên
+201 Created	                    Đã tạo	Khi tạo mới một resource thành công	- POST tạo nhân viên
+202 Accepted	                Đã nhận xử lý	Request được chấp nhận nhưng xử lý bất đồng bộ (chưa xong ngay)	- Upload file, xử lý queue
+204 No Content	                Thành công nhưng không có dữ liệu trả về	- Khi xoá hoặc cập nhật thành công mà không cần trả body	DELETE nhân viên
+400 Bad Request	                Yêu cầu sai	Request không hợp lệ, thiếu dữ liệu, sai format	 - Thiếu name khi POST nhân viên
+401 Unauthorized	            Chưa xác thực	Khi user chưa login hoặc token không hợp lệ	 - Gọi API mà chưa gửi JWT/Token
+403 Forbidden	                Bị từ chối	Có login nhưng không có quyền truy cập	- User thường gọi API chỉ dành cho admin
+404 Not Found	                Không tìm thấy	Resource không tồn tại	    -    GET /employees/999 khi không có ID đó
+405 Method Not Allowed	        Sai phương thức	Gửi sai HTTP method      -	Gửi POST tới route chỉ hỗ trợ GET
+409 Conflict	                Xung đột	Dữ liệu bị trùng hoặc conflict    -	Tạo nhân viên với email đã tồn tại
+422 Unprocessable Entity        Validation lỗi	Dữ liệu đúng format nhưng không pass validation     -	POST với email không hợp lệ
+429 Too Many    Requests	    Quá nhiều request	Bị giới hạn rate limit	  -   Spam API nhiều lần
+500 Internal Server Error	    Lỗi server	Lỗi hệ thống backend	      - Exception chưa handle
+502 Bad Gateway	Gateway         lỗi	Service phụ trợ trả lỗi      -  	Kết nối service khác lỗi
+503 Service Unavailable	        Dịch vụ tạm ngưng       -   	Server bảo trì hoặc quá tải	Deploy hệ thống, server down
+504 Gateway Timeout	            Hết thời gian chờ  -	Server phụ không phản hồi kịp	Gọi API ngoài bị timeout
+
+
+
+TRUY XUẤT NHIỀU QUAN HỆ MỘT LÚC, MỘT MODEL CÓ NHIỀU QUAN HỆ
+
+model a  1 -1 với model B
+model B có nhiều quan hệ với model khác
+
+class EmployeeDetails extends Model
+{
+    use HasFactory;
+
+    protected $table = 'employee_details';
+
+    protected $fillable = [
+        'date_birth', 'date_start_work', 'salary', 'diploma', 'status', 'password',
+        'date_sign_contrast', 'date_effect_contrast', 'date_end_contrast',
+        'word_shift_id', 'position_id', 'department_id', 'grant_id', 'contrast_id'
+    ];
+
+    // Quan hệ 1-1 với Position
+    public function position()
+    {
+        return $this->belongsTo(Position::class, 'position_id', 'id');
+    }
+
+    // Quan hệ 1-1 với Contrast
+    public function contrast()
+    {
+        return $this->belongsTo(Contrast::class, 'contrast_id', 'id');
+    }
+}
+
+$details = EmployeeDetails::with(['position', 'contrast'])->find(1);
+
+
+Cách khác từ employee ->positon, contrast....
+$employees = Employee::with([
+    'detail.position',
+    'detail.contrast'
+])->get();
+
+return response()->json($employees);
+
+
+từ emoloyee đến detail
+từ detail đến 2 cái kia
+
+$employees->exists(): kiểm tra tồn tạhii trong database
+
+
+
+$data['user_id'] = auth()->id();
