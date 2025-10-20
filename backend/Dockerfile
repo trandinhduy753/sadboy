@@ -1,7 +1,7 @@
-# Chọn image PHP
+# Base image
 FROM php:8.2-fpm
 
-# Cài đặt các extension cần thiết
+# Cài các extension cần thiết
 RUN apt-get update && apt-get install -y \
     git unzip libpq-dev libpng-dev libjpeg-dev libfreetype6-dev \
     curl zip vim \
@@ -14,16 +14,20 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy Laravel code
+# Copy source code
 COPY . .
 
-# Cài dependencies Laravel
-RUN composer install --no-dev --optimize-autoloader
+# Tạo folder trống cần thiết để Composer không báo lỗi
+RUN mkdir -p database/factories \
+    && mkdir -p database/seeders \
+    && mkdir -p storage/framework/cache/data \
+    && touch database/factories/.gitkeep
 
 # Set quyền cho storage và cache
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Expose port 9000 cho php-fpm
-EXPOSE 9000
+# Cài dependencies Laravel
+RUN composer install --no-dev --optimize-autoloader
 
+EXPOSE 9000
 CMD ["php-fpm"]
