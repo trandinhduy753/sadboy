@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
     git unzip libpq-dev libpng-dev libjpeg-dev libfreetype6-dev \
     curl zip vim \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql
+    && docker-php-ext-install gd pdo pdo_mysql exif
 
 # Cài Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
