@@ -1,3 +1,4 @@
+# Stage 1: Build Vue
 FROM node:18 AS build
 
 WORKDIR /app
@@ -8,7 +9,9 @@ RUN npm install --force
 COPY . .
 RUN npm run build
 
-# Stage 2 (dùng Nginx để serve file dist)
+# Stage 2: Serve bằng Nginx
 FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
+
 EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
