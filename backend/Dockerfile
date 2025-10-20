@@ -20,13 +20,6 @@ RUN mkdir -p database/factories database/seeders
 # Cài dependencies
 RUN composer install --no-interaction --prefer-dist --no-dev --optimize-autoloader
 
-# Clear cache, optimize
-RUN php artisan config:clear \
-    && php artisan cache:clear \
-    && php artisan route:clear \
-    && php artisan view:clear \
-    && php artisan optimize
-
 # Phân quyền storage và bootstrap/cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
