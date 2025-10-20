@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import Address from '@/views/client/product/find/address.vue'
 import { useToast } from 'vue-toastification'
 const toast = useToast()

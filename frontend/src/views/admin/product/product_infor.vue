@@ -32,6 +32,9 @@
 
     const fetchListProductProvide = async ( provide_id, start, end) => {
         const result = await store.dispatch('admin/product/' + product.import_order, { provide_id, start, end})
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchFindProductProvide = async (event) => {
         find_product.value = event.target.value;
@@ -41,11 +44,17 @@
         }
         else {
             const result = await store.dispatch('admin/product/' + product.find_product_import_order, {provide_id: props.provide_id, find: find_product.value, page: page.value} )
+            if(result.ok === 'error' ){
+                toast.error(result.message)
+            }
         }
         
     }
     const loadFindProductProvide = async (find, page) => {
         const result = await store.dispatch('admin/product/' + product.find_product_import_order, { find, page} )
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const delete_product = async (index) => {
         store.commit('admin/product/DELETE_LIST_PRODUCT_ORDER', index)

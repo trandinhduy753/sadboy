@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import { opt_show_multiple_img } from '@/composables'
     var props = defineProps({
         comment: {
@@ -19,10 +19,10 @@
 <template>
 
     <div class="flex mt-8 pl-5 dark:bg-gray-900 dark:text-gray-100">
-        <img :src="comment?.img" class="w-17 h-17 rounded-[100%]" alt="">
+        <img :src="comment?.img_user" class="w-17 h-17 rounded-[100%]" alt="">
         <div class="ml-2 last:border-b-1 last:border-[var(--color_border)] w-full pb-8">
             <div class="flex items-center justify-between">
-                <p class="detail_comment_user-name">{{ comment?.name }}</p>
+                <p class="detail_comment_user-name">{{ comment?.name_user }}</p>
             </div>
             
             <div class="-mt-1">
@@ -61,10 +61,10 @@
                 
                 <p>Phản hồi về bình luận</p>
                 <div v-for="(feedback, index) in comment.feedbacks" :key="index" class="flex items-start mb-2">
-                    <img :src="feedback?.img" class="w-17 h-17 rounded-[100%]" alt="">
+                    <img :src="feedback?.img_user" class="w-17 h-17 rounded-[100%]" alt="">
                     <div class="p-2 dark:text-gray-100" >
                         <div class="flex items-center justify-between">
-                            <p class="detail_comment_user-name">{{ feedback?.name }}</p>
+                            <p class="detail_comment_user-name">{{ feedback?.name_user }}</p>
                         </div>
                         <div class="text-[0.9rem] italic text-[var(--color_text-gray)] dark:text-gray-400">
                             {{ feedback?.created_at }}

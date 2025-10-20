@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import result from '@/views/admin/CompShareAdmin/result.vue'
     import Title_list_Option from '@/views/admin/CompShareAdmin/TitleListOption.vue' 
     import { user_opt_show_admin, optionFindUser } from '@/composables';
@@ -6,6 +6,8 @@
     import relativeTime from "dayjs/plugin/relativeTime";
     import { user } from '@/constant'
     dayjs.extend(relativeTime);
+    import { useToast } from 'vue-toastification'
+    const toast = useToast();
     const {
         fetchListUser,
         fetchFindUser,
@@ -17,12 +19,21 @@
 
     const fetchListUserDelete = async (start, end) => {
         const result = await store.dispatch('admin/user/' + user.get_list_user_deleted, {start, end})
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchDeleteUserDeleteAt = async (id) =>  {
         const result = await store.dispatch('admin/user/' + user.delete_user_deleted_at, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchRecoverUserDelete = async (id) => {
         const result = await store.dispatch('admin/user/' + user.recover_delete_user, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const handleScrollLoadUserDelete = (event) => {
         const el = event.target;

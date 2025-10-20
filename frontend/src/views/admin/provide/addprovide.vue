@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import { randomString, opt_show_img, scrollToTop } from '@/composables';
     import { useForm, useField } from 'vee-validate'
     import { object, string, date, number } from 'yup'
@@ -52,7 +52,21 @@
     }))
 
     const fetchAddProvide = async (data) => {
-        const result = store.dispatch('admin/provide/' + provide.add_provide, data )
+        const result = await store.dispatch('admin/provide/' + provide.add_provide, data )
+        if(result.status === 422) {
+            errorValidation.value = result.message;
+        }
+        else if(result.status === 403) {
+            toast.error(result.message)
+            errorValidation.value = {}
+        }
+        else {
+            errorValidation.value= {}
+            toast.success('Thêm nhà cung cấp thành công');
+            setTimeout(() => {
+                router.push({ name: 'admin_sadboizz.provide'})
+            }, 1000)
+        }
     }
     const onManualSubmit = handleSubmit(
         (values) => {
@@ -69,17 +83,14 @@
             })
             fetchAddProvide(formData)
             scrollToTop()
-            toast.success('Thêm nhà cung cấp thành công');
-            setTimeout(() => {
-                router.push({ name: 'admin_sadboizz.provide'})
-            }, 1000)
+            
         },
         (errors) => {
             console.log(errors)
         }
     )
    
-    
+    const errorValidation = ref({})
 
 </script>
 
@@ -92,6 +103,11 @@
     </div>
     <form action="">
         <div class="grid grid-cols-12 gap-5 dark:bg-gray-800 transition-all duration-500 dark:p-2">
+            <div class="col-span-12">
+                <p v-for="(value, key, index) in errorValidation" :key="key" class="text-red-500">
+                    {{ value[0] }}
+                </p>
+            </div>
             <div class="col-span-4 flex flex-col">
                 <label for="idprovide" class="cursor-pointer font-bold dark:text-gray-200">Mã nhà cung cấp</label>
                 <input v-model="code" type="text" id="idprovide" class="bg-white dark:bg-gray-800 transition-all duration-500 dark:text-gray-200 border-1 border-[var(--color_border)] dark:border-gray-600 outline-none rounded-sm pl-2 py-1 mt-1">

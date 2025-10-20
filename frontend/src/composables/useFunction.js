@@ -1,5 +1,5 @@
 import store from '@/store'
-import { accountClient} from '@/constant'
+import { accountClient, account } from '@/constant'
 export function randomString(length = 8) {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
@@ -155,24 +155,34 @@ export function groupMessages(messages) {
 
 
 export async function isUserLogin (to, from, next) {
-  const user = store.state.client.account.user;
-  if (Object.keys(user).length === 0) {
-      await store.dispatch('client/account/' + accountClient.get_infor_user)
+  try {
+    let user = store.state.client.account.user;
+    if (!user || Object.keys(user).length === 0) {
+        await store.dispatch('client/account/' + accountClient.get_infor_user)
+        user = store.state.client.account.user;
+    }
+    if (!user || Object.keys(store.state.client.account.user).length === 0) {
+        return next({ name: "form", query: { opt: "login" } });
+    }
+    next();
+  } 
+  catch (error) {
+   return next({ name: "form", query: { opt: "login" } });
   }
-  if (Object.keys(store.state.client.account.user).length === 0) {
-      // Chưa có user thì chuyển sang trang login
-      return next({ name: "form", query: { opt: "login" } });
-  }
-  next();
+  
 }
-export async function isAdminLogin (to, from, next) {
-  const employee =store.state.admin.account.employee;
-  if (Object.keys(employee).length === 0) {
-      await store.dispatch('client/account/' + accountClient.get_infor_user)
+export async function isAdminLogin(to, from, next) {
+  try {
+    let employee = store.state.admin.account.employee;
+    if (!employee || Object.keys(employee).length === 0) {
+      const res = await store.dispatch('admin/account/' + account.get_info_admin);
+      employee = store.state.admin.account.employee;
+    }
+    if (!employee || Object.keys(employee).length === 0) {
+      return next({ name: "admin.formlog" });
+    }
+    next(); 
+  } catch (error) {
+    return next({ name: "admin.formlog" });
   }
-  if (Object.keys(store.state.admin.account.employee).length === 0) {
-      // Chưa có user thì chuyển sang trang login
-      return next({ name: "form"});
-  }
-  next();
 }

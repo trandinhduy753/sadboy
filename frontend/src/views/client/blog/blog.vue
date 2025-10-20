@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 
 
 const props = defineProps({
@@ -29,7 +29,7 @@ const descript = computed(() => {
             <img :src="blog.img" class="w-full h-full rounded-ssm dark:opacity-90" alt="">
         </div>
         <!-- Description -->
-        <div class="h-20 mt-2 text-gray-800 dark:text-gray-200">
+        <div class="h-20 max-md:h-30 mt-2 text-gray-800 dark:text-gray-200">
             {{ descript }}
         </div>
     </div>

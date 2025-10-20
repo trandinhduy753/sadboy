@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 
     import ApexCharts from 'vue3-apexcharts';
     import { formatMoney  } from '@/composables'

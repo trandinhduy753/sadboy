@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import result from '@/views/admin/CompShareAdmin/result.vue'
 import { employee, user, order, product, voucher, provide, comment } from '@/constant'
 const store = useStore();

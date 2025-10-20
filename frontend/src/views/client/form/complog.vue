@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     const login = defineAsyncComponent(() => import('@/views/client/form/login.vue'));
     const logout = defineAsyncComponent(() => import('@/views/client/form/register.vue'));
     const route = useRoute();
@@ -17,7 +17,9 @@
             name="form" 
             mode="out-in"
         >
-            <component :is="show_form" :key="String(opt_form)" />
+            <keep-alive>
+                <component :is="show_form" :key="String(opt_form)" />
+            </keep-alive>
         </transition>
     </div>
 </template>

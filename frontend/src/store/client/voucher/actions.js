@@ -4,7 +4,7 @@ export default {
     async [voucherClient.find_voucher] ({commit}, {user_id, code}) {
         try {
             const res = await find_voucher(user_id, code)
-            commit('CHANGE_DETAIL_VOUCHER', res.data)
+            commit('CHANGE_DETAIL_VOUCHER', res.data.data)
             return {
                 ok: 'success',
             }

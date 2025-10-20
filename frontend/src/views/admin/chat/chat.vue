@@ -193,7 +193,7 @@ onMounted(async () => {
         </div>
         <div class="col-span-8 bg-gray-100 dark:bg-gray-600 h-[70vh] p-2 flex flex-col justify-between">
             <div  class="flex gap-x-4 items-center mb-5 bg-white dark:bg-gray-500 p-2 rounded-xl">
-                <img class="w-15 h-15 rounded-full" src="/public/images/img_product/product_img-10.png" alt="">
+                <img class="w-15 h-15 rounded-full" src="/public/images/img_chat/product_img-10.png" alt="">
                 <div>
                     <p class="text-lg font-bold dark:text-white">Nguyễn Trần Cường</p>
                     <p class="dark:text-white">ok, tôi đã nhân đdddược <span> . 9h trước</span></p>

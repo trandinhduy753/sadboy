@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import Title_list_Option from '@/views/admin/CompShareAdmin/TitleListOption.vue';
     import Listresult from '@/views/admin/CompShareAdmin/Listresult.vue';
     import result from '@/views/admin/CompShareAdmin/result.vue'   
@@ -8,20 +8,34 @@
     import { product } from '@/constant'
     dayjs.extend(relativeTime);
     const store = useStore(); 
+    import { useToast } from 'vue-toastification'
+    const toast = useToast();
     const { find_product_by_name, load_add_products, products } = optionFindProduct()
     const { navigateTo } = user_opt_show_admin();
     
     const fetchListProduct = async (start=0, end=20) => {
-        const result = store.dispatch('admin/product/' + product.get_list_product, {start, end} )
+        const result = await store.dispatch('admin/product/' + product.get_list_product, {start, end} )
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchListProductDelete = async (start, end) => {
         const result = await store.dispatch('admin/product/' + product.get_list_product_delete, {start, end})
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchDeleteProductDeleteAt = async (id) =>  {
         const result = await store.dispatch('admin/product/' + product.delete_product_deleted_at, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchRecoverProductDelete = async (id) => {
         const result = await store.dispatch('admin/product/' + product.recover_delete_product, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const handleScrollLoadProduct = (event) => {
         const el = event.target;

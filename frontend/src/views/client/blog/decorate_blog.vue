@@ -1,9 +1,9 @@
-<script setup lang="ts">
+<script setup>
 
 </script>
 
 <template>
-    <div class="flex justify-between dark:text-gray-100 ">
+    <div class="flex justify-between max-lg:hidden dark:text-gray-100 lg:gap-5">
         <!-- Left Section -->
         <div class="flex-1 h-150">
             <p class="font-(family-name:--font-Luckiest_Guy) text-8xl">

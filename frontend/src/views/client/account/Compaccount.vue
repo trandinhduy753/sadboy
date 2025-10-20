@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import Optionaccount from '@/views/client/account/Optionaccount.vue';
 import { useRoute } from 'vue-router';
 const route = useRoute();
@@ -6,11 +6,11 @@ const route = useRoute();
 
 <template>
     <div class="bg-[var(--background-color-gray)] dark:bg-gray-900 transition-all duration-500 pb-30">
-        <div class="grid grid-cols-12 gap-10 max-w-7xl m-auto px-5">
-            <div class="col-span-3">
+        <div class="grid grid-cols-12 gap-10 max-md:gap-0 max-w-7xl m-auto px-5">
+            <div class="max-lg:col-span-12 col-span-3">
                 <Optionaccount />
             </div>
-            <div class="col-span-9 ">
+            <div class="max-lg:col-span-12 max-lg:-mt-10 max-md:-mt-2 col-span-9">
                 <router-view v-slot="{ Component }">
                     <transition name="page" mode="out-in">
                         <component :is="Component" :key="route.fullPath" />

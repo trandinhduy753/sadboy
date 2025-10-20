@@ -26,20 +26,20 @@ export default {
             }
         } 
         catch (error) {
-            var statusCode = error.response.status;
-            if(statusCode == 401) {
-                const res = await refresh_token()
-                try {
-                    const res = await get_info_admin()
-                    commit('CHANGE_EMPLOYEE', res.data.data)
-                    return { ok: "success" }
-                }
-                catch (error) {
-                    return {
-                        ok: error
-                    }
-                }
-            }
+            // var statusCode = error.response.status;
+            // if(statusCode == 401) {
+            //     const res = await refresh_token()
+            //     try {
+            //         const res = await get_info_admin()
+            //         commit('CHANGE_EMPLOYEE', res.data.data)
+            //         return { ok: "success" }
+            //     }
+            //     catch (error) {
+            //         return {
+            //             ok: error
+            //         }
+            //     }
+            // }
             return {
                 ok: error
             }

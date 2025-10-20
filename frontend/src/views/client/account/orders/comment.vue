@@ -33,7 +33,9 @@ const addComment = () => {
     var formData = new FormData()
     formData.append('code', randomString(10))
     formData.append('content', content_comment.value)
-    formData.append('imgs', images.value)
+    images.value.forEach((file, index) => {
+        formData.append('imgs[]', file);
+    });
     formData.append('star', index_star.value)
     formData.append('product_id', props.order.products?.[indexProduct.value]?.id)
     formData.append('user_id', user.value?.id)

@@ -1,22 +1,24 @@
 <script setup>
     import { accountClient } from '@/constant'
     const store = useStore()
-    const fetchListVouchers = async (user_id, start, end) => {
-        const result  = await store.dispatch('client/account/'+ accountClient.get_list_voucher, {user_id, start, end})
+    const fetchListVouchers = async (user_id, page, count) => {
+        const result  = await store.dispatch('client/account/'+ accountClient.get_list_voucher, {user_id, page, count})
     }
     const handleScrollLoadData = (event) => {
         const el = event.target;
         if (Math.abs(el.scrollTop + el.clientHeight - el.scrollHeight) < 1) {
             //CALL ĐỂ THÊM DỮ LIỆU
             const start=vouchers.value.length;
-            fetchListVouchers(user.value.id, start, start+5)
+            page.value++;
+            fetchListVouchers(user.value.id, page.value, 20)
         }
     };
     const user = computed(() => store.state.client.account.user )
     const vouchers = computed(() => store.state.client.account.vouchers)
+    const page = ref(1)
     onMounted(() => {
         if(vouchers.value.length ===0 ) {
-            fetchListVouchers(user.value.id, 0, 20)
+            fetchListVouchers(user.value.id, page.value, 20)
         }
         
     })
@@ -32,16 +34,16 @@
                         <img src="@/assets/images/img_discount/img_discount_view-1.webp" class="w-full h-full rounded-sm">
                     </div>
                     <div class="ml-4 -mt-1">
-                        <p class="font-bold text-[1.1rem] dark:text-gray-100">Giảm 10% cho giá trị đơn hàng của bạn</p>
+                        <p class="font-bold text-[1.1rem] dark:text-gray-100">{{ voucher?.name}}</p>
                         <p class="italic text-[var(--color_text-gray)] dark:text-gray-400">
-                            Mã giảm giá: <span class="dark:text-gray-300 underline underline-offset-2">ACDFTDE</span>
+                            Mã giảm giá: <span class="dark:text-gray-300 underline underline-offset-2">{{ voucher?.code}}</span>
                         </p>
                         <p class="italic text-[var(--color_text-gray)] dark:text-gray-400">
-                            Sô lượt sử dụng còn lại: <span class="dark:text-gray-300 underline underline-offset-2">4</span>
+                            Sô lượt sử dụng còn lại: <span class="dark:text-gray-300 underline underline-offset-2">{{ voucher?.count }}</span>
                         </p>
                         <div class="flex items-center text-[var(--color_text-gray)] dark:text-gray-400 italic">
                             <font-awesome-icon :icon="['far', 'clock']" />
-                            <p class="ml-1">Có hiệu lực đến ngày: 22-04-2024</p>
+                            <p class="ml-1">Có hiệu lực đến ngày: {{ voucher?.date_end }}</p>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { useForm, useField } from 'vee-validate'
 import { object, string, date, number } from 'yup'
 import { opt_show_img, randomString, toMySQLDate, toMySQLTimestampLocal } from '@/composables';
@@ -12,6 +12,20 @@ const { show_img, img, preview_img, error_img, clear_img } = opt_show_img();
 
 const fetchAddEmployee = async (formData) => {
     const result = await store.dispatch('admin/employee/' + employee.add_employee, formData)  
+    if(result.status === 422) {
+       errorValidation.value = result.message;
+    }
+    else if(result.status === 403) {
+        toast.error(result.message)
+        errorValidation.value = {}
+    }
+    else {
+        errorValidation.value= {}
+        toast.success('Thêm nhân viên thành công')
+        setTimeout(() => {
+            router.push({name: 'admin_sadboizz.employee'})
+        }, 1000)
+    }
 }
 
 const schema = object({
@@ -101,10 +115,7 @@ const onManualSubmit = handleSubmit(
             formData.append('img', img.value)
         }
         fetchAddEmployee(formData)
-        toast.success('Thêm nhân viên thành công')
-        setTimeout(() => {
-            router.push({name: 'admin_sadboizz.employee'})
-        }, 1000)
+        
     },
     (errors) => {
         toast.error('Thêm nhân viên thất bại')
@@ -124,6 +135,7 @@ const contrast_employee = computed(() => store.getters['admin/employee/get_contr
 const work_shift_employee = computed(() => store.getters['admin/employee/get_work_shifts']);
 const grant_employee = computed(() => store.getters['admin/employee/get_grants'])
 const show_password = ref(false)
+const errorValidation = ref({});
 onMounted(() => {
     fetchInforWork()
 })
@@ -131,6 +143,7 @@ onMounted(() => {
 
 <template>
     <div class="bg-[#E0F2F7] dark:bg-gray-800 transition-all duration-500 -m-2 p-2 h-[90rem]">
+        
         <div class="bg-white flex items-center dark:bg-gray-700 transition-all duration-500 dark:text-white  pl-1 border-l-5 mb-4 border-[var(--maincolor)] dark:border-[var(--dark_maincolor)] font-bold mt-2">
             <router-link :to="{name: 'admin_sadboizz.employee'}">
                 <font-awesome-icon :icon="['fas', 'arrow-left']"  class="mt-1 cursor-pointer text-2xl p-1 hover:text-[var(--maincolor)]  hover:scale-[1.2] transition-all duration-200  dark:text-gray-300 dark:hover:text-[var(--dark_maincolor)]" />
@@ -183,7 +196,11 @@ onMounted(() => {
                     <font-awesome-icon :icon="['fas', 'table-columns']" class="mr-2" />
                     <p class="font-bold underline underline-offset-8">Thông tin nhân viên</p>
                 </div>
-
+                <div class="col-span-12">
+                    <p v-for="(value, key, index) in errorValidation" :key="key" class="text-red-500">
+                        {{ value[0] }}
+                    </p>
+                </div>
                 <div class="col-span-3 flex flex-col ">
                     <label for="idemployee" class="cursor-pointer font-bold text-black dark:text-white">ID nhân viên</label>
                     <input v-model="code"  placeholder="E001" type="text" id="idemployee" class="bg-white transition-all duration-500  border-1 border-[var(--color_border)] outline-none rounded-sm pl-2 py-1 mt-1 dark:bg-gray-800 dark:text-white dark:border-gray-600">

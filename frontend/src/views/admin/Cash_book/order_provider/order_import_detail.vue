@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { cash_book } from '@/constant'
 import { formatDateTime, formatMoney } from '@/composables'
 import { useForm, useField } from 'vee-validate'
@@ -10,9 +10,15 @@ const store = useStore()
 
 const fetchDetailGoodsReceipt = async (id) => {
     const result = await store.dispatch('admin/cash_book/' + cash_book.detail_goods_receipt, id)
+    if(result.ok === 'error' ){
+        toast.error(result.message)
+    }
 }
 const fetchEditGoodsReceipt = async (id, data) => {
     const result = await store.dispatch('admin/cash_book/' + cash_book.return_goods_receipt, { id, data })
+    if(result.ok === 'error' ){
+        toast.error(result.message)
+    }
 }
 const id = computed(() => route.query.index)
 
@@ -24,7 +30,6 @@ const timeLeft = ref(300);
 const exportImgReceipt = ref(null)
 let timer = null;
 const formattedTime = computed(() => {
-   
     const minutes = Math.floor(timeLeft.value / 60);
     const seconds = timeLeft.value % 60;
     return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;

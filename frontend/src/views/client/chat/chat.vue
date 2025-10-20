@@ -41,8 +41,8 @@ const fetchFindProduct = async (event) => {
 const loadAddProductFind = async (page, search, count) => {
     const result = store.dispatch('client/product/' + productClient.get_list_product_by_search, {page, search, count})
 }
-const fetchListOrder = async (user_id, start, end) => {
-    const result = await store.dispatch('client/order/' + orderClient.get_list_order, {user_id, start, end })
+const fetchListOrder = async (user_id, page, count) => {
+    const result = await store.dispatch('client/order/' + orderClient.get_list_order, {user_id, page, count})
 }
 
 const fetchFindOrder = async (event) => {
@@ -79,8 +79,8 @@ const load_add_orders = (event) => {
             loadAddOrderFind(pageOrder.value, user.value?.id, find_order.value, 5)
         }
         else {
-            const start=orders.value.length;
-            fetchListOrder(user.value.id, start, start+5)
+            pageOrder.value++;
+            fetchListOrder(user.value.id, pageOrder.value, 10)
         }   
     }
 }
@@ -202,7 +202,7 @@ onMounted(async () => {
     }
     const [products, orders] = await Promise.all([
         fetchListProduct(0, 5),
-        fetchListOrder(user.value.id, 0, 15),
+        fetchListOrder(user.value.id, pageOrder.value, 10),
         fetchInfoConversation(user.value?.id, 0, 20)
     ]);
 })
@@ -389,15 +389,15 @@ onMounted(async () => {
                                 <div @scroll="load_add_orders" class="max-h-55 overflow-y-auto custom-scrollbar">
                                     <div v-for="(order, index) in orders" :key="index" class="bg-white p-2 mt-2">
                                         <div class="flex gap-3">
-                                            <img :src="order?.products[0]?.img" class="w-10 h-10" alt="" />
+                                            <img :src="order?.products?.[0]?.img" class="w-10 h-10" alt="" />
                                             <div class="text-sm flex justify-between flex-1">
                                                 <div>
-                                                    <p>{{ truncateString(order?.products[0]?.sort_description, 30) }}</p>
-                                                    <p>Size: {{ order?.products[0]?.size }}</p>
+                                                    <p>{{ truncateString(order?.products?.[0]?.sort_description, 30) }}</p>
+                                                    <p>Size: {{ order?.products?.[0]?.size }}</p>
                                                 </div>
                                                 <div>
-                                                    <p>{{ formatMoney(order?.products[0]?.price) }}</p>
-                                                    <p class="text-end">x{{ order?.products[0]?.count }}</p>
+                                                    <p>{{ formatMoney(order?.products?.[0]?.price) }}</p>
+                                                    <p class="text-end">x{{ order?.products?.[0]?.count }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -409,7 +409,7 @@ onMounted(async () => {
                                             </p>
                                         </div>
                                         <div class="flex justify-end gap-5 mt-3 text-base">
-                                            <router-link :to="{name: 'admin_sadboizz.order.detail', query: { showopt: 'shop_ad_t', index: order?.id } }">
+                                            <router-link :to="{ name: 'account.orders.detail' , params: { code: order?.code } }">
                                                 <p class="border-1 border-orange-500 text-orange-500 py-1 px-4 rounded-sm cursor-pointer">
                                                     Chi tiết đơn
                                                 </p>

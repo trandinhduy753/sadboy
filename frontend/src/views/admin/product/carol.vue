@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { ref, reactive, watch } from 'vue'
 import { Carousel, Slide, Navigation } from 'vue3-carousel'
 

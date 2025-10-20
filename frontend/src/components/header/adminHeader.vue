@@ -1,27 +1,19 @@
-<script setup lang="ts">
+<script setup>
 import { account } from '@/constant'
+const employee = computed(() => store.state.admin.account.employee )
+const isDark = computed(() => store.state.isDark)
 const store = useStore()
 const router = useRouter();
-
-const fetchInfoAdmin = async () => {
-    await store.dispatch('admin/account/' + account.get_info_admin)
-
-}
-const fetchAdminLogout = async () => {
-    await store.dispatch('admin/account/' + account.admin_logout);
-    router.push({name: 'admin.formlog'})
-}
-const isDark = computed(() => store.state.isDark)
-const employee = computed(() => store.state.admin.account.employee )
 const toggleDarkMode = () => {
   store.dispatch('change_isDark')
   const newTheme = isDark.value ? 'dark' : 'light'
   document.documentElement.setAttribute('data-theme', newTheme)
 }
-onMounted(async () => {
-    document.documentElement.setAttribute('data-theme', 'dark')
-    await fetchInfoAdmin()
-})
+
+const fetchAdminLogout = async () => {
+    await store.dispatch('admin/account/' + account.admin_logout);
+    router.push({name: 'admin.formlog'})
+}
 </script>
 
 <template>

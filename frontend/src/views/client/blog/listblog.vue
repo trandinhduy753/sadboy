@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import blog from '@/views/client/blog/blog.vue';
 
 const blogs= reactive([
@@ -85,8 +85,8 @@ const blogs= reactive([
 </script>
 
 <template>
-    <div class="grid grid-cols-15 gap-5 mt-10">
-        <div v-for="(blog, index) in blogs" :key="index" class="col-span-3">
+    <div class="grid xl:grid-cols-15 lg:grid-cols-12 max-lg:grid-cols-12 gap-5 mt-10">
+        <div v-for="(blog, index) in blogs" :key="index" class="col-span-3 max-lg:col-span-6">
             <blog :blog="blog" />
         </div>
         

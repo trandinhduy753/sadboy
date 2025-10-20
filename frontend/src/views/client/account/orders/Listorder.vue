@@ -4,15 +4,14 @@
     import { orderClient } from '@/constant';
     const store = useStore()
 
-    const fetchListOrder = async (user_id, start, end) => {
-        const result = await store.dispatch('client/order/' + orderClient.get_list_order, {user_id, start, end })
+    const fetchListOrder = async (user_id, page, count) => {
+        const result = await store.dispatch('client/order/' + orderClient.get_list_order, {user_id, page, count })
     }
     const handleScrollLoadData = (event) => {
         const el = event.target;
         if (Math.abs(el.scrollTop + el.clientHeight - el.scrollHeight) < 1) {
-            //CALL ĐỂ THÊM DỮ LIỆU
-            const start=list_order.value.length;
-            fetchListOrder(user.value.id, start, start+5)
+            page.value++;
+            fetchListOrder(user.value.id, page.value, 10)
         }
     };
     const user = computed(() => store.state.client.account.user )
@@ -49,9 +48,10 @@
     ])
     const index_status = ref(0);
     const isCallApiOrder = computed(() => store.state.client.account.isCallApiOrder )
+    const page = ref(1)
     onMounted(() => {
         if(isCallApiOrder.value) {
-            fetchListOrder(user.value.id, 0, 10)
+            fetchListOrder(user.value.id, page.value, 10)
         }
     })
     onUnmounted(() => {

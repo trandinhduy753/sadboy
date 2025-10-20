@@ -1,9 +1,11 @@
-<script setup lang="ts">
+<script setup>
 import { Button } from '@/components/ui/button'
 import { useToast } from 'vue-toastification';
 import { voucher, employee, user, order, comment, provide, product } from '@/constant'
 import { formatMoney } from '@/composables'
+
 const store = useStore();
+const toast = useToast()
 const toggleSelected = (id) => {
     if(get_type.value=='employee') store.commit('admin/employee/TOGGLE_SELECTED', id)
     else if (get_type.value=='user') store.commit('admin/user/TOGGLE_SELECTED', id)
@@ -16,24 +18,42 @@ const toggleSelected = (id) => {
 }
 const fetchDeleteEmployee = async (id) => {
     const result = await store.dispatch('admin/employee/' + employee.delete_employee, id)
+    if(result.ok === 'error' ){
+        toast.error(result.message)
+    }
 }
 const fetchDeleteUser = async (id) => {
     const result = await store.dispatch('admin/user/' + user.delete_user, id)
+    if(result.ok === 'error' ){
+        toast.error(result.message)
+    }
 }
 const fetchDeleteOrder = async (id) => {
     const result = await store.dispatch('admin/order/' + order.delete_order, id)
+    if(result.ok === 'error' ){
+        toast.error(result.message)
+    }
 }
 const fetchDeleteProduct = async (id) => {
     const result = await store.dispatch('admin/product/' + product.delete_product, id)
+    if(result.ok === 'error' ){
+        toast.error(result.message)
+    }
 }
 const fetchDeleteVoucher = async (id) => {
     const result = await store.dispatch('admin/voucher/' + voucher.delete_voucher, id)
+    if(result.ok === 'error' ){
+        toast.error(result.message)
+    }
 }
 const fetchDeleteProvide = async (id) => {
     const result = await store.dispatch('admin/provide/' + provide.delete_provide, id)
 }
 const fetchDeleteComment = async (id) => {
     const result = await store.dispatch('admin/comment/' + comment.delete_comment, id)
+    if(result.ok === 'error' ){
+        toast.error(result.message)
+    }
 }
 
 const fetchDeleteResult = async () => {

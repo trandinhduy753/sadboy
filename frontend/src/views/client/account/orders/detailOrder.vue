@@ -7,16 +7,17 @@ dayjs.extend(relativeTime);
 const store = useStore()
 const route = useRoute()
 const timeline = computed(() => {
-    if(isShowAllTime.value) {
-        return detail_order.value?.status_detail
-    }
-    else {
-        if(detail_order.value?.status_detail.length >= 5) {
-            return detail_order.value?.status_detail.slice(0, 5)
-        }
-        return detail_order.value?.status_detail
-    }
-    
+  const details = detail_order.value?.status_detail ?? []
+  
+  if (isShowAllTime.value) {
+    return details
+  }
+
+  if (details.length >= 5) {
+    return details.slice(0, 5)
+  }
+
+  return details
 })
 
 //get_list_order_detail
@@ -31,7 +32,7 @@ const list_status = ref([
     {
         title: 'Đơn hàng đã đặt',
         icon: 'fa-solid fa-clipboard-list',
-        status: 'PENDDING'
+        status: 'PENDING'
     },
     {
         title: 'Đang chuẩn bị hàng',
@@ -61,8 +62,8 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="grid grid-cols-12 bg-white dark:bg-gray-900  dark:text-gray-100 mt-5 p-5 font-(family-name:--font-winky)">
-        <div class="col-span-12 flex justify-between items-center">
+    <div class="grid grid-cols-12 bg-white dark:bg-gray-900 h-[100%]  dark:text-gray-100 mt-5 max-md:mt-0 p-5 font-(family-name:--font-winky)">
+        <div class="col-span-12 max-md:flex-col flex justify-between max-md:justify-start items-center max-md:items-start">
             <router-link :to="{ name: 'account.orders.list'}">
                 <div class="flex items-center w-45 cursor-pointer text-xl gap-2">
                     <font-awesome-icon icon="fa-solid fa-angle-left" />
@@ -70,9 +71,9 @@ onMounted(() => {
                 </div>
                 
             </router-link>
-            <div class="flex">
-                <p class="pr-5 border-r-2 mr-5 border-black dark:border-gray-400 dark:text-gray-200">MÃ ĐƠN HÀNG: {{ detail_order?.order_code }}</p>
-                <p class="uppercase text-[var(--maincolor)] dark:text-green-400">đơn hàng đang vận chuyển</p>
+            <div class="flex max-md:mt-5">
+                <p class="pr-5 max-md:pr-0 border-r-2 mr-5 border-black dark:border-gray-400 dark:text-gray-200">MÃ ĐƠN HÀNG: {{ detail_order?.order_code }}</p>
+                <p class="uppercase text-[var(--maincolor)] dark:text-green-400">Đơn hàng đang vận chuyển</p>
             </div>
         </div>
         <div class="col-span-12 flex justify-between mt-10">
@@ -99,7 +100,7 @@ onMounted(() => {
                     />
                 </div>
                 <p :class="detail_order?.status === status_sad?.status ? 'mt-4 font-extrabold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 animate-scan' : 'mt-2'">
-                    {{ status_sad?.title}}
+                    {{  status_sad?.title }}
                 </p>
         
             </div>
@@ -109,7 +110,7 @@ onMounted(() => {
         <div class="col-span-12 bg-amber-50 -m-5 p-5 my-10 dark:bg-gray-800 dark:text-gray-200">
             Cảm ơn bạn đã mua sắm ở NTC_ORANGE
         </div>
-        <div class="col-span-12 flex p-5 border-t-2 -m-5 [border-image:repeating-linear-gradient(90deg,#22c55e_0_30px,transparent_40px_50px)_1]">
+        <div class="col-span-12 flex max-md:flex-col p-5 border-t-2 -m-5 [border-image:repeating-linear-gradient(90deg,#22c55e_0_30px,transparent_40px_50px)_1]">
             <div>
                 <p class="text-2xl font-bold dark:text-gray-100">Địa Chỉ Nhận Hàng</p>
                 <p class="dark:text-gray-100">{{ detail_order?.address }}</p>
@@ -119,17 +120,17 @@ onMounted(() => {
                     <div class="flex flex-col items-center mr-4">
                         <div
                             class="w-5 h-5 rounded-full border-2 flex items-center justify-center z-10"
-                            :class="item.active ? 'bg-green-500 border-green-500' : 'bg-white dark:bg-gray-700 border-gray-400 dark:border-gray-600'"
+                            :class="item?.active ? 'bg-green-500 border-green-500' : 'bg-white dark:bg-gray-700 border-gray-400 dark:border-gray-600'"
                             >
-                            <span v-if="item.active" class="text-white text-xs">✓</span>
+                            <span v-if="item?.active" class="text-white text-xs">✓</span>
                         </div>
                     </div>
                     <div class="pb-4">
                         <p class="text-sm font-medium">{{ dayjs(item?.time).fromNow() }}</p>
                         <p class="font-semibold" :class="item.active ? 'text-green-600' : 'text-gray-700 dark:text-gray-300'" >
-                            {{ item.status }}
+                            {{ item?.status }}
                         </p>
-                        <p class="text-gray-600 text-sm">{{ item.note }}</p>
+                        <p class="text-gray-600 text-sm">{{ item?.note }}</p>
                     </div>
                 </div>
                 <p v-if="!isShowAllTime" @click="isShowAllTime = true" class="text-blue-500 bg-blue-200 inline-block py-1 px-10 rounded-sm cursor-pointer dark:bg-blue-900 dark:text-blue-300">Xem thêm</p>

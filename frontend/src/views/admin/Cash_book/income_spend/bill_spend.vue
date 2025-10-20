@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import { cash_book } from '@/constant'
     import { useToast } from 'vue-toastification';
     import { useForm, useField } from 'vee-validate'

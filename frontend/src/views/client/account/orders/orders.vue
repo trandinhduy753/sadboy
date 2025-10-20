@@ -26,19 +26,17 @@ const products = computed(() => {
         <div class="text-end font-bold text-lg mb-2" >
             <p class="inline-block py-1 px-5 rounded-sm" :class="order_status[order?.status]?.bg">{{ order_status[order?.status]?.title }}</p> 
         </div>
-        <div v-for="(product, index) in products" :key="index" class="flex  dark:border-gray-700 pb-4">
+        <div v-for="(product, index) in products" :key="index" class="flex  dark:border-gray-700 pb-6">
             <div class="w-35 h-25">
                 <img :src="product?.img" class="w-full h-full" alt="">
             </div>
             <div class="ml-4">
-                <p class="font-bold dark:text-white">{{ truncateString(product?.sort_description, 90) }}</p>
-                <div class="flex justify-between items-center">
-                    <div>
-                        <p class="amount_product_amount dark:text-gray-300">Số lượng: <span>x{{ product?.count }}</span></p>
-                        <p class="amount_product_size dark:text-gray-300">Kích thước: <span>{{ product?.size }}</span></p>
-                    </div>
-                    <p class="amount_product_money dark:text-gray-300">Đơn giá: <span>{{ formatMoney(product?.price) }}</span></p>
+                <p class="font-bold dark:text-white">{{ truncateString(product?.name, 90) }}</p>
+                <div>
+                    <p class="amount_product_amount dark:text-gray-300">Số lượng: <span>x{{ product?.count }}</span></p>
+                    <p class="amount_product_size dark:text-gray-300">Kích thước: <span>{{ product?.size }}</span></p>
                 </div>
+                <p class="amount_product_money dark:text-gray-300">Đơn giá: <span>{{ formatMoney(product?.price) }}</span></p>
             </div>
         </div>
        

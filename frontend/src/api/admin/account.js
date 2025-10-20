@@ -1,4 +1,4 @@
-import axiosInstance from '@/api/axios.js';
+import axiosInstance from '@/api/axiosAdmin.js';
 
 export const admin_login = (data) => {
     return axiosInstance.post('/admin/auth/login', data)
@@ -9,7 +9,7 @@ export const get_info_admin = () => {
 }
 
 export const refresh_token = () => {
-    return axiosInstance.post('http://localhost:8000/api/admin/auth/refresh', {
+    return axiosInstance.post('/admin/auth/refresh', {
         withCredentials: true
     })
 }

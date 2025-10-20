@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import { formatMoney } from '@/composables'
     const store = useStore();
     const router = useRouter();
@@ -6,16 +6,16 @@
     const user = computed(() => store.state.client.account.user )
     onMounted(() => {
         if (Object.keys(detail_order.value).length === 0) {
-        router.push({ name: 'cart_product' })
+            //router.push({ name: 'cart_product' })
         }
     })
 </script>
 
 <template>
    
-    <div class="dark:bg-gray-900 dark:text-gray-100 h-[100vh] transition-all duration-500">
-        <div class="grid grid-cols-12 max-w-7xl m-auto px-5 pt-5 gap-15 pb-10">
-            <div class="col-span-7 text-gray-800 dark:text-gray-100">
+    <div class="dark:bg-gray-900 dark:text-gray-100 h-[100%] transition-all duration-500">
+        <div class="grid grid-cols-12 max-w-7xl m-auto px-5 pt-5 gap-15 max-md:gap-0 pb-10">
+            <div class="col-span-7 max-lg:col-span-12 text-gray-800 dark:text-gray-100">
                 <h3 class="text-3xl font-bold">Chúng tôi đã nhận được đơn hàng của bạn</h3>
                 <p class="text-2xl mt-1 italic">Mã đơn hàng của bạn là: <span class="underline">{{ detail_order?.code }}</span></p>
                 <router-link :to="{name: 'account.orders.list', query: {redirect: 'bill-finish'}}">
@@ -48,16 +48,16 @@
                 <div class="border-2 border-dashed border-red-500 mt-10 pb-10 rounded-md">
                     <p class="-mt-3.5 ml-3 bg-white dark:bg-gray-800 w-60 text-center text-[1rem] font-bold uppercase">Cảm ơn bạn đã đặt hàng</p>
                     <p class="text-base font-semibold ml-5 mt-1 italic">Thank you. Here is your 10% discount for your next order.</p>
-                    <div class="flex items-center ml-5 mt-5">
+                    <div class="flex max-md:flex-col items-center ml-5 mt-5 max-md:justify-end">
                         <input type="text" class="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 pl-2 py-1 rounded w-80" value="DQNHDGNTC">
                         <router-link :to="{ name: 'cart_product'}">
-                            <button class="hover:bg-[var(--hoverred)] bg-[var(--maincolor)] dark:bg-[var(--dark_maincolor)] px-5 py-1 rounded ml-3 text-white cursor-pointer transition">Mua ngay</button>
+                            <button class="max-md:w-[100%] max-md:mt-3 hover:bg-[var(--hoverred)] bg-[var(--maincolor)] dark:bg-[var(--dark_maincolor)] px-5 max-md:px-10 py-1 max-md:py-2 max-md:uppercase rounded ml-3 max-md:ml-0 text-white cursor-pointer transition">Mua ngay</button>
                         </router-link>
                         
                     </div>
                 </div>
             </div>
-            <div class="col-span-5 mt-5">
+            <div class="col-span-5 max-lg:col-span-12 mt-5 max-md:mt-5 max-lg:-mt-5">
                 <template v-for="(cart, index) in detail_order?.products" :key="index">
                     <div class="bg-white dark:bg-gray-800 flex px-5 py-3 mb-4  items-center rounded-sm" >
                         <img :src="cart?.product?.img" class="w-30 h-30 rounded-ssm" alt="">

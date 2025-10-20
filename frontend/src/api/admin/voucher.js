@@ -1,4 +1,4 @@
-import  axiosInstance from '@/api/axios';
+import axiosInstance from '@/api/axiosAdmin.js';
 export const get_list_voucher = async (start=0, end=0) => {
   return await axiosInstance.get(`/admin/vouchers`, {
     params: {

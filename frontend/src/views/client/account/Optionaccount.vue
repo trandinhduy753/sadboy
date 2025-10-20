@@ -1,6 +1,6 @@
-<script setup lang="ts">
+<script setup>
 import { ref, reactive } from 'vue';
-
+const store = useStore()
 var options_account=reactive([
     {
         title:"Tài khoản của tôi",
@@ -33,18 +33,19 @@ var options_account=reactive([
         name: 'account.moneys'
     }
 ])
+const user = computed(() => store.state.client.account.user )
 </script>
 
 <template>
     <div class="mt-5">
         <!-- Thông tin người dùng -->
         <div class="flex items-center border-b-1 border-[var(--maincolor)] pb-3 dark:border-gray-600">
-            <img src="@/assets/images/img_discount/img_discount_view-1.webp" class="w-10 h-10 rounded-full">
-            <p class="font-bold ml-3 dark:text-gray-300">Nguyễn Trần Cường</p>
+            <img :src="user?.img" class="w-10 h-10 rounded-full">
+            <p class="font-bold ml-3 dark:text-gray-300">{{ user?.name }}</p>
         </div>
         
         <!-- Khuyến mãi -->
-        <div class="mt-5 pb-3 border-b-1 border-[var(--maincolor)] dark:border-gray-600">
+        <div class="mt-5 max-lg:hidden  pb-3 border-b-1 border-[var(--maincolor)] dark:border-gray-600">
             <div class="flex items-center mb-2">
                 <img src="@/assets/images/img_discount/img_discount_view-1.webp" class="w-5 h-5 rounded-full">
                 <p class="ml-2 dark:text-gray-300">Sale giữa tháng giảm 15%</p>
@@ -56,14 +57,15 @@ var options_account=reactive([
         </div>
 
         <!-- Danh sách tùy chọn tài khoản -->
-        <div class="mt-3">
+        <div class="max-lg:flex max-lg:gap-3 max-lg:overflow-x-auto  w-full mt-3">
             <router-link v-for="(option_account, index) in options_account" :key="index"
                 :to="{name: option_account.name}"
                 custom
                 v-slot="{href, navigate, isActive}"
             >
                 <div 
-                    class="flex items-center mb-3 cursor-pointer hover:scale-[1.1] transition duration-300 hover:text-orange-500 dark:hover:text-orange-400"
+                    :class="isActive ? 'max-lg:bg-orange-400' : ''"
+                    class=" max-lg:py-1 max-lg:flex-none max-lg:mr-4  flex items-center mb-3 cursor-pointer hover:scale-[1.1] transition duration-300 hover:text-orange-500 dark:hover:text-orange-400"
                     @click="navigate"
                 >
                     <font-awesome-icon 
@@ -72,7 +74,7 @@ var options_account=reactive([
                         class="text-[1.1rem] w-5 "
                     />
                     <p 
-                        :class="['ml-4 text-base capitalize', isActive ? 'text-orange-500 dark:text-orange-400' : 'dark:text-gray-300']"
+                        :class="['ml-4 max-lg:ml-0 text-base capitalize max-lg:px-3', isActive ? 'text-orange-500 dark:text-orange-400 dark:max-lg:text-white' : 'dark:text-gray-300 dark:max-lg:text-white']"
                     >
                         {{ option_account.title }}
                     </p>

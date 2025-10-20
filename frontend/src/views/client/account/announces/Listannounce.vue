@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { accountClient } from '@/constant'
 const store = useStore();
 const fetchListAnnounce = async (user_id, start, end) => {

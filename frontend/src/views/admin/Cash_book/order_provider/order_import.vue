@@ -1,9 +1,14 @@
-<script setup lang="ts">
-import { cash_book } from '@/constant'
+<script setup>
+    import { cash_book } from '@/constant'
     import { formatMoney, formatDateTime } from '@/composables'
+    import { useToast } from 'vue-toastification'
     const store = useStore();
+    const toast = useToast()
     const fetchListGoodsReceipt = async (start=0, end=20) => {
         const result = await store.dispatch('admin/cash_book/' + cash_book.get_list_goods_receipt, { start, end } )
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchFindGoodsReceipt = async (event) => {
         find_goods_receipt.value = event.target.value.trim()
@@ -12,6 +17,9 @@ import { cash_book } from '@/constant'
         }
         else {
             const result = await store.dispatch('admin/cash_book/' + cash_book.find_goods_receipt, {page: 1, code: find_goods_receipt.value, count: 10})
+            if(result.ok === 'error' ){
+                toast.error(result.message)
+            }
         }   
         
     }
@@ -166,7 +174,7 @@ import { cash_book } from '@/constant'
             </div>
             <div @scroll="handleScrollLoadData" class="h-250 overflow-y-auto custom-scrollbar">
                 <div v-for="(goods ,index) in list_goods_receipt" :key="index" class="grid grid-cols-17 transition-all duration-500 cursor-pointer items-center px-2 py-3 gap-3 text-sm border-b-1 border-[var(--color_border)] dark:border-gray-700 bg-white dark:bg-gray-800 text-black dark:text-gray-300">
-                    <router-link :to="{name: 'admin_sadboizz.cashbook.order_provider.detail_import', query: { showopt: 'shop_ad_t', index: index +1} }" custom v-slot="{ href, navigate, isActive }">
+                    <router-link :to="{name: 'admin_sadboizz.cashbook.order_provider.detail_import', query: { showopt: 'shop_ad_t', index: goods?.id} }" custom v-slot="{ href, navigate, isActive }">
                         <div @click="navigate" class="col-span-2 text-blue-500 dark:text-blue-400 italic">{{ goods.code }}</div>
                     </router-link>
                     <div class="col-span-3">{{ formatDateTime(goods.created_at) }}</div>

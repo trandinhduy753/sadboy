@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { formatMoney } from '@/composables'
 var props = defineProps({
     product: {
@@ -18,7 +18,7 @@ var props = defineProps({
             </div>
             <div class="pl-3 mt-3">
                 <h3 class="text-xl font-[600] capitalize text-gray-700 dark:text-blue-300 transition-colors duration-300 group-hover:text-orange-500 dark:group-hover:text-orange-400">{{ product?.name }}</h3>
-                <p class="font-serif text-base font-[600] dark:text-gray-400 transition-colors duration-300 group-hover:text-orange-500 dark:group-hover:text-orange-400">{{ product?.sale_price['S'] ? formatMoney(product?.sale_price['S']) : formatMoney(product?.original_price['S']) }}</p>
+                <p class="font-serif text-base font-[600] dark:text-gray-400 transition-colors duration-300 group-hover:text-orange-500 dark:group-hover:text-orange-400">{{ product?.sale_price?.['S'] ? formatMoney(product?.sale_price?.['S']) : formatMoney(product?.original_price?.['S']) }}</p>
             </div>
             <div class="ml-3 my-3 h-5">
                 <p v-show="product?.gift=='yes'" class="border-[1px] border-red-600 text-xs text-red-600 dark:border-red-400 dark:text-red-400 inline pl-1 pr-6 py-[2px] transition-all duration-300 group-hover:bg-red-600 group-hover:text-white dark:group-hover:bg-red-400">Mua để nhận quà</p>

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import Editor from '@tinymce/tinymce-vue'
     import { useForm, useField } from 'vee-validate'
     import { object, string, date, number, mixed } from 'yup'
@@ -95,12 +95,27 @@
     }
     const fetchEditProduct = async (id, data) => {
         const result = await store.dispatch('admin/product/' + product.edit_product, {id, data})
+        if(result.status === 422) {
+            errorValidation.value = result.message;
+        }
+        else if(result.status === 403) {
+            toast.error(result.message)
+            errorValidation.value = {}
+        }
+        else {
+            errorValidation.value= {}
+            toast.success('Chỉnh sửa thông tin sản phẩm thành công')
+            
+        }
     }
     const fetchListCategory = async () => {
         const result = await store.dispatch('admin/product/' + product.get_list_category)
     }
     const fetchDetailProduct = async (id, page) => {
         const result = await store.dispatch('admin/product/' + product.detail_product, {id, page})
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     
     const handleScrollLoadData = (event) => {
@@ -273,7 +288,7 @@
                 fetchEditProduct(id.value, formData)
                 scrollToTop()
                 tongleEdit()
-                toast.success('Chỉnh sửa thông tin sản phẩm thành công')
+                
             }
 
         },
@@ -287,6 +302,7 @@
     const edit_product = ref(false)
     const isDark = computed( () => store.state.isDark);
     const page = ref(1);
+    const errorValidation = ref({})
     watch(currentSlide, (newVal) => {
         const el = imgRefs.value[newVal]
         if (el && scrollImg.value) {
@@ -353,7 +369,7 @@
                             
                         </div>
                         <div v-show="!edit_product" class="flex scrollbar-hide -mt-7 mb-7 overflow-x-scroll" ref="scrollImg" >
-                            <img v-for="(img, index) in imgs" 
+                            <img v-for="(img, index) in detail_product?.imgs" 
                                 v-on:click="currentSlide=index" 
                                 :key="index"
                                 :ref="el => imgRefs[index] = el" 

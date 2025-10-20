@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import Editor from '@tinymce/tinymce-vue'
     import { useForm, useField } from 'vee-validate'
     import { object, string, date, number } from 'yup'
@@ -66,6 +66,20 @@
     }
     const fetchAddProduct = async (data) => {
         const result = await store.dispatch('admin/product/' + product.add_product, data)
+        if(result.status === 422) {
+            errorValidation.value = result.message;
+        }
+        else if(result.status === 403) {
+            toast.error(result.message)
+            errorValidation.value = {}
+        }
+        else {
+            errorValidation.value= {}
+            toast.success('Thêm sản phẩm mới thành công')
+            setTimeout(() => {
+                router.push({ name: 'admin_sadboizz.product' })
+            }, 1000)
+        }
     }
     const schema = object({
         code: string().required('Mã sản phẩm không được bỏ trống').trim().min(10, 'Mã sản phẩm tối thiểu 10 ký tự'),
@@ -148,19 +162,14 @@
             formData.append('import_price', JSON.stringify(import_price))
             formData.append('original_price', JSON.stringify(original_price))
             fetchAddProduct(formData)
-            toast.success('Thêm sản phẩm mới thành công')
-            // for (let [key, value] of formData.entries()) {
-            //     console.log(key, value)
-            // }
-            setTimeout(() => {
-                //router.push({ name: 'admin_sadboizz.product' })
-            }, 1000)
+            
         },
         (errors) => {
             console.log(errors)
         }
     )
     const categories = computed(() => store.state.admin.product.list_category )
+    const errorValidation = ref({})
     onMounted(() => {
         fetchListCategory()
     })
@@ -251,6 +260,11 @@
 
         <form class="mt-4" action="">
             <div class="grid grid-cols-12 gap-5">
+                <div class="col-span-12">
+                    <p v-for="(value, key, index) in errorValidation" :key="key" class="text-red-500">
+                        {{ value[0] }}
+                    </p>
+                </div>
                 <div class="flex flex-col col-span-3">
                     <label for="idproduct" class="cursor-pointer font-bold text-black dark:text-white">Mã sản phẩm</label>
                     <input v-model="code" type="text" id="idproduct" class="bg-white transition-all duration-500 dark:bg-gray-800 border-1 border-[var(--color_border)] dark:border-gray-600 outline-none rounded-sm pl-2 py-1 mt-1 text-black dark:text-white">

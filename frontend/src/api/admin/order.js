@@ -1,4 +1,4 @@
-import axiosInstance from "@/api/axios.js"
+import axiosInstance from '@/api/axiosAdmin.js';
 export const get_list_order = (start=0, end=0) => {
     return axiosInstance.get('/admin/orders', { 
         params: {

@@ -9,7 +9,13 @@ export default {
         state.filter_status = data;
     },
     ADD_ORDER_TO_LIST (state, data) {
-        state.list_order = [...state.list_order, ...data]
+        if(data.length == 1){
+            state.list_order.unshift(data[0])
+        }
+        else {
+            state.list_order = [...state.list_order, ...data]
+        }
+        
     },
     CHANGE_LIST_ORDER_DETAIL(state, {order_code, data} ) {
         state.list_order_detail[order_code] = data;

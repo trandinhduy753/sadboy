@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import { formatMoney, opt_show_img, toMySQLTimestampLocal, scrollToTop } from '@/composables'
     import { voucher, user} from '@/constant';
     import { useForm, useField } from 'vee-validate'
@@ -21,9 +21,23 @@
     }
     const fetchEditVoucher = async (id, data) => {
         const result = await store.dispatch('admin/voucher/' + voucher.edit_voucher, {id: id, data: data})
+        if(result.status === 422) {
+			errorValidation.value = result.message;
+		}
+		else if(result.status === 403) {
+			toast.error(result.message)
+			errorValidation.value = {}
+		}
+		else {
+			errorValidation.value= {}
+			toast.success('Chỉnh sửa thông tin mã giảm giá thành công')
+		}
     }
     const fetchDetailVoucher  = async (id) => {
         const result = await store.dispatch('admin/voucher/' + voucher.get_detail_voucher, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchTypeUser = async () => {
 		const result = await store.dispatch('admin/voucher/' + voucher.get_type_user)
@@ -138,7 +152,7 @@
                 fetchEditVoucher(id.value, formData);
                 scrollToTop()
                 toggleEdit()
-                toast.success('Chỉnh sửa thông tin mã giảm giá thành công')
+                
             }
            
         },
@@ -154,7 +168,7 @@
     const types_user =  computed(() => store.state.admin.voucher.types_user);
 	const types_product = computed(() => store.state.admin.voucher.types_product);
     const delete_user_monoply = ref([])
-
+    const errorValidation = ref({});
     onMounted(() => {
         fetchTypeUser()
         fetchTypeProduct()
@@ -178,6 +192,11 @@
         </div>
         <form action="">
             <div class="grid grid-cols-12 gap-5 mt-4">
+                <div class="col-span-12">
+                    <p v-for="(value, key, index) in errorValidation" :key="key" class="text-red-500">
+                        {{ value[0] }}
+                    </p>
+                </div>
                 <div class="col-span-12 border-b-1 pb-3 border-[var(--color_border)] dark:border-gray-600">
                     <div class="flex items-center justify-between">
                         <div>

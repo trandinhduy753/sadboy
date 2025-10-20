@@ -1,29 +1,52 @@
-<script setup lang="ts">
-    import { accountClient } from '@/constant'
+<script setup>
+    import { accountClient, formClient } from '@/constant'
+    import axios from 'axios'
     const store = useStore()
     const router = useRouter()
-    const header_nav= reactive([
-        {
-            title: 'Tài khoản của tôi',
-            name: 'account.user',
-            opt: 'account'
-        },
-        {
-            title: 'Đơn mua',
-            name: 'account.orders.list',
-            opt: 'order'
-        },
-        {
-            title: 'Đăng nhập',
-            name: 'form',
-            opt: 'login'
-        },
-        {
-            title: 'Đăng ký',
-            name: 'form',
-            opt: 'logout'
+    const user = computed(() => store.state.client.account.user )
+    const header_nav= computed(() => {
+        if(Object.keys(user.value).length !== 0) {
+            return [
+            {
+                title: 'Tài khoản của tôi',
+                name: 'account.user',
+                opt: 'account'
+            },
+            {
+                title: 'Đơn mua',
+                name: 'account.orders.list',
+                opt: 'order'
+            },
+            {
+                title: Object.keys(user.value).length === 0 ? 'Đăng nhập' : 'Đăng xuất',
+                name: 'form',
+                opt: 'login'
+            }
+        ]
         }
-    ])
+        return [
+            {
+                title: 'Tài khoản của tôi',
+                name: 'account.user',
+                opt: 'account'
+            },
+            {
+                title: 'Đơn mua',
+                name: 'account.orders.list',
+                opt: 'order'
+            },
+            {
+                title: Object.keys(user.value).length === 0 ? 'Đăng nhập' : 'Đăng xuất',
+                name: 'form',
+                opt: 'login'
+            },
+            {
+                title: Object.keys(user.value).length === 0 ? 'Đăng ký' : '',
+                name: 'form',
+                opt: 'logout'
+            }
+        ]
+    })
 
     var props=defineProps({
         bg_des: {
@@ -31,17 +54,33 @@
             default: ''
         }
     })
+    const fetchRedirect = async (item, navigate) => {
+        if(item.opt === 'login') {
+            if(Object.keys(user.value).length !== 0) {
+                await store.dispatch('client/form/' + formClient.logout)
+                navigate()
+            }
+            else {
+                navigate()
+            }
+            
+        }
+        else {
+            navigate()
+        } 
+    }
     const fetchInfoUser = async () => {
         await store.dispatch('client/account/' + accountClient.get_infor_user)
     }
-    const user = computed(() => store.state.client.account.user )
+   
     const handleShowChat = () => {
         store.commit('client/CHANGE_SHOW_CHAT', true)
-    }
-    onMounted(() => {
+    }   
+    onMounted(async () => {
         if (Object.keys(user.value).length === 0) {
             fetchInfoUser()
         }
+
     })
 
 </script>
@@ -51,13 +90,13 @@
     <div :class="[bg_des, 'dark:bg-gray-900 dark:text-gray-300']">
         <div class="px-5 py-2 max-w-7xl m-auto">
             <div class="grid grid-cols-12">
-                <div class="col-span-6 flex items-center text-sm font-mono text-gray-800 dark:text-gray-300">
+                <div class="col-span-6 max-lg:hidden flex items-center text-sm font-mono text-gray-800 dark:text-gray-300">
                     <font-awesome-icon :icon="['fas', 'envelope']" class="text-lg dark:text-gray-300" />
                     <p class="ml-1 border-r-2 pr-3 border-gray-400 dark:border-gray-600">nguyentrancuong58@gmail.com</p>
-                    <label class="ml-3">Free shipping for October 22, 2024</label>
+                    <label class="ml-3 ">Free shipping for October 22, 2024</label>
                 </div>
-                <div class="col-span-6 flex justify-end items-center text-gray-800 dark:text-gray-300">
-                    <div class="flex border-r-2 pr-3 border-gray-400 dark:border-gray-600">
+                <div class="col-span-6 max-lg:col-span-12 flex justify-end max-lg:justify-between items-center text-gray-800 dark:text-gray-300">
+                    <div class="max-md:hidden flex border-r-2 pr-3 border-gray-400 dark:border-gray-600">
                         <font-awesome-icon :icon="['fab', 'facebook']" class="text-base text-blue-700 dark:text-blue-500 mr-3" />
                         <font-awesome-icon :icon="['fab', 'youtube']" class="text-base text-red-600 dark:text-red-500 mr-3"/>
                         <font-awesome-icon :icon="['fab', 'tiktok']" class="text-base text-black dark:text-gray-300 mr-3"/>
@@ -84,7 +123,7 @@
                                         v-slot="{href, navigate, isActive }" 
                                     >
                                         <p 
-                                          @click="navigate" 
+                                          @click="fetchRedirect(item, navigate)" 
                                           :class="[
                                             'block px-2 py-1 rounded-[0.2rem] hover:bg-gray-200 hover:text-emerald-500 dark:hover:bg-gray-700 dark:hover:text-emerald-400',
                                             isActive ? 'text-emerald-500 bg-gray-200 dark:bg-gray-700 dark:text-emerald-400' : 'text-gray-900 dark:text-gray-300'

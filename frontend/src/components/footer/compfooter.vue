@@ -1,18 +1,17 @@
-<script setup lang="ts">
-import { Carousel, Slide } from 'vue3-carousel';
-import 'vue3-carousel/dist/carousel.css';
+<script setup>
+
 </script>
 
 <template>
     <div class="bg-[var(--footercolor)] dark:bg-gray-800 text-black dark:text-white">
         <div class="grid grid-cols-12 px-5 gap-5 py-10 max-w-7xl m-auto">
-            <div class="col-span-8">
+            <div class="col-span-8 max-md:col-span-12">
                 <h2 class="text-[var(--maincolor)] dark:text-orange-500 font-(family-name:--font-winky) text-3xl font-bold">NTC_ORANGE</h2>
                 <p class="font-(family-name:--font-winky) mt-3">Address: Thôn Đào Xá, Xã Nghĩa Dân, Huyện Kim Động, Tỉnh Hưng Yên</p>
                 <p class="font-(family-name:--font-winky)">Phone: 0988870434</p>
                 <p class="font-(family-name:--font-winky)">Email: nguyentrancuong58@gmail.com</p>
             </div>
-            <div class="col-span-4">
+            <div class="col-span-4 max-md:col-span-12">
                 <h2 class="text-2xl font-bold font-(family-name:--font-winky) dark:text-orange-400">Gia nhập với chúng tôi</h2>
                 <div class="mt-2">
                     <form action="">

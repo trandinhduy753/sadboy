@@ -1,21 +1,64 @@
-import axios from 'axios';
-// const axiosInstance =axios.create({
-//     //baseURL: 'https:/localhost:8000/api',
-//     withCredentials: true,
-//     // timeout: 5000,
-//     // header: {
-//     //     'accept': 'application/json'
-//     // }
-// })
-// export default axiosInstance;
+import axios from 'axios'
+import { refresh_token } from '@/api/admin/account.js'
+import store from '@/store' // để commit mutation trong Vuex
+
+let isRefreshing = false
+let subscribers = []
+
+function onRefreshed(token) {
+  subscribers.map(callback => callback(token))
+  subscribers = []
+}
+
+function addSubscriber(callback) {
+  subscribers.push(callback)
+}
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8000/api', // đổi thành URL server thật khi deploy
+  baseURL: 'http://localhost:8080/api',
   withCredentials: true,
-  timeout: 10000, // 10s, bạn có thể thay đổi
+  timeout: 10000,
   headers: {
     'Accept': 'application/json',
   },
-});
+})
 
-export default axiosInstance;
+// =================== RESPONSE INTERCEPTOR ===================
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config
+
+    // Nếu là lỗi 401
+    if (error.response && error.response.status === 401 && !originalRequest._retry) {
+      if (isRefreshing) {
+        // Nếu đang refresh token, chờ token mới
+        return new Promise((resolve) => {
+          addSubscriber(() => {
+            resolve(axiosInstance(originalRequest))
+          })
+        })
+      }
+
+      originalRequest._retry = true
+      isRefreshing = true
+
+      try {
+        // Gọi API refresh token
+        await refresh_token()
+
+        isRefreshing = false
+        onRefreshed()
+        return axiosInstance(originalRequest)
+      } catch (err) {
+        isRefreshing = false
+         store.commit('admin/account/CHANGE_EMPLOYEE', {})// clear user
+        return Promise.reject(err)
+      }
+    }
+
+    return Promise.reject(error)
+  }
+)
+
+export default axiosInstance

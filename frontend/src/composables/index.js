@@ -17,7 +17,8 @@ import {
     getFutureDate, 
     replaceStringRange,
     groupMessages,
-    isUserLogin
+    isUserLogin,
+    isAdminLogin
 } from './useFunction.js';
 
 export {
@@ -42,6 +43,7 @@ export {
     optionFindProvide,
     optionFindUser,
     groupMessages,
-    isUserLogin
+    isUserLogin,
+    isAdminLogin
     
 }

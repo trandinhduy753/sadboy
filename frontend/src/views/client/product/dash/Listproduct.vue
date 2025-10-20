@@ -1,9 +1,13 @@
-<script setup lang="ts">
+<script setup>
+    import Bodydescribe from '@/views/client/product/dash/bodydescribe.vue';   
     import product from '@/views/client/product/dash/Product.vue';
     import { productClient } from '@/constant'
+
+    const emit = defineEmits(['scroll-to-bodydescribe'])
     const store = useStore()
     const fetchHandlePage= async (category, page, per_page) => {
         const result = store.dispatch('client/product/' + productClient.get_list_product_by_type, {category, page, per_page})
+        emit('scroll-to-bodydescribe')
     }
     function NextPage() {
         if (currentPage.value == totalPages.value) {
@@ -12,6 +16,9 @@
             fetchHandlePage(category.value,Number(currentPage.value +1 ), 30)
             
         }
+        
+        emit('scroll-to-bodydescribe')
+        
     }
 
     function PrevPage() {
@@ -21,7 +28,9 @@
         } else {
             fetchHandlePage(category.value,Number(currentPage.value - 1), 30)
         }
+        emit('scroll-to-bodydescribe')
     }
+    const productList = ref(null)
     const currentPage = computed(() => get_products_pagination.value?.current_page );
     const totalPages = computed(() => get_products_pagination.value?.last_page);
     const get_products_pagination = computed(() => store.getters['client/product/get_products_pagination'] )
@@ -29,8 +38,8 @@
 </script>
 
 <template>
-    <div class="col-span-12">
-        <div class="grid grid-cols-5 mt-5 gap-5">
+    <div class="col-span-12 max-md:-mt-10">
+        <div ref="productList" class="grid grid-cols-5 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 max-md:grid-cols-2 mt-5 gap-5">
             <template v-for="(product, index) in get_products_pagination?.products" :key="index">
                 <product :product="product" />
             </template>

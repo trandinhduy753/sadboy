@@ -1,15 +1,20 @@
-<script setup lang="ts">
+<script setup>
     import result from '@/views/admin/CompShareAdmin/result.vue'
     import Title_list_Option from '@/views/admin/CompShareAdmin/TitleListOption.vue';
     import {user_opt_show_admin } from '@/composables'
     import dayjs from "dayjs";
     import relativeTime from "dayjs/plugin/relativeTime";
     import { comment } from '@/constant'
+    import { useToast } from 'vue-toastification'
     dayjs.extend(relativeTime);
     const store = useStore()
+    const toast = useToast();
     const { navigateTo } = user_opt_show_admin();
     const fetchListComment = async (start=0, end=20 ) => {
         const result = await store.dispatch('admin/comment/' + comment.get_list_comment, { start: start, end: end })
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchFindComment = async (event) => {
         find_comment.value = event.target.value.trim();
@@ -18,17 +23,29 @@
         }
         else {
             const result = await store.dispatch('admin/comment/' + comment.find_comment_by_code, {page: 1, code: find_comment.value, count: 5})
+            if(result.ok === 'error' ){
+                toast.error(result.message)
+            }
         }
         
     }
     const fetchListCommentDelete = async (start, end) => {
         const result = await store.dispatch('admin/comment/' + comment.get_list_comment_delete, {start, end})
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchDeleteCommentDeleteAt = async (id) =>  {
         const result = await store.dispatch('admin/comment/' + comment.delete_comment_deleted_at, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchRecoverCommentDelete = async (id) => {
         const result = await store.dispatch('admin/comment/' + comment.recover_delete_comment, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const loadAddCommentFind = async (page, code, count) => {
         const result = await store.dispatch('admin/comment/' + comment.find_comment_by_code, {page, code, count})

@@ -2,9 +2,14 @@ import {ref, computed} from 'vue';
 import { useRoute, useRouter } from 'vue-router'
 import {useStore } from 'vuex'
 import { order } from '@/constant'
+import { useToast } from 'vue-toastification'
+const toast = useToast();
 export const optionFindOrder = () => {
     const fetchListOrder = async(start=0, end=20 ) => {
         const result = await store.dispatch('admin/order/' + order.get_list_order, { start, end })
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchFindOrder = async(event) => {
         find_order.value=event.target.value.trim()
@@ -13,6 +18,9 @@ export const optionFindOrder = () => {
         }
         else {
             const result = await store.dispatch('admin/order/' + order.find_order, {page: 1,find: event.target.value.trim(), count: 5})
+            if(result.ok === 'error' ){
+                toast.error(result.message)
+            }
         }
         
     }

@@ -1,9 +1,9 @@
-<script setup lang="ts">
+<script setup>
 
 </script>
 
 <template>
-    <div class="col-span-6 bg-[#cfecf0] dark:bg-gray-800 transition-all duration-500 flex items-center justify-center py-8">
+    <div class="col-span-6 max-lg:hidden bg-[#cfecf0] dark:bg-gray-800 transition-all duration-500 flex items-center justify-center py-8">
         <img src="@/assets/images/img_decorate/product_season-removebg-preview.png" class="w-60 h-50" alt="">
         <div class="ml-10">
             <h3 class="text-2xl font-bold dark:text-white transition-all duration-500 -mt-15">SUMMER FRUIT</h3>
@@ -16,7 +16,7 @@
             </div> -->
         </div>
     </div>
-    <div class="col-span-6 bg-[#fbeace] dark:bg-gray-800 transition-all duration-500 flex items-center justify-center py-8">
+    <div class="col-span-6 max-lg:hidden bg-[#fbeace] dark:bg-gray-800 transition-all duration-500 flex items-center justify-center py-8">
         <img src="@/assets/images/img_decorate/product_fruit_season-removebg-preview.png" class="w-60 h-50" alt="">
         <div class="ml-10">
             <h3 class="text-2xl font-bold dark:text-white transition-all duration-500 -mt-15">DRINK FRUIT</h3>

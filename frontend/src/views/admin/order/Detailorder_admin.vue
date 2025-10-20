@@ -1,6 +1,8 @@
 <script setup>
     import { order } from '@/constant';
     import { formatMoney } from '@/composables'
+    import { useToast } from 'vue-toastification'
+    const toast = useToast();
     const route = useRoute();
     const store = useStore()
     const id = computed(() => route.query.index);
@@ -10,10 +12,16 @@
     
     const detail_order = computed(() => detail_orders.value[id.value]);
     const fetchDetailOrder = async (id) => {
-        await store.dispatch('admin/order/' + order.get_detail_order, id)
+        const result = await store.dispatch('admin/order/' + order.get_detail_order, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const  fetchEditOrder = async (id, data) => {
-        await store.dispatch('admin/order/' + order.edit_order, {id: id, data: data})
+        const result = await store.dispatch('admin/order/' + order.edit_order, {id: id, data: data})
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     function config_class(size){
         return `row-span-${size.length}`

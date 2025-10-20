@@ -2,9 +2,14 @@ import {ref, computed} from 'vue';
 import { useRoute, useRouter } from 'vue-router'
 import {useStore } from 'vuex'
 import { user } from '@/constant'
+import { useToast } from 'vue-toastification'
+const toast = useToast();
 export const optionFindUser = () => {
     const fetchListUser = async (start=0, end=20) => {
         const result = await store.dispatch('admin/user/'+ user.get_list_user, { start: start, end: end })
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchFindUser = async (event) => {
         find_user.value = event.target.value.trim();
@@ -13,6 +18,9 @@ export const optionFindUser = () => {
         }
         else {
             const result = await store.dispatch('admin/user/' + user.find_user, {page: 1, name: find_user.value, count: 5})
+            if(result.ok === 'error' ){
+                toast.error(result.message)
+            }
         }
        
     }

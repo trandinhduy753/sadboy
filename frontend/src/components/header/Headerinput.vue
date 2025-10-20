@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 
 
 const nameproduct=ref("")
@@ -20,12 +20,12 @@ const handleFindProduct = (navigate) => {
 
 <template>
     <div class="max-w-7xl m-auto px-5 grid grid-cols-12 pt-5  gap-7 ">
-        <div class="col-span-3 flex items-center bg-[var(--maincolor)] dark:bg-[var(--dark_maincolor)] transition-all duration-500 text-sm text-white justify-center py-3 rounded-sm border-[1.5px] border-black dark:border-white">
+        <div class="col-span-3 max-md:hidden lg:block md:hidden flex items-center bg-[var(--maincolor)] dark:bg-[var(--dark_maincolor)] transition-all duration-500 text-sm text-white justify-center py-3 rounded-sm border-[1.5px] border-black dark:border-white">
             <font-awesome-icon :icon="['fas', 'house-chimney']" class="w-5 h-5 text-black dark:text-white" />
             <p class="ml-2 font-serif font-bold text-black dark:text-white">DEPARTMENT STORE</p>
         </div>
 
-        <div class="col-span-7 flex items-center">
+        <div class="lg:col-span-7 max-md:col-span-10 md:col-span-10 flex items-center">
             
             <router-link :to="{name: 'find_product', query: { name: nameproduct} }" custom v-slot="{href, navigate}">
                 <input type="text" v-model="nameproduct" @keyup.enter="handleFindProduct(navigate)" placeholder="Nhập sản phẩm bạn muốn tìm" 

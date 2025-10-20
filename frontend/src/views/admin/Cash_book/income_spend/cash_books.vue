@@ -1,6 +1,8 @@
-<script setup lang="ts">
+<script setup>
     import { cash_book } from '@/constant';
     import { toMySQLTimestampLocal, getCurrentDateTime, formatMoney, getFutureDate, toMySQLDate } from '@/composables'
+    import { useToast } from 'vue-toastification'
+    const toast = useToast();
     const store = useStore()
    
     const isDark = computed( () => store.state.isDark);
@@ -8,6 +10,9 @@
     const fetchListVotes = async (date="", page) => {
         const date1 = date != "" ? date : toMySQLDate(date_votes.value);
         const result = store.dispatch('admin/cash_book/' + cash_book.get_list_votes, {date: date1, page})
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchLoadAllVotes = async (date) => {
         page.value++;
@@ -15,10 +20,16 @@
     }
     const fetchLoadAllOrders = async (date, start, end) => {
         const result = store.dispatch('admin/cash_book/' + cash_book.load_add_order, {date, start, end})
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const loadAddVoteByCode = async (page, date, code, count) => {
         // date, code, start, count
         const result = store.dispatch('admin/cash_book/' + cash_book.find_bill_collect_spend, {page, date, code, count})
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchFindBillCollectSpend = async (event) => {
         find_vote.value = event.target.value.trim()
@@ -29,6 +40,9 @@
         else {
             page.value=1;
             const result = await store.dispatch('admin/cash_book/' + cash_book.find_bill_collect_spend, {page: page.value, date: date.value, code: find_vote.value, count: 5})
+            if(result.ok === 'error' ){
+                toast.error(result.message)
+            }
         }   
         
     }
@@ -134,7 +148,7 @@
             </div>
         </div>
     </div>
-
+    {{ bill_collect_spend?.money_in }}
     <div class="mt-5 flex justify-around items-center bg-white transition-all duration-500 dark:bg-gray-800 py-2">
         <div class="text-center">
             <p class="font-bold text-[var(--color_text-gray)] dark:text-gray-300">Số dư đầu kỳ</p>

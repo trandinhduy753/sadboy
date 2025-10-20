@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import Title_list_Option from '@/views/admin/CompShareAdmin/TitleListOption.vue';
     import result from '@/views/admin/CompShareAdmin/result.vue'
     import { user_opt_show_admin, optionFindOrder } from '@/composables';
@@ -6,6 +6,8 @@
     import relativeTime from "dayjs/plugin/relativeTime";
     import { order } from '@/constant'
     dayjs.extend(relativeTime);
+    import { useToast } from 'vue-toastification'
+    const toast = useToast();
     const { fetchListOrder, fetchFindOrder, load_add_orders } = optionFindOrder()
     const store = useStore();
 
@@ -17,21 +19,31 @@
     const change_sort = (sortby, sort_status) => store.commit('admin/order/CHANGE_SORT_BY', {sortby, sort_status});
     const fetchPendingAll = async (status='PENDING') => {
         const result = await store.dispatch('admin/order/' + order.confirm_all_order, status)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchListOrderDelete = async (start, end) => {
         const result = await store.dispatch('admin/order/' + order.get_list_order_deleted, {start, end})
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchDeleteOrderDeleteAt = async (id) =>  {
         const result = await store.dispatch('admin/order/' + order.delete_order_deleted_at, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchRecoverOrderDelete = async (id) => {
         const result = await store.dispatch('admin/order/' + order.recover_delete_order, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const handleScrollLoadOrderDele = (event) => {
         const el = event.target;
         if (Math.abs(el.scrollTop + el.clientHeight - el.scrollHeight) < 1) {
-            //CALL ĐỂ THÊM DỮ LIỆU
-            
             const start = orders_delete.value.length;
             fetchListOrderDelete(start, start+5)
         }

@@ -1,4 +1,4 @@
-import  axiosInstance from '@/api/axios';
+import axiosInstance from '@/api/axiosAdmin.js';
 
 export const delete_employee = (ids) =>{
 	return axiosInstance.delete('/admin/employee', { 

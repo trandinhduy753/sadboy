@@ -24,11 +24,17 @@ export const optionFindProduct = () => {
         }
         else {
             const result = await store.dispatch('admin/product/' + product.find_product_by_name, {page: 1, name: find_product.value, count: 5})
+            if(result.ok === 'error' ){
+                toast.error(result.message)
+            }
         }
         
     }
     const loadAddProductFind = async (page, name, count) => {
         const result = await store.dispatch('admin/product/' + product.find_product_by_name , {page, name, count})
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const get_list_product = async (start, end) => {
         const result= await store.dispatch('admin/product/' + product.get_list_product, { start, end})

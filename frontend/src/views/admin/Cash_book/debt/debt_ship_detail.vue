@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     const { change_show_comp } = useMapActions('', ['change_show_comp']);
     function handle_change_show_comp(data)
     {
@@ -19,7 +19,7 @@
         <div class="col-span-12 bg-white dark:bg-gray-800 transition-all duration-500 p-5 rounded-md">
             <div class="flex items-center">
                 <div class="w-30 h-30 rounded-full overflow-hidden">
-                    <img src="/public/images/img_product/product_img-11.png" class="w-full rounded-full h-full object-cover" alt="" />
+                    <img src="/public/images/img_decorate/deco_main_pro_1.webp" class="w-full rounded-full h-full object-cover" alt="" />
                 </div>
                 <p class="ml-2 font-bold text-black dark:text-gray-300">Giao hàng nhanh</p>
                 </div>

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import { useForm, useField } from 'vee-validate'
     import { object, string, date, number, mixed } from 'yup'
     import { scrollToTop, opt_show_img, toMySQLDate, toMySQLTimestampLocal } from '@/composables'
@@ -19,14 +19,29 @@
     const detail_employees = computed(() => store.getters['admin/employee/get_list_detail_employee'])
 
     const fetchDetailEmployee = async (id) => {
-        await store.dispatch('admin/employee/' + employee.get_detail_employee, id)
+        const result = await store.dispatch('admin/employee/' + employee.get_detail_employee, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchInforWork = async () => {
         await store.dispatch('admin/employee/' + employee.get_infor_work)  
     }
     const fetchHandleEdit=  async (id, formData) =>
     {
-        await store.dispatch('admin/employee/' + employee.edit_employee, {id: id, data: formData})
+        const result = await store.dispatch('admin/employee/' + employee.edit_employee, {id: id, data: formData})
+        if(result.status === 422) {
+            errorValidation.value = result.message;
+        }
+        else if(result.status === 403) {
+            toast.error(result.message)
+            errorValidation.value = {}
+        }
+        else {
+            errorValidation.value= {}
+            toast.success('Thay đổi thông tin nhân viên thành công')
+            
+        }
     }
     const tongle_edit =  () => {
         edit_employee.value = !edit_employee.value
@@ -139,7 +154,7 @@
                 fetchHandleEdit(id, formData)
                 scrollToTop()
                 tongle_edit()
-                toast.success('Thay đổi thông tin nhân viên thành công')
+                
             }
             
         },
@@ -149,6 +164,7 @@
     )
 
     const isDark = computed( () => store.state.isDark);
+    const errorValidation = ref({});
     onMounted(() => {
         fetchInforWork()
         // detail_employee.value=detail_employees.value[id];
@@ -171,6 +187,11 @@
             <p>Thông tin chi tiết nhân viên</p>
         </div>
         <div class="grid grid-cols-12 bg-white transition-all duration-500 dark:bg-gray-800 dark:text-gray-200 font-(family-name:--font-inter) mx-10 py-7 ">
+            <div class="col-span-12">
+                <p v-for="(value, key, index) in errorValidation" :key="key" class="text-red-500">
+                    {{ value[0] }}
+                </p>
+            </div>
             <div class="col-span-3 px-7 mb-2">
                 <div  class=" flex items-center justify-center ">
                     <img :src=" preview_img ? preview_img: detail_employee?.img" class="w-25 h-25 object-cover rounded-full" alt="">

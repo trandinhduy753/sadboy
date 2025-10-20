@@ -1,18 +1,23 @@
-<script setup lang="ts">
+<script setup>
     import Listresult from '@/views/admin/CompShareAdmin/Listresult.vue';
     import result from '@/views/admin/CompShareAdmin/result.vue'
     import Title_list_Option from '@/views/admin/CompShareAdmin/TitleListOption.vue' 
-    import {user_opt_show_admin, useMapState, useMapActions, useMapGetters} from '@/composables'
+    import {user_opt_show_admin } from '@/composables'
     import dayjs from "dayjs";
     import relativeTime from "dayjs/plugin/relativeTime";
     import { employee } from '@/constant'
+    import { useToast } from 'vue-toastification'
     dayjs.extend(relativeTime);
     const store= useStore();
+    const toast = useToast()
     const { navigateTo } = user_opt_show_admin();
     const opt_employee = computed(() => navigateTo())
     
     const fetchListEmployee = async(start=0, end=20 ) => {
         const result = await store.dispatch('admin/employee/' + employee.get_list_employee, { start: start, end: end })
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchFindEmployee = async (event, page=1) => {
         find_employee.value = event.target.value.trim();
@@ -21,20 +26,35 @@
         }
         else {
             const result = await store.dispatch('admin/employee/' + employee.find_employee_by_name, {page: page, find: find_employee.value, count: 5})
+            if(result.ok === 'error' ){
+                toast.error(result.message)
+            }
         }
         
     }
     const fetchListEmployeeDelete = async (start, end) => {
         const result = await store.dispatch('admin/employee/' + employee.get_list_employee_delete, {start, end})
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchDeleteEmployeeDeleteAt = async (id) =>  {
         const result = await store.dispatch('admin/employee/' + employee.delete_employee_deleted_at, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchRecoverEmployeeDelete = async (id) => {
         const result = await store.dispatch('admin/employee/' + employee.recover_delete_employee, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const loadAddEmployeeFind = async (page, find, count) => {
         const result = await store.dispatch('admin/employee/' + employee.find_employee_by_name, {page, find, count})
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const load_add_employees= (event) => {
         const el = event.target;

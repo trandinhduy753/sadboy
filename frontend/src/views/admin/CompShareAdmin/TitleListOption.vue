@@ -1,13 +1,13 @@
-<script setup lang="ts">
+<script setup>
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import robotoFont from '@/assets/fonts_js/Roboto-VariableFont_wdth,wght.js';
 import { employee, user, order, product, voucher, provide, comment } from '@/constant'
-
+import { useToast } from 'vue-toastification'
 const store =useStore();
-
+const toast = useToast();
 
 const fetchAddToFileEmployee = async (fileContent) => {
     return await store.dispatch('admin/employee/' + employee.add_employee_file_excel, fileContent)
@@ -33,24 +33,45 @@ const fetchAddToFileComment = async (fileContent) => {
 
 const fetchListEmployeeDelete = async (start, end) => {
     const result = await store.dispatch('admin/employee/' + employee.get_list_employee_delete, {start, end})
+    if(result.ok === 'error' ){
+        toast.error(result.message)
+    }
 }
 const fetchListUserDelete = async (start, end) => {
     const result = await store.dispatch('admin/user/' + user.get_list_user_deleted, {start, end})
+    if(result.ok === 'error' ){
+        toast.error(result.message)
+    }
 }
 const fetchListOrderDelete = async (start, end) => {
     const result = await store.dispatch('admin/order/' + order.get_list_order_deleted, {start, end})
+    if(result.ok === 'error' ){
+        toast.error(result.message)
+    }
 }
 const fetchListProductDelete = async (start, end) => {
     const result = await store.dispatch('admin/product/' + product.get_list_product_delete, {start, end})
+    if(result.ok === 'error' ){
+        toast.error(result.message)
+    }
 }
 const fetchListCommentDelete = async (start, end) => {
     const result = await store.dispatch('admin/comment/' + comment.get_list_comment_delete, {start, end})
+    if(result.ok === 'error' ){
+        toast.error(result.message)
+    }
 }
 const fetchListVoucherDelete = async (start, end) => {
     const result = await store.dispatch('admin/voucher/' + voucher.get_list_voucher_delete, {start, end})
+    if(result.ok === 'error' ){
+        toast.error(result.message)
+    }
 }
 const fetchListProvideDelete = async (start, end) => {
     const result = await store.dispatch('admin/provide/' + provide.get_list_provide_delete, {start, end})
+    if(result.ok === 'error' ){
+        toast.error(result.message)
+    }
 }
 
 var props=defineProps({
@@ -165,27 +186,47 @@ const handleFileUpload = (event) => {
 };
 
 const fetchDeleteAll = async () => {
-    const result = ref({}); 
     if(get_type.value=='employee') {
-        result.value = await store.dispatch('admin/employee/' + employee.delete_employee, select_checked_employee.value)
+        const result = await store.dispatch('admin/employee/' + employee.delete_employee, select_checked_employee.value)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     else if (get_type.value == 'user') {
-        result.value = await store.dispatch('admin/user/' + user.delete_user, select_checked_user.value)
+        const result = await store.dispatch('admin/user/' + user.delete_user, select_checked_user.value)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     } 
     else if (get_type.value == 'order') {
-        result.value = await store.dispatch('admin/order/' + order.delete_order, select_checked_order.value)
+        const result = await store.dispatch('admin/order/' + order.delete_order, select_checked_order.value)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     else if(get_type.value == 'product') {
-        result.value = await store.dispatch('admin/product/' + product.delete_product, select_checked_product.value)
+        const result = await store.dispatch('admin/product/' + product.delete_product, select_checked_product.value)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     else if(get_type.value == 'voucher') {
-        result.value = await store.dispatch('admin/voucher/' + voucher.delete_voucher, select_checked_voucher.value)
+        const result = await store.dispatch('admin/voucher/' + voucher.delete_voucher, select_checked_voucher.value)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     else if(get_type.value == 'provide') {
-        result.value = await store.dispatch('admin/provide/' + provide.delete_provide, select_checked_provide.value)
+        const result = await store.dispatch('admin/provide/' + provide.delete_provide, select_checked_provide.value)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     else if(get_type.value == 'comment') {
-        result.value = await store.dispatch('admin/comment/' + comment.delete_comment, select_checked_comment.value)
+        const result = await store.dispatch('admin/comment/' + comment.delete_comment, select_checked_comment.value)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
 }
 

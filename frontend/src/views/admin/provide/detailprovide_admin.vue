@@ -1,13 +1,14 @@
-<script setup lang="ts">
+<script setup>
 	import { useForm, useField } from 'vee-validate'
     import { object, string, date, number, mixed } from 'yup'
 	import ApexCharts from 'vue3-apexcharts'
 	import { provide } from '@/constant'
 	import { formatMoney, formatDateTime } from '@/composables'
 	import Editor from '@tinymce/tinymce-vue'
-	
+	import { useToast } from 'vue-toastification'
 	const route = useRoute()
 	const store = useStore()
+	const toast = useToast();
 	const id = computed(() => route.query.index)
 	const series = [45]
 	const chartOptions = {
@@ -97,10 +98,24 @@
 	const sort_status_order = computed(() => store.state.admin.provide.sort_status_order)
 	const change_sort_order = (sort, type) => store.commit('admin/provide/CHANGE_SORT_BY_ORDER', {sortby: sort, sortstatus: type});
 	const fetchDetailProvide = async (id, page) => {
-		const result = store.dispatch('admin/provide/' + provide.get_detail_provide, {id, page})
+		const result = await store.dispatch('admin/provide/' + provide.get_detail_provide, {id, page})
+		if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
 	}
 	const fetchEditProvide = async (id, data) => {
 		const result = store.dispatch('admin/provide/' + provide.edit_provide, {id: id, data: data})
+		if(result.status === 422) {
+            errorValidation.value = result.message;
+        }
+        else if(result.status === 403) {
+            toast.error(result.message)
+            errorValidation.value = {}
+        }
+        else {
+            errorValidation.value= {}
+            toast.success('Sửa thông tin nhà cung cấp thành công');
+        }
 	}
 	const handleScrollLoadData = async (event, type='') => {
 		const el = event.target;
@@ -216,6 +231,7 @@
 	])
 	const select_condition_sort_title = ref(0)
 	const page = ref(1);
+	const errorValidation = ref({})
 	onMounted(() => {
 		if (!detail_provide.value || Object.keys(detail_provide.value).length === 0) {
 		fetchDetailProvide(id.value, page.value)
@@ -240,7 +256,7 @@
         <div class="col-span-8 bg-white dark:bg-gray-800 rounded-ssm transition-all duration-500 p-5 ">
 			<div class="flex gap-5 p-3  dark:text-gray-200 rounded-sm transition-all duration-500">
 				<div class="w-15 h-15">
-					<img src="/public/images/img_user/img_user.jpg" alt="" class="w-full h-full object-cover rounded-full border border-gray-300 dark:border-gray-700" />
+					<img :src="detail_provide?.img" alt="" class="w-full h-full object-cover rounded-full border border-gray-300 dark:border-gray-700" />
 				</div>
 				<div class="flex-1">
 					<div class="flex gap-2 -mt-2 items-center justify-between">
@@ -260,9 +276,15 @@
 										<p class="text-[1.1rem] pb-3 border-b border-[var(--color_border)] dark:border-gray-700 text-[var(--color_text-gray)] dark:text-gray-300" > Chỉnh sửa thông tin liên hệ </p>
 									</DialogTitle>
 									<DialogDescription>
+										
 										<form action="" class="text-base h-100 overflow-y-auto scrollbar-hide">
 											<p class="font-bold text-black dark:text-gray-200 mb-1">Thông tin chung</p>
 											<div class="grid grid-cols-12 gap-x-5">
+												<div class="col-span-12">
+													<p v-for="(value, key, index) in errorValidation" :key="key" class="text-red-500">
+														{{ value[0] }}
+													</p>
+												</div>
 												<div class="col-span-12 flex flex-col">
 													<label for="nameprovide" class="dark:text-gray-300">Tên nhà cung cấp</label>
 													<input v-model="name" type="text" :placeholder="detail_provide?.name" id="nameprovide" class="border border-[var(--color_border)] dark:border-gray-600 rounded-[0.2rem] mt-1 pl-2 py-1 outline-none text-black dark:text-gray-200 dark:bg-gray-800 placeholder:text-black dark:placeholder:text-gray-400" />

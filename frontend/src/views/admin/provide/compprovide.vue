@@ -1,10 +1,12 @@
-<script setup lang="ts">
+<script setup>
     import result from '@/views/admin/CompShareAdmin/result.vue'
     import Title_list_Option from '@/views/admin/CompShareAdmin/TitleListOption.vue';
     import {user_opt_show_admin, optionFindProvide } from '@/composables'
     import dayjs from "dayjs";
     import relativeTime from "dayjs/plugin/relativeTime";
     import { provide } from '@/constant'
+    import { useToast } from 'vue-toastification'
+    const toast = useToast();
     dayjs.extend(relativeTime);
     const {
         fetchListProvide,
@@ -14,12 +16,21 @@
     const store = useStore()
     const fetchListProductDelete = async (start, end) => {
         const result = await store.dispatch('admin/provide/' + provide.get_list_provide_delete, {start, end})
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchDeleteProvideDeleteAt = async (id) =>  {
         const result = await store.dispatch('admin/provide/' + provide.delete_provide_deleted_at, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchRecoverProvideDelete = async (id) => {
         const result = await store.dispatch('admin/provide/' + provide.recover_delete_provide, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const handleScrollLoadProvideDelete = (event) => {
         const el = event.target;

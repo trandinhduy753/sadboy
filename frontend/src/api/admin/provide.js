@@ -1,4 +1,4 @@
-import axiosInstance from "@/api/axios.js"
+import axiosInstance from '@/api/axiosAdmin.js';
 export const get_list_provide = async (start=0, end=20) => {
     return axiosInstance.get('/admin/provides', { 
         params: {

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import addmoney from '@/views/client/account/money/addmoney.vue';
 import exceptmoney from '@/views/client/account/money/exceptmoney.vue'
 

@@ -1,10 +1,10 @@
-<script setup lang="ts">
+<script setup>
     const store=useStore()
     const isDark=computed(() => store.state.isDark)
 </script>
 
 <template>
-    <div class="grid grid-cols-14 gap-5 mt-10 max-w-7xl m-auto px-5">
+    <div class="grid grid-cols-14 gap-5 mt-10 max-w-7xl m-auto px-5 max-lg:hidden">
         <div class="col-span-4">
             <div class="h-70">
                 <img src="/public/images/img_decorate/deco_main_pro_1.webp" class="h-full w-full rounded-ssm main-image animate-image-float" alt="">
@@ -13,7 +13,7 @@
         <div class="col-span-6">
             <div class="text-center text-white animate-content-block mb-5">
                 <p :class="isDark ? 'shine-text' : 'shine-text1'" class="-mt-5 font-(family-name:--font-Luckiest_Guy) text-7xl dark:text-[var(--dark_maincolor)] ">
-                NTC_ORANGE
+                    SADBOYSOYEU
                 </p>
                 <p class="text-lg font-(family-name:--font-noto) tagline-text">Ngọt ngào tự nhiên, tươi ngon mỗi ngày.</p>
                 <div class="description-text ">Hoa quả là món quà thiên nhiên ban tặng, không chỉ mang đến hương vị ngọt ngào, chua thanh hay giòn mát mà còn chứa nhiều dưỡng chất tốt cho sức khỏe. Với màu sắc rực rỡ và hương thơm quyến rũ</div>

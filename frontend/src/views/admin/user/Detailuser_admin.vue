@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import { useForm, useField } from 'vee-validate'
     import { object, string, date, number } from 'yup'
     import { user } from '@/constant';
@@ -13,10 +13,25 @@
     const toast = useToast()
 
     const fetchDetailUser = async (id) => {
-        await store.dispatch('admin/user/' + user.get_detail_user, id)
+       const result =  await store.dispatch('admin/user/' + user.get_detail_user, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchEditUser = async (id, formData) => {
-        await store.dispatch('admin/user/' + user.edit_user, {id: id, data: formData})
+        const result = await store.dispatch('admin/user/' + user.edit_user, {id: id, data: formData})
+        if(result.status === 422) {
+            errorValidation.value = result.message;
+        }
+        else if(result.status === 403) {
+            toast.error(result.message)
+            errorValidation.value = {}
+        }
+        else {
+            errorValidation.value= {}
+            toast.success('Thay đổi thông tin khách hàng thành công')
+            
+        }
     }
     const tongleEdit = () => {
         edit_user.value = !edit_user.value
@@ -87,7 +102,7 @@
                 fetchEditUser(id.value, formData);
                 scrollToTop()
                 tongleEdit()
-                toast.success('Thay đổi thông tin khách hàng thành công')
+                
             }
             
         },
@@ -109,6 +124,7 @@
             code: 'confirm'
         }
     ])
+    const errorValidation = ref({});
     onMounted(() => {
         if (!detail_user.value || Object.keys(detail_user.value).length === 0) {
             fetchDetailUser(id.value)
@@ -132,6 +148,11 @@
             <div class="grid grid-cols-12 p-2 font-(family-name:--font-winky)">
                 <div class="col-span-12 ">
                     <div class="grid grid-cols-12">
+                        <div class="col-span-12">
+                            <p v-for="(value, key, index) in errorValidation" :key="key" class="text-red-500">
+                                {{ value[0] }}
+                            </p>
+                        </div>
                         <div class="col-span-7 flex items-center gap-4 ">
                             <div class=" border-black dark:border-gray-500 rounded-full">
                                 <div  class=" flex items-center justify-center ">

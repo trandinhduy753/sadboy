@@ -1,18 +1,22 @@
-<script setup lang="ts">
+<script setup>
     import result from '@/views/admin/CompShareAdmin/result.vue'
     import Title_list_Option from '@/views/admin/CompShareAdmin/TitleListOption.vue';
-    import { voucher  } from '@/constant';
-
+    import { voucher  } from '@/constant'
     import {user_opt_show_admin, formatMoney} from '@/composables'
     import dayjs from "dayjs";
     import relativeTime from "dayjs/plugin/relativeTime";
+    import { useToast } from 'vue-toastification'
     dayjs.extend(relativeTime);
-    const store = useStore()
+    const store= useStore();
+    const toast = useToast()
 
     const { navigateTo } = user_opt_show_admin();
     const opt_voucher = computed(() => navigateTo() );
     const fetchListVoucher = async (start=0, end=20) => {
         const result = await store.dispatch('admin/voucher/'+ voucher.get_list_voucher, { start: start, end: end })
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchFindVoucher = async (event) => {
         find_voucher.value = event.target.value.trim()
@@ -21,20 +25,35 @@
         }
         else {
             const result = await store.dispatch('admin/voucher/' + voucher.find_voucher, {page: 1, code: find_voucher.value, count: 5})
+            if(result.ok === 'error' ){
+                toast.error(result.message)
+            }
         }
        
     }
     const fetchListVoucherDelete = async (start, end) => {
         const result = await store.dispatch('admin/voucher/' + voucher.get_list_voucher_delete, {start, end})
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchDeleteVoucherDeleteAt = async (id) =>  {
         const result = await store.dispatch('admin/voucher/' + voucher.delete_voucher_deleted_at, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchRecoverVoucherDelete = async (id) => {
         const result = await store.dispatch('admin/voucher/' + voucher.recover_delete_voucher, id)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const loadAddVoucherFind = async (page, code, count) => {
         const result = await store.dispatch('admin/voucher/' + voucher.find_voucher, {page, code, count})
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const handleScrollLoadVoucherDelete = (event) => {
         const el = event.target;

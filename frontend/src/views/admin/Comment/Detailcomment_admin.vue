@@ -1,13 +1,17 @@
-<script setup lang="ts">
+<script setup>
     import { comment } from '@/constant';
     const store = useStore()
     const route = useRoute()
     const id = computed(() => route.query.index)
     const detail_comments = computed(() => store.getters['admin/comment/get_list_detail_comment'])
     const detail_comment= computed(() => detail_comments.value[id.value] );
-
+    import { useToast } from 'vue-toastification';
+    const toast = useToast();
     const fetchDetailComment = async (id, page) => {
-        await store.dispatch('admin/comment/' + comment.get_detail_comment, {id, page})
+        const result = await store.dispatch('admin/comment/' + comment.get_detail_comment, {id, page})
+         if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const handleScrollLoadData = (event) => {
         const el = event.target;

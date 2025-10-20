@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
    import Cart from '@/views/client/cart/cart.vue';
    import { cartClient } from '@/constant'
    import { useToast } from 'vue-toastification'
@@ -48,16 +48,16 @@
 
 <template>
    <div>
-      <div class="  dark:text-gray-200 transition-all duration-500 pt-5">
+      <div class="dark:text-gray-200 transition-all duration-500 pt-5 h-[100vh]">
          <div class="max-w-7xl m-auto px-5 overflow-y-auto scrollbar-hide">
             <div class="grid grid-cols-12 border-b-3 pb-4 border-[var(--maincolor)]">
-                  <div class="col-span-4 bg-gray-200 pl-2 py-1.5 text-base rounded-sm font-[--font-winky] dark:bg-gray-800 dark:text-gray-200">
+                  <div class="col-span-4 max-md:col-span-12 bg-gray-200 pl-2 py-1.5 text-base rounded-sm font-[--font-winky] dark:bg-gray-800 dark:text-gray-200">
                      Sản phẩm
                   </div>
-                  <div class="col-span-8 flex justify-between ">
-                     <div class="ml-3 bg-gray-200 transition-all duration-300 flex items-center justify-center rounded-sm flex-1 font-[--font-winky] dark:bg-gray-800 dark:text-gray-200">Đơn giá</div>
+                  <div class="col-span-8 max-md:col-span-12 max-md:mt-2 flex justify-between ">
+                     <div class="ml-3 max-md:ml-0 bg-gray-200 transition-all duration-300 flex items-center justify-center rounded-sm flex-1 font-[--font-winky] dark:bg-gray-800 dark:text-gray-200">Đơn giá</div>
                      <div class="ml-3 bg-gray-200 transition-all duration-500 flex items-center justify-center rounded-sm flex-1 font-[--font-winky] dark:bg-gray-800 dark:text-gray-200">Số lượng</div>
-                     <div class="ml-3 bg-gray-200 transition-all duration-500 flex items-center justify-center rounded-sm flex-1 font-[--font-winky] dark:bg-gray-800 dark:text-gray-200">Số tiền</div>
+                     <div class="ml-3 max-md:hidden bg-gray-200 transition-all duration-500 flex items-center justify-center rounded-sm flex-1 font-[--font-winky] dark:bg-gray-800 dark:text-gray-200">Số tiền</div>
                      <div class="ml-3 bg-gray-200 transition-all duration-500 flex items-center justify-center rounded-sm flex-1 font-[--font-winky] dark:bg-gray-800 dark:text-gray-200">Kích thước</div>
                      <div class="ml-3 bg-gray-200 transition-all duration-500 flex items-center justify-center rounded-sm flex-1 font-[--font-winky] dark:bg-gray-800 dark:text-gray-200">Thao tác</div>
                   </div>
@@ -70,7 +70,7 @@
             </div>
          </div>
       </div>
-      <div class="fixed bottom-0 z-40 dark:bg-gray-700   right-0 left-0 shadow-[1rem_1rem_2rem_black] bg-white ">
+      <div class="fixed bottom-0 z-40 dark:bg-gray-700 right-0 left-0 shadow-[1rem_1rem_2rem_black] bg-white ">
          <div class="max-w-7xl m-auto px-5 py-4">
                <div class="grid grid-cols-[1fr_2fr_1fr] mt-5 items-center">
                   <p class="pay-all dark:text-gray-300">Tât cả sản phẩm ({{ carts.length }})</p>

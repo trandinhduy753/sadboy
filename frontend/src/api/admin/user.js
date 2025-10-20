@@ -1,4 +1,4 @@
-import axiosInstance from "@/api/axios.js";
+import axiosInstance from '@/api/axiosAdmin.js';
 export const get_list_user = (start, end) => {
     return axiosInstance.get('/admin/users', {    
         params: {	

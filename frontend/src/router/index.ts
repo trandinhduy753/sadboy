@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import store from '@/store'
 import { accountClient, account } from '@/constant'
-import { isUserLogin } from '@/composables'
+import { isUserLogin, isAdminLogin } from '@/composables'
 // import HomeView from '@/components/body/product/compbody.vue'
 const routes= 
     [
@@ -326,25 +326,7 @@ const routes=
                     ]
                 }
             ],
-            beforeEnter: async (to, from, next) => {
-                try {
-                    let employee = store.state.admin.account.employee;
-
-                    if (!employee || Object.keys(employee).length === 0) {
-                        await store.dispatch('admin/account/' + account.admin_login);
-                        employee = store.state.admin.account.employee;
-                    }
-
-                    if (!employee || Object.keys(employee).length === 0) {
-                        // Chưa có user thì chuyển sang trang login
-                        return next({ name: "admin.formlog" });
-                    }
-
-                    next();
-                } catch (error) {
-                    return next({ name: "admin.formlog" });
-                }
-            }
+            beforeEnter: isAdminLogin
 
         },
         {

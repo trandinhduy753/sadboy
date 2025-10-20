@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import Decorate_Blog from '@/views/client/blog/decorate_blog.vue';
     import Title_Blog from '@/views/client/blog/titleblog.vue';
     import List_Blog from '@/views/client/blog/listblog.vue'

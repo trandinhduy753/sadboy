@@ -1,4 +1,4 @@
-import axiosInstance from "@/api/axios.js"
+import axiosInstance from '@/api/axiosAdmin.js';
 export const get_list_comment = async (start, end) => {
     return axiosInstance.get('/admin/comments', {    
         params: {	
@@ -71,7 +71,6 @@ export const get_list_comment_delete = async (start, end) => {
 }
 
 export const delete_comment_deleted_at = (id) => {
-    console.log(id)
     return axiosInstance.delete(`/admin/comment/force/${id}`);
 } 
 export const recover_delete_comment = (id) => {

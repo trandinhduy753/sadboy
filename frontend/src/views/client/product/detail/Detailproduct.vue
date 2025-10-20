@@ -1,6 +1,6 @@
-<script setup lang="ts">
+<script setup>
     import comments from '@/views/client/product/detail/comments.vue'
-    import Carol_product from '@/views/client/product/detail/Carol.vue';
+    import Carol_product from '@/views/client/product/detail/carol.vue';
     import { productClient, cartClient } from '@/constant'
     import { formatMoney, randomString } from '@/composables'
     import { useToast } from 'vue-toastification'
@@ -75,14 +75,14 @@
     })
 </script>
 <template>
-    <div class="dark:bg-gray-900 transition duration-500 ">
-        <div class="grid grid-cols-12 -mt-5 max-w-7xl m-auto px-5 pt-5 gap-10">
-            <div class="col-span-6 mt-5">
+    <div class="dark:bg-gray-900 transition duration-500 max-lg:pb-10">
+        <div class="grid grid-cols-12 -mt-5 max-w-7xl m-auto px-5 pt-5 gap-10 max-md:gap-0">
+            <div class="col-span-6 max-lg:col-span-12 mt-5">
                 <Carol_product :imgs="detail_product?.imgs" />
             </div>
-            <div class="col-span-6 mt-5 dark:text-gray-300">
+            <div class="col-span-6 max-lg:col-span-12 mt-5 dark:text-gray-300">
                 <p class="font-bold text-3xl">{{ detail_product?.name }}</p>
-                <div class="mt-1">
+                <div class="mt-1 max-md:text-wrap">
                     {{ detail_product?.sort_description }}
                 </div>
                 <div class="flex items-center mt-2">
@@ -95,27 +95,29 @@
                     <p class="old_price text-gray-600 dark:text-gray-400 " :class="detail_product?.sale_price ? 'line-through' : 'text-lg text-red-500'">{{ formatMoney(detail_product?.original_price?.[size]) }}</p>
                     <p class="new_price text-xl font-bold text-red-500 ml-4">{{ formatMoney(detail_product?.sale_price?.[size]) }}</p>
                 </div>
-                <div class="flex items-center mt-5">
-                    <p class="w-25">Size:</p>
-                    <select v-model="size" class="w-30 border cursor-pointer dark:bg-gray-700 dark:text-gray-200 p-1">
-                        <option value="S">S</option>
-                        <option value="M">M</option>
-                        <option value="L">L</option>
-                    </select>
-                </div>
-                <div class="flex items-center mt-5">
-                    <p class="w-25">Số lượng:</p>
-                    <div class="flex items-center border dark:border-gray-600">
-                        <font-awesome-icon :icon="['fas', 'plus']" @click="number_pro++" class="bg-gray-300 p-2.5 hover:bg-red-400 dark:bg-gray-700 dark:text-gray-300 transition" />
-                        <span class="mx-4">{{ number_pro }}</span>
-                        <font-awesome-icon :icon="['fas', 'minus']" @click="number_pro > 1 ? number_pro-- : 0" class="bg-gray-300 p-2.5 hover:bg-red-400 dark:bg-gray-700 dark:text-gray-300 transition" />
+                <div class="max-lg:flex max-lg:items-center max-md:items-start max-lg:gap-x-10 max-md:flex-col">
+                    <div class="flex items-center mt-5">
+                        <p class="w-25">Size:</p>
+                        <select v-model="size" class="w-30 border cursor-pointer dark:bg-gray-700 dark:text-gray-200 p-1">
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center mt-5">
+                        <p class="w-25">Số lượng:</p>
+                        <div class="flex items-center border dark:border-gray-600">
+                            <font-awesome-icon :icon="['fas', 'plus']" @click="number_pro++" class="bg-gray-300 p-2.5 hover:bg-red-400 dark:bg-gray-700 dark:text-gray-300 transition" />
+                            <span class="mx-4">{{ number_pro }}</span>
+                            <font-awesome-icon :icon="['fas', 'minus']" @click="number_pro > 1 ? number_pro-- : 0" class="bg-gray-300 p-2.5 hover:bg-red-400 dark:bg-gray-700 dark:text-gray-300 transition" />
+                        </div>
                     </div>
                 </div>
-                <div class="flex items-center mt-15">
-                    <div @click="addProductToCart()" class="py-3 px-5 flex items-center gap-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition dark:bg-red-700">
-                        <font-awesome-icon  :icon="['fas', 'cart-plus']" /> Thêm vào giỏ hàng
+                <div class="flex items-center gap-5 max-lg:gap-0 mt-15 max-lg:fixed max-lg:z-999 max-lg:bottom-0 max-md:h-15 max-lg:bg-white max-lg:-mx-5 max-lg:w-full max-lg:justify-between">
+                    <div @click="addProductToCart()" class="max-lg:flex-1 max-lg:h-20 max-md:h-15 max-lg:text-3xl max-md:text-lg max-sm:text-base max-lg:leading-13 max-lg:rounded-none py-3 px-5 flex items-center gap-2 max-sm:gap-0 bg-red-500 text-white rounded-md hover:bg-red-600 transition dark:bg-red-700">
+                        <font-awesome-icon  :icon="['fas', 'cart-plus']" class="max-lg:mr-4" /> Thêm vào giỏ hàng
                     </div>
-                    <div @click="buyProductNow" class="py-3 w-50 text-center ml-5 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition dark:bg-blue-700">
+                    <div @click="buyProductNow" class="max-lg:flex-1 max-lg:h-20 max-md:h-15 max-lg:text-3xl max-md:text-lg max-sm:text-base max-lg:leading-13 max-lg:rounded-none py-3 px-15 max-md:px-0 flex items-center justify-center gap-2 max-sm:gap-0 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition dark:bg-blue-700">
                         Mua ngay
                     </div>
                 </div>
@@ -130,8 +132,6 @@
                         <comments :comment="comment" />
                     </template>
                 </div>
-                
-                
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import { useForm, useField } from 'vee-validate'
     import { object, string, date, number, ref as yupRef } from 'yup'
     import { useToast } from 'vue-toastification'
@@ -30,7 +30,7 @@
         initialValues: {
             password: 'Cuonga@123',
             password_confirmation: 'Cuonga@123',
-            email: 'nguyentrancuong58@gmail.com'
+            email: 'trinh.ly@example.org'
             
         }
     })
@@ -43,14 +43,17 @@
             fetchLogin(values);
             toast.success('Đăng nhập thành công')
             setTimeout(() => {
-                //router.push('/')
+                router.push('/')
             }, 1000)
         },
         (errors) => {
             toast.error('Đăng nhập không thành công')
         }
     )   
-
+    
+    const loginGoogle = () => {
+        const result = store.dispatch('client/form/' + formClient.loginGoogle)
+    }
     const show_password = ref(false)
     const show_password_confirmation = ref(false)
 
@@ -111,7 +114,7 @@
             </div>
             <div class="col-span-6 mt-4">
                 <div class="border-1 cursor-pointer  border-[var(--color_border)] flex items-center justify-center ">
-                    <img class="w-35 h-10 scale-[0.5]" src="/public/images//google.png" alt="">
+                    <img @click="loginGoogle" class="w-35 h-10 scale-[0.5]" src="/public/images/google.png" alt="">
                 </div>
             </div>
             <div class="col-span-12 text-center mt-2 italic">

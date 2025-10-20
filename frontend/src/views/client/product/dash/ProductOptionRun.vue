@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { Carousel, Slide } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 import { productClient } from '@/constant';
@@ -14,8 +14,8 @@ onMounted(() => {
 </script>
 
 <template>
-    <div v-for="(product_popular, index) in list_product_popular " :key="index" class="col-span-4">
-        <h3 class="text-2xl font-bold border-b-4 border-[var(--maincolor)] pb-3 mb-5 dark:text-white">{{ product_popular?.title }}</h3>
+    <div v-for="(product_popular, index) in list_product_popular " :key="index" class="col-span-4 max-md:hidden">
+        <h3 class="lg:text-2xl font-bold border-b-4 border-[var(--maincolor)] pb-3 mb-6 dark:text-white xl:h-11 lg:h-20">{{ product_popular?.title }}</h3>
         <Carousel class="mb-4" v-for="(list_product, index) in product_popular.products" :key="index" 
             :autoplay="2000" 
             :wrap-around="true" 
@@ -33,12 +33,11 @@ onMounted(() => {
                     </router-link>
                     <div class="ml-5">
                         <p class="font-bold text-[1.3rem] normal-case dark:text-gray-300">{{ product?.name }}</p>
-                        <h3 class="text-sm dark:text-gray-400">{{ product?.sale_price['S'] ? formatMoney(product?.sale_price['S']) : formatMoney(product?.original_price['S']) }}</h3>
+                        <h3 class="text-sm dark:text-gray-400">1{{ product?.sale_price?.['S'] ? formatMoney(product?.sale_price['S']) : formatMoney(product?.original_price['S']) }}</h3>
                     </div>
                 </div>
               
             </Slide>
-           
         </Carousel>
     </div> 
     

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import Headerdescribe from '@/components/header/Headerdescribe.vue';
 import Headernav from '@/components/header/Headernav.vue';
 import Headerinput from './Headerinput.vue';

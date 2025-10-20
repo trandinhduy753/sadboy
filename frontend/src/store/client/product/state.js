@@ -1,6 +1,6 @@
 export default {
     name: 'Nguyễn Trần Cường',
-    category: 'all',
+    category: 1,
     categories: [],
     products_pagination: {},
     list_product_popular: {},

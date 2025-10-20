@@ -1,6 +1,6 @@
 export default {
     CHANGE_USER (state, data) {
-        state.user= data;
+        state.user = data;
     },
     CHANGE_ANNOUNCES (state, data) {
         state.announces = data;

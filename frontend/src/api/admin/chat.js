@@ -1,4 +1,4 @@
-import  axiosInstance from '@/api/axios';
+import axiosInstance from '@/api/axiosAdmin.js';
 
 export const get_list_user_chat = (admin_id, start, end) => {
     console.log('Lấy danh sách user đã trò chuyện với admin_id: ', admin_id, 'start:= ', start, end)

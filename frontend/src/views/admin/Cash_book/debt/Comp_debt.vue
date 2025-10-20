@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import { ref, computed, defineAsyncComponent } from 'vue';
     import { useStore } from 'vuex';
     import { user_opt_show_admin } from '@/composables'

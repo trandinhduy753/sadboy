@@ -55,6 +55,11 @@ export default {
         state.isCallApiCart = opt;
     },
     RESET_CART_CHECKED (state) {
+        console.log(111111)
         state.carts_checked = [];
+        state.selected_cart_index = [];
+    },
+    CHANGE_IS_ORDER_PENDING(state, data) {
+        state.isOrderPending = data;
     }
 }

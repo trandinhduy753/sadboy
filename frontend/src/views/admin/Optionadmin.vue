@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { Carousel, Slide } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 import { formatMoney } from '@/composables'

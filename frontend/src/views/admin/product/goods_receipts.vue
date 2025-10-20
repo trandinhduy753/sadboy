@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import product_infor from '@/views/admin/product/product_infor.vue';
     import { randomString, toMySQLTimestampLocal, formatMoney, optionFindProvide } from '@/composables'
     import { product, cash_book } from '@/constant'
@@ -19,12 +19,21 @@
 
     const fetchInfoProvideStock = async () => {
         const result = await store.dispatch('admin/product/' + product.get_info_stock)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchAddGoodsReceipt =  async (data) => {
         const result = await store.dispatch('admin/product/' + product.add_goods_receipt, data)
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const fetchListGoodsReceipt = async (start=0, end=20) => {
         const result = await store.dispatch('admin/cash_book/' + cash_book.get_list_goods_receipt, { start, end } )
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
     const handle_show_input = () => {
         if(!isShowFindProduct.value){ 
@@ -172,7 +181,7 @@
                 <MenuItems class="absolute left-0 mt-2 w-full p-1 origin-top-right bg-white dark:bg-gray-700 border dark:border-gray-600 rounded-md shadow-lg z-50">
                     <div class="py-1">
                         <MenuItem v-for="(stock, index) in list_stock" :key="index" class="mb-1 cursor-pointer">
-                            <p @click="stock_id = index" class="block px-2 py-1 hover:bg-[var(--background-color-gray)] dark:hover:bg-gray-600 rounded-[0.2rem]">
+                            <p @click="stock_id = stock?.id" class="block px-2 py-1 hover:bg-[var(--background-color-gray)] dark:hover:bg-gray-600 rounded-[0.2rem]">
                                 {{ stock.name }}
                             </p>
                         </MenuItem>

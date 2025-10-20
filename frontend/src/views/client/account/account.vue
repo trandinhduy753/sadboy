@@ -91,16 +91,16 @@
 
         <!-- Form thông tin -->
         <form>
-            <div class="grid grid-cols-[2fr_1fr] mt-10">
-                <div class="pr-5 border-r-1 border-[var(--colorborder)] dark:border-gray-600">
+            <div class="grid grid-cols-12 mt-10 max-md:mt-5">
+                <div class="col-span-8 max-md:col-span-12 max-md:mt-5 max-md:order-2 pr-5 border-r-1 max-md:border-r-0 border-[var(--colorborder)] dark:border-gray-600">
                     <!-- Tên đăng nhập -->
-                    <div class="flex items-center mb-4">
+                    <div class="max-md:text-lg flex items-center mb-4">
                         <label class="w-[30%] text-end text-[var(--color_text-gray)] dark:text-gray-400">Tên đăng nhập:</label>
                         <p class="capitalize ml-4 dark:text-gray-100">{{ user?.name }}</p>
                     </div>
 
                     <!-- Email -->
-                    <div class="flex items-center mb-5">
+                    <div class="max-md:text-lg flex items-center mb-5">
                         <label class="w-[30%] text-end text-[var(--color_text-gray)] dark:text-gray-400">Email:</label>
                         <div v-show="edit_email" class="ml-4 flex-1 ">
                             <input v-model="email" :placeholder="user?.email" id="idemployee" type="text" class="w-full outline-none h-8 dark:bg-gray-800 dark:border-gray-600 dark:text-white bg-white px-2 py-1.5 mt-1 rounded-sm border-1 border-[var(--color_border)] placeholder:text-sm  placeholder:font-(family-name:--font-inter) font-(family-name:--font-inter) ">
@@ -112,7 +112,7 @@
                     </div>
 
                     <!-- Số điện thoại -->
-                    <div class="flex items-center mb-5">
+                    <div class="max-md:text-lg flex items-center mb-5">
                         <label class="w-[30%] text-end text-[var(--color_text-gray)] dark:text-gray-400">Số điên thoại:</label>
                         <div v-show="edit_phone" class="ml-4 flex-1 ">
                             <input v-model="phone" :placeholder="user?.phone" id="idemployee" type="text" class="w-full outline-none h-8 dark:bg-gray-800 dark:border-gray-600 dark:text-white bg-white px-2 py-1.5 mt-1 rounded-sm border-1 border-[var(--color_border)] placeholder:text-sm  placeholder:font-(family-name:--font-inter) font-(family-name:--font-inter) ">
@@ -123,7 +123,7 @@
                         <p v-show="!edit_phone" @click="edit_phone=true" class="underline ml-4 text-blue-700 dark:text-blue-500 cursor-pointer">Thay Đổi</p> 
                     </div>
                     <!-- Giới tính -->
-                    <div class="flex items-center mb-5">
+                    <div class="max-md:text-lg flex items-center mb-5">
                         <label class="w-[30%] text-end text-[var(--color_text-gray)] dark:text-gray-400">Giới tính:</label>
                         <div class="flex items-center ml-4 flex-1">
                             <label v-for="(gender_sad, index) in genders" :key="index"  @click="gender = gender_sad.code" class="inline-flex items-center space-x-2 cursor-pointer group mr-4">
@@ -136,7 +136,7 @@
                         </div>
                     </div>
                     <!-- Ngày sinh -->
-                    <div class="flex items-center mb-5">
+                    <div class="max-md:text-lg flex items-center mb-5">
                         <label class="w-[30%] text-end text-[var(--color_text-gray)] dark:text-gray-400">Ngày sinh:</label>
                         <div v-show="edit_date" class="flex-1 h-8 ml-4" :class="isDark ? 'dark' : 'light' ">
                             <VueDatePicker
@@ -163,12 +163,12 @@
                 </div>
 
                 <!-- Ảnh đại diện -->
-                <div class="flex flex-col items-center">
+                <div class="col-span-4 max-md:col-span-12 max-md:order-1 flex flex-col items-center">
                     <img :src="preview_img ? preview_img: user?.img" class="w-25 h-25 rounded-full">
-                    <label for="avatar_edit" class="border-1 border-[var(--colorborder)] dark:border-gray-600 py-1.5 px-5 mt-3 bg-gray-100 dark:bg-gray-700 cursor-pointer hover:border-red-300 dark:hover:border-red-500 transition-all duration-300 hover:scale-[1.1] hover:text-red-500 dark:hover:text-red-400">CHỌN ẢNH</label>
+                    <label for="avatar_edit" class="max-md:w-[60%] max-md:text-center max-md:py-2 max-md:dark:text-white  border-1 border-[var(--colorborder)] dark:border-gray-600 py-1.5 px-5 mt-3 bg-gray-100 dark:bg-gray-700 cursor-pointer hover:border-red-300 dark:hover:border-red-500 transition-all duration-300 hover:scale-[1.1] hover:text-red-500 dark:hover:text-red-400">CHỌN ẢNH</label>
                     <input @change="show_img($event)" type="file" name="avatar" id="avatar_edit" class="hidden">
-                    <p class="text-sm text-[var(--color_text-gray)] dark:text-gray-400 mt-3">Dung lượng file tối đa là 2MB</p>
-                    <p class="text-sm text-[var(--color_text-gray)] dark:text-gray-400">Định dạng: .JPEG, .PNG</p>
+                    <p class="max-md:text-lg text-sm text-[var(--color_text-gray)] dark:text-gray-400 mt-3">Dung lượng file tối đa là 2MB</p>
+                    <p class="max-md:text-lg text-sm text-[var(--color_text-gray)] dark:text-gray-400">Định dạng: .JPEG, .PNG</p>
                 </div>
             </div>
         </form>

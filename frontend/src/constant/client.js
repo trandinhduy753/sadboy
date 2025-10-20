@@ -12,7 +12,9 @@ export const productClient = {
 
 export const formClient = {
     client_register: "clientRegister",
-    login: "login"
+    login: "login",
+    logout: "logout",
+    loginGoogle: 'loginGoogle'
 }
 export const accountClient = {
     get_infor_user: "getInforUser",
@@ -24,6 +26,7 @@ export const cartClient = {
     get_list_cart: 'GetListCart',
     delete_product_in_cart: 'DeleteProductInCart',
     add_product_to_cart: "addProductToCart",
+    check_order_pay: 'checkOrderPay'
 }
 
 export const voucherClient = {

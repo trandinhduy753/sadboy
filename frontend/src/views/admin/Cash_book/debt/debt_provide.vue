@@ -1,8 +1,10 @@
-<script setup lang="ts">
+<script setup>
     import { formatDateTime, toMySQLDate, formatMoney, getCurrentDateTime, toMySQLTimestampLocal } from '@/composables'
     import ApexCharts from 'vue3-apexcharts';
     import { cash_book } from '@/constant'
     import { optionFindProvide } from '@/composables'
+    import { useToast } from 'vue-toastification'
+    const toast = useToast();
     const store = useStore()
     const {
         fetchListProvide,
@@ -13,6 +15,9 @@
     const fetchDebtProvideInfo = async (date="") => {
         const date1 = date != "" ? date : toMySQLTimestampLocal(date_debt.value);
         const result = await store.dispatch('admin/cash_book/' + cash_book.get_debt_provide, date1 )
+        if(result.ok === 'error' ){
+            toast.error(result.message)
+        }
     }
    
     const series_money = computed(() => [
@@ -136,9 +141,7 @@
             ]);
 
             
-        }
-        
-        
+        }  
     })
     onUnmounted(() => {
         store.commit('admin/cash_book/CHANGE_CALL_API_DEBT_PROVIDE', false)
@@ -241,7 +244,7 @@
                     <router-link :to="{name: 'admin_sadboizz.cashbook.debt.detail.provide', query: { showopt: 'shop_ad_t', index: provide?.id} }" custom v-slot="{ href, navigate, isActive }">
                         <div @click="navigate" class="col-span-5 text-blue-500 dark:text-blue-400 cursor-pointer">{{ provide?.name }}</div>
                     </router-link>
-                    <div class="col-span-3 text-right text-blue-700 dark:text-blue-400">{{ formatMoney(provide?.initial_debt) }}</div>
+                    <div class="col-span-3 text-right text-blue-700 dark:text-blue-400">{{ formatMoney(provide?.initial_debt) }}1</div>
                     <div class="col-span-3 text-right text-red-500 dark:text-red-400">{{ formatMoney(provide?.debt_arises) }}</div>
                     <div class="col-span-3 text-right text-green-500 dark:text-green-400">{{ formatMoney(provide?.debt_paid) }}</div>
                     <div class="col-span-3 text-right text-blue-700 dark:text-blue-400">{{ formatMoney(provide?.debt_final) }}</div>

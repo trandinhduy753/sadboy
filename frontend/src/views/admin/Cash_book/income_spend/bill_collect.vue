@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import { cash_book } from '@/constant'
     import { useToast } from 'vue-toastification';
     import { useForm, useField } from 'vee-validate'
@@ -62,7 +62,7 @@
                 fetchAddBillCollect(formData);
                 toast.success('Thêm phiếu thu thành công')
                 setTimeout(() => {
-                    //router.push({ name: 'admin_sadboizz.cashbook.income_spend.cash_book' })
+                    router.push({ name: 'admin_sadboizz.cashbook.income_spend.cash_book' })
                 }, 500)
                 
             }

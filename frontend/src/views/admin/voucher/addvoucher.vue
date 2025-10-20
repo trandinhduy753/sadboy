@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 	import { useForm, useField } from 'vee-validate'
 	import { object, string, date, number } from 'yup'
 	import { opt_show_img, randomString, toMySQLTimestampLocal } from '@/composables';
@@ -86,10 +86,7 @@
 			}
 			else {
 				fetchAddVoucher(formData);
-				toast.success('Thêm mã giảm giá thành công')
-				setTimeout(() => {
-					//router.push({ name: 'admin_sadboizz.voucher'})
-				}, 1000)
+				
 			}
 		},
 		(errors) => {
@@ -104,6 +101,20 @@
 	}
 	const fetchAddVoucher = async (formData)=> {
 		const result = await store.dispatch('admin/voucher/' + voucher.add_voucher, formData)
+		if(result.status === 422) {
+			errorValidation.value = result.message;
+		}
+		else if(result.status === 403) {
+			toast.error(result.message)
+			errorValidation.value = {}
+		}
+		else {
+			errorValidation.value= {}
+			toast.success('Thêm mã giảm giá thành công')
+			setTimeout(() => {
+				router.push({ name: 'admin_sadboizz.voucher'})
+			}, 1000)
+		}
  	}	
  	const voucher_status = computed(() => store.state.admin.voucher.voucher_status);
 	const types_user =  computed(() => store.state.admin.voucher.types_user);
@@ -111,6 +122,7 @@
 	const show_input_user_monoply = ref(false)
 	const show_input_percent = ref(false);
 	const show_input_money = ref(false);
+	const errorValidation = ref({});
 	const show_percent_type = async (type_voucher='percent') => {
 		if(type_voucher == 'percent') {
 			show_input_percent.value = !show_input_percent.value;
@@ -139,6 +151,11 @@
         </div>
 		<form action="" class="dark:bg-gray-800 dark:px-2 dark:pt-2 dark:pb-10 transition-all duration-500">
 			<div class="grid grid-cols-12 gap-5">
+				<div class="col-span-12">
+                    <p v-for="(value, key, index) in errorValidation" :key="key" class="text-red-500">
+                        {{ value[0] }}
+                    </p>
+                </div>
 				<div class="col-span-3 flex flex-col">
 					<label for="idvoucher" class="font-bold text-gray-900 dark:text-gray-200">ID voucher: </label>
 					<input v-model="code" type="text" id="idvoucher" class="pl-2 outline-none bg-white dark:bg-gray-800 py-1 mt-1 rounded-sm border border-gray-300 dark:border-gray-600 transition-all duration-500 text-gray-900 dark:text-gray-100" placeholder="" />

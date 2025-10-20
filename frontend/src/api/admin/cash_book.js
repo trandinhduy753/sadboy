@@ -1,4 +1,4 @@
-import axiosInstance from "@/api/axios.js"
+import axiosInstance from '@/api/axiosAdmin.js';
 export const get_list_goods_receipt= (start, end) => {
     return axiosInstance.get('/admin/goodsReceipts', {
         params: {
@@ -48,7 +48,7 @@ export const bill_collect_spend = (date, page) => {
 }
 
 
-export const find_bill_collect_spend = (page, date, code='', count) => {
+export const find_bill_collect_spend = (page, date, code, count) => {
     return axiosInstance.get('/admin/findIncomeSpend', {
         params: {
             page: page,

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 const store = useStore();
@@ -53,18 +53,18 @@ onMounted(() => {
 
 <template>
     <div class="px-5 grid grid-cols-12 pt-3 gap-7 max-w-7xl m-auto">
-        <div class="col-span-3 flex items-center">
+        <div class="max-md:hidden col-span-3 flex items-center">
             <font-awesome-icon :icon="['fab', 'pied-piper-alt']" class="text-4xl w-8 h-8 text-[var(--maincolor)] dark:text-yellow-500"/>
-            <h1 class="ml-3 text-xl text-[var(--maincolor)] font-[600] font-serif dark:text-yellow-400">NTC_ORANGE</h1>
+            <h1 class="ml-3 text-xl text-[var(--maincolor)] font-[600] font-serif dark:text-yellow-400">SADBOY</h1>
         </div>
-        <div class="col-span-6 flex items-center text-sm font-[600] font-serif ">
+        <div class="max-md:col-span-9 col-span-6 flex items-center text-sm font-[600] font-serif ">
             <router-link 
                 v-for="(item, index) in nav_title" :key="index"
                 :to="{name: item.router} "
                 custom
                 v-slot="{href, navigate}" 
             >
-                <div @click="handle_navigate(navigate, index)" :class="['px-8 mr-1 py-2 uppercase hover:bg-red-400 rounded-ssm cursor-pointer hover:text-white dark:text-white transition-all', Active_menu==index ? 'bg-red-400 text-white' : '', text] ">{{ item.title }}</div>
+                <div @click="handle_navigate(navigate, index)" :class="['px-8 max-lg:px-3  mr-1 py-2 uppercase hover:bg-red-400 rounded-ssm cursor-pointer hover:text-white dark:text-white transition-all', Active_menu==index ? 'bg-red-400 text-white' : '', text] ">{{ item.title }}</div>
             </router-link>
         </div>
         <div class="col-span-3 flex items-center justify-end" >

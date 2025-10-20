@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { ref, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import Chat from '@/views/client/chat/chat.vue'
@@ -11,7 +11,7 @@ const showChat = computed(() => store.state.client.showChat )
 </script>
 
 <template>
-    <div>
+    <div class="">
         <Chat v-if="showChat" />
         <component  :is="layout">
             <router-view v-slot="{ Component }">

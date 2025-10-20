@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import { ref } from 'vue';
     const date2=ref("");
     import ApexCharts from 'vue3-apexcharts';

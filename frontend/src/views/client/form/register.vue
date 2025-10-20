@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import { useForm, useField } from 'vee-validate'
     import { object, string, date, number, ref as yupRef } from 'yup'
     import { useToast } from 'vue-toastification'
@@ -11,7 +11,7 @@
         const result = store.dispatch('client/form/' + formClient.client_register, data )
     }
     const schema = object({
-        name: string().required('Họ và tên không được bỏ trống').trim().min(5, 'Họ và têb tối thiểu 8 ký tự'),
+        name: string().required('Họ và tên không được bỏ trống').trim().min(8, 'Họ và têb tối thiểu 8 ký tự'),
         email: string().required('Bắt buộc nhập email').email('Email không hợp lệ'),
         password: string()
         .required("Mật khẩu không được bỏ trống")
@@ -43,7 +43,7 @@
             fetchRegister(values)
             toast.success('Đăng ký tài khoản thành công')
             setTimeout(() => {
-                router.push('/')
+                router.push({name: 'form', query: {opt: 'login'}})
             }, 1000)
         },
         (errors) => {

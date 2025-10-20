@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
     import { product } from '@/constant'
     const store = useStore()
     const route = useRoute()
