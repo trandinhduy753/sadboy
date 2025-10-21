@@ -1,42 +1,42 @@
-
 services:
   backend:
-    build:
-      context: ./backend
-    container_name: laravel_backend
-    restart: always
-    ports:
-      - "9000:9000"
-    volumes:
-      - ./backend:/var/www/html
+    build: ./backend
+    container_name: laravel_app
+    restart: unless-stopped
     env_file:
-      - ./backend/.env
-    depends_on:
-      - db
+      - .env
+    volumes:
+      - ./backend:/var/www
+    networks:
+      - app-network
 
   frontend:
-    build:
-      context: ./frontend
-    container_name: vue_frontend
-    restart: always
+    build: ./frontend
+    container_name: vue_app
+    restart: unless-stopped
     ports:
       - "80:80"
-    depends_on:
-      - backend
+    networks:
+      - app-network
 
   db:
-    image: mysql:8.0
+    image: mysql:8
     container_name: mysql_db
-    restart: always
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: mydb
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: mypassword
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: password
     ports:
       - "3306:3306"
     volumes:
       - dbdata:/var/lib/mysql
+    networks:
+      - app-network
+
+networks:
+  app-network:
 
 volumes:
   dbdata:
