@@ -31,3 +31,4 @@ RUN composer install --no-interaction --prefer-dist
 RUN chown -R www-data:www-data /var/www
 
 CMD ["php-fpm"]
+
