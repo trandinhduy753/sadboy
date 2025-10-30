@@ -16,6 +16,7 @@ export default {
                 commit('CHANGE_PRODUCTS_PAGINATION', products.data.data)
             }
             if(categories.status === 200) {
+                
                 commit('CHANGE_CATEGORIES', categories.data.data)
             }
             if(product_popular.status === 200) {

@@ -17,12 +17,13 @@ onMounted(() => {
   setTimeout(() => {
     isVisible.value = true;
   }, 500);
+  console.log("category", categories.value);
 });
 
 </script>
 
 <template>
-    <div class="col-span-12 animate-push-top-bot mt-7 hidden">
+    <div class="col-span-12 animate-push-top-bot mt-7 ">
         <div class="text-4xl font-semibold font-serif text-center">
             <span class="text-center inline border-b-4 border-[var(--maincolor)] dark:border-blue-500 pb-2 dark:text-white">Featured Product</span>
         </div>
@@ -34,7 +35,7 @@ onMounted(() => {
                     :class="active_menu == index ? 'border-[var(--maincolor)] border-b-4 dark:border-blue-500' : 'hover:before:scale-x-100 before:h-1'"
                     @click="chooseCategory(category.id, index)"
                     >
-                    {{ category.name }}
+                    {{ category.name }}111
                 </li>
             </ul>
         </div>

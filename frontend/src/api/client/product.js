@@ -1,5 +1,6 @@
 import  axiosInstance from '@/api/axiosClient.js';
 export const get_list_category = () => {
+  
   return axiosInstance.get('/categories')
 }
 
