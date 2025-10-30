@@ -35,7 +35,7 @@ onMounted(() => {
                     :class="active_menu == index ? 'border-[var(--maincolor)] border-b-4 dark:border-blue-500' : 'hover:before:scale-x-100 before:h-1'"
                     @click="chooseCategory(category.id, index)"
                     >
-                    {{ category.name }}111
+                    {{ category.name }}
                 </li>
             </ul>
         </div>
