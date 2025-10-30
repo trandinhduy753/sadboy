@@ -12,6 +12,7 @@ import provide from '@/store/admin/provide/index.js'
 import cash_book from '@/store/admin/cash_book/index.js'
 import chat from '@/store/admin/chat/index.js'
 import account from '@/store/admin/account/index.js'
+import authorization from '@/store/admin/authorization/index.js'
 export default {
     namespaced: true,
     state,
@@ -28,6 +29,7 @@ export default {
         provide,
         cash_book,
         chat,
-        account
+        account,
+        authorization
     }
 }

@@ -177,8 +177,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         Modules\ModulesServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
+        BeyondCode\LaravelWebSockets\WebSocketsServiceProvider::class,
     ],
 
     /*

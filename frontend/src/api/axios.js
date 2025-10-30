@@ -15,7 +15,7 @@ function addSubscriber(callback) {
 }
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: 'http://localhost:8000/api',
   withCredentials: true,
   timeout: 10000,
   headers: {

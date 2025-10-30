@@ -142,6 +142,7 @@ class ProductController extends Controller
             $page = $request->input('page');
             $search = $request->input('search');
             $count = $request->input('count');
+
             $product = $this->productRepo->getProductName($page, $search, $count);
             return response()->json([
                 'status' => 'success',

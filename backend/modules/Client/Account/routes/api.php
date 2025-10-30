@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Client\Account\src\Http\Controllers\AuthController;
 use Modules\Client\Account\src\Http\Controllers\UserController;
-
+use Modules\Client\Account\src\Http\Controllers\PasswordController;
 Route::prefix('auth')->group(function() {
     Route::post('/login', [AuthController::class, 'login']);
 
@@ -23,6 +23,12 @@ Route::prefix('user')->group(function() {
     Route::patch('/edit', [UserController::class, 'update'])->middleware('jwt.cookie.user');
 
     Route::get('/vouchers', [UserController::class, 'getUserVouchers'])->middleware('jwt.cookie.user');
+
+    Route::post('/forgot-password/send-otp', [PasswordController::class, 'sendOtp']);
+
+    Route::post('/forgot-password/verify-otp', [PasswordController::class, 'verifyOtp']);
+
+    Route::post('/forgot-password/reset', [PasswordController::class, 'resetPassword']);
 });
 
 

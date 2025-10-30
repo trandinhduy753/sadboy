@@ -78,6 +78,7 @@ export default {
     async [productClient.get_list_product_by_search] ({commit}, {page, search, count}) {
         try {
             const res = await get_list_product_by_search(page, search, count)
+            console.log(res)
             if(res.status === 200) {
                 if(page === 1){
                     commit('CHANGE_PRODUCTS_SEARCH', res.data.data )

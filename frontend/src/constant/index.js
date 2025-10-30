@@ -1,4 +1,4 @@
-import { voucher, user, employee, order, product, comment, provide, cash_book, chat, account  } from './admin.js'
+import { voucher, user, employee, order, product, comment, provide, cash_book, chat, account, authorization  } from './admin.js'
 import { productClient, formClient, cartClient, voucherClient,  orderClient, accountClient, chatClient, commentClient } from './client.js'
 export { voucher, 
     user, 
@@ -17,5 +17,6 @@ export { voucher,
     chat, 
     account, 
     chatClient,
-    commentClient
+    commentClient,
+    authorization
 } 

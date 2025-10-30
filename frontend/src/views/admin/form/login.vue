@@ -145,11 +145,7 @@
                     <span class="mx-3 text-gray-500">Hoặc</span>
                     <span class="h-[0.1rem] rounded-sm flex-1 bg-gray-500"></span>
                 </div>
-                <div class="col-span-6 mt-4">
-                    <div class="border-1 cursor-pointer  border-[var(--color_border)] flex items-center justify-center ">
-                        <img class="w-35 h-10 scale-[0.5]" src="/public/images/google.png" alt="">
-                    </div>
-                </div>
+               
                 
             </div>
         </div>

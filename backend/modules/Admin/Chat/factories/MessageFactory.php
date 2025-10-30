@@ -34,7 +34,7 @@ class MessageFactory extends Factory
         else if($type === 'product') {
             $salePrice = json_decode($product->detail->sale_price, true);
             $meta = [
-                'img_product' => $product->imgs[0],
+                'img_product' => json_decode($product->imgs, true)[0],
                 'name_product' => $product->name,
                 'price' => $salePrice['S'] ?? null
             ];

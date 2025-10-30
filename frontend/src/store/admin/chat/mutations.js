@@ -9,8 +9,9 @@ export default {
         state.list_detail_user_chat[id] = data;
     },
     LOAD_ADD_MESSAGE_TO_LIST(state, {id, data }) {
-        
-        state.list_detail_user_chat[id].messages=[...state.list_detail_user_chat[id].messages, ...data]
-        console.log(state.list_detail_user_chat[id])
+        state.list_detail_user_chat[id]=[...data, ...state.list_detail_user_chat[id]]
+    },
+    ADD_MESSAGE_TO_LIST(state, {id, data }) {
+        state.list_detail_user_chat[id]=[...state.list_detail_user_chat[id], ...data]
     }
 }

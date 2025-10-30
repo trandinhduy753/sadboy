@@ -3,6 +3,7 @@ import { opt_show_multiple_video, opt_show_multiple_img, formatMoney, truncateSt
 import { productClient, orderClient, accountClient, chatClient } from '@/constant'
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import Echo from '@/plugins/echo.js'; 
 dayjs.extend(relativeTime);
 const {
     show_multiple_video,
@@ -23,13 +24,16 @@ const {
 } = opt_show_multiple_img()
 
 const store = useStore();
-
-const fetchInfoConversation = (user_id, start, end) => {
-    const result = store.dispatch('client/chat/' + chatClient.get_info_conversation, { user_id, start, end })
+const router = useRouter();
+const fetchInfoConversation = async (user_id, page, count) => {
+    const result = await store.dispatch('client/chat/' + chatClient.get_info_conversation, { user_id, page, count })
 }
 
+const fetchAddMessages = async (data) => {
+    const result = await store.dispatch('client/chat/' + chatClient.add_message, data);
+}
 const fetchListProduct = async (start, end) => {
-    const result = store.dispatch('client/product/' + productClient.get_list_product, {start, end})
+    const result = await store.dispatch('client/product/' + productClient.get_list_product, {start, end})
 }
 const fetchFindProduct = async (event) => {
     find_product.value = event.target.value.trim();
@@ -87,8 +91,8 @@ const load_add_orders = (event) => {
 
 const loadAddMessages = async (el) => {
   const oldScrollHeight = el.scrollHeight;
-  const start = messages.value.length;
-  await fetchInfoConversation(user.value?.id, start, start + 2);
+  pageMessage.value++;
+  await fetchInfoConversation(user.value?.id, pageMessage.value, 10);
 
   await nextTick();
   const newScrollHeight = el.scrollHeight;
@@ -122,7 +126,7 @@ const addMessages = async (type, content) => {
     var formData = new FormData();
     if(type == 'product') {
         data = {
-            sender_id: user.value?.id,
+            //sender_id: user.value?.id,
             conversation_id: infoConversation.value?.conversation_id,
             sender_type: 'user',
             type: 'product',
@@ -132,10 +136,11 @@ const addMessages = async (type, content) => {
                 price: content?.sale_price['S'] ?? content?.original_price['S']
             },                 
         }
+        fetchAddMessages(data)
     }
     else if(type == 'order') {
         data = {
-            sender_id: user.value?.id,
+            //sender_id: user.value?.id,
             conversation_id: infoConversation.value?.conversation_id,
             sender_type: 'user',
             type: 'order',
@@ -146,26 +151,34 @@ const addMessages = async (type, content) => {
                 products: content?.products
             }
         }
+        fetchAddMessages(data)
     }
     else {
-        formData.append('sender_id', user.value?.id)
+        //formData.append('sender_id', user.value?.id)
         formData.append('conversation_id', infoConversation.value?.conversation_id)
         formData.append('sender_type', 'user')
         formData.append('type', 'mixed')
         if(content_message.value !== '') {
             formData.append('content', content_message.value)
         }
-        if(images.value.length !== 0){
-            formData.append('imgs', images.value)
+        if (images.value.length !== 0) {
+            images.value.forEach((img) => {
+                formData.append('imgs[]', img)
+            })
         }
-        if(videos.value.length !== 0) {
-            formData.append('videos', videos.value)
+
+        if (videos.value.length !== 0) {
+            videos.value.forEach((vid) => {
+                formData.append('videos[]', vid)
+            })
         }
         // for (const [key, value] of formData.entries()) {
         //     console.log(`${key}: ${value}`);
         // }
+        fetchAddMessages(formData)
     }
-    console.log(data)
+    //console.log(data)
+    content_message.value = "";
 
 }
 
@@ -184,42 +197,52 @@ const chatContainer = ref(null)
 const showChat = computed(() => store.state.client.showChat)
 const pageProduct = ref(1)
 const pageOrder = ref(1)
+const pageMessage = ref(1);
+let channel;
 watch(messages, async () => {
-  await nextTick();
-  if (isAtBottom.value) {
-    const el = chatContainer.value;
-    el.scrollTop = el.scrollHeight;
-  }
+    await nextTick();
+    if (isAtBottom.value) {
+        const el = chatContainer.value;
+        el.scrollTop = el.scrollHeight;
+    }
 });
 
 onMounted(async () => {
     if (Object.keys(user.value).length === 0) {
         await store.dispatch('client/account/' + accountClient.get_infor_user)
     }
+    console.log(user.value)
     if (Object.keys(user.value).length === 0) {
-        // Chưa có user thì chuyển sang trang login
+        store.commit('client/CHANGE_SHOW_CHAT', false);
         router.push({ name: "form", query: { opt: "login" } });
     }
-    const [products, orders] = await Promise.all([
+    const [products, orders, info] = await Promise.all([
         fetchListProduct(0, 5),
         fetchListOrder(user.value.id, pageOrder.value, 10),
-        fetchInfoConversation(user.value?.id, 0, 20)
+        fetchInfoConversation(user.value?.id, pageMessage.value, 10)
     ]);
-})
+
+    const id = infoConversation.value.conversation_id;
+    const channel = Echo.channel(`conversation.${id}`);
+    channel.listen('.MessagesFetched', (payload) => {
+        store.commit('client/chat/ADD_MESSAGE', payload);
+    });
+});
+
 </script>
 
 <template>
 
-    <div @click="hiddenBox()" v-if="showChat" :class="showChat ? 'animate-fade-in' : 'animate-fade-out'" class="fixed top-0 right-0 bottom-0 w-[30%] z-999 bg-white dark:bg-gray-700 box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px ">
-        <div class="flex justify-between p-3 bg-gray-300 dark:bg-gray-500">
+    <div @click="hiddenBox()" v-if="showChat" :class="showChat ? 'animate-fade-in' : 'animate-fade-out'" class="fixed top-0 right-0 bottom-0 max-lg:w-[50%] w-[30%] z-999 bg-white dark:bg-gray-700 box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px ">
+        <div class="flex max-md:flex-col justify-between p-3 bg-gray-300 dark:bg-gray-500">
             <div class="flex items-center gap-2">
-                <img class="w-15 h-15 rounded-full" :src="infoConversation?.employee?.img" alt="">
+                <img class="w-15 h-15 rounded-full max-md:hidden" :src="infoConversation?.employee?.img" alt="">
                 <div class="text-gray-300">
-                    <p>{{ infoConversation?.employee?.name }}</p>
-                    <p>{{ infoConversation?.employee?.email }}</p>
+                    <p>Nhân viên hệ thống</p>
+                    <p>Admin123@gmail.com</p>
                 </div>
             </div> 
-            <div @click="store.commit('client/CHANGE_SHOW_CHAT', false)" class="flex items-center justify-center ">
+            <div @click="store.commit('client/CHANGE_SHOW_CHAT', false)" class="flex items-center justify-center max-md:justify-end ">
                 <a href="#" class="relative w-10 h-10 bg-white rounded-full shadow-[0_0_30px_rgba(247,149,29,0.5)] flex items-center justify-center transition-all duration-400 ease-[cubic-bezier(.215,.61,.355,1)] group">
                     <span class="absolute  w-8 h-2 -mt-[6px] top-1/2 rounded-[6px] bg-[#f5a700] flex justify-between rotate-45 transition-all duration-400 ease-[cubic-bezier(.215,.61,.355,1)] group-hover:bg-[#2faee0]">
                     <span class="circle-left absolute w-2 h-2 rounded-full bg-[#ed7f00] transition-all group-hover:bg-[#008ac9] group-hover:ml-6"></span>
@@ -321,7 +344,7 @@ onMounted(async () => {
                     {{ error_video }}
                 </div>
             </div>
-            <input v-model="content_message" class="w-full outline-0 py-4 placeholder:text-xl text-xl dark:text-white placeholder:text-white" placeholder="Nhập tin nhắn" type="text">
+            <input v-model="content_message"  @keydown.enter="addMessages" class="w-full outline-0 py-4 placeholder:text-xl text-xl dark:text-white placeholder:text-white" placeholder="Nhập tin nhắn" type="text">
             <div class="flex justify-between">
                 <div class="flex items-center gap-6 text-2xl">
                     <label for="imgchat">

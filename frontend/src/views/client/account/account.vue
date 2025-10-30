@@ -9,7 +9,9 @@
     const { show_img, img, preview_img, error_img, clear_img } = opt_show_img()
     //accountClient.edit_user
     const fetchEditUser = async (user_id, data) => {
+        store.commit('client/CHANGE_LOADING', true);
         const result = await store.dispatch('client/account/' + accountClient.edit_user, {user_id, data})
+        store.commit('client/CHANGE_LOADING', false);
     }
     const schema = object({
         email: string().notRequired().email('Email không hợp lệ'),

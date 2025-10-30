@@ -19,6 +19,5 @@ export const add_product_to_cart = (user_id, data) => {
 }
 
 export const check_order_pay = (order_code) => {
-    console.log(order_code)
     return axiosInstance.get('/order_check_pay/' + order_code)
 }

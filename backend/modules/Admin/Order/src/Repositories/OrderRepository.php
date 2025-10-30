@@ -60,7 +60,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
                 $query->select('order_id', 'address');
             }
 
-        ])->select('id', 'code', 'total', 'status', 'created_at')
+        ])->select('id', 'code', 'total', 'status', 'created_at', 'products', 'count')
         ->latest()
         ->skip($start)->take($count)
         ->get();
@@ -68,16 +68,25 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         if($orders->isEmpty()) {
             throw new \Exception('Không tìm thấy đơn hàng trong khoảng yêu cầu', 404);
         }
-
-        $orders = $orders->map(function($order) {
+        $host =  env('APP_URL');
+        $orders = $orders->map(function($order) use($host){
             return [
                 'id' => $order->id,
                 'code' => $order->code,
                 'total' => number_format($order->total, 0, '.', ''),
                 'created_at' => Carbon::parse($order->created_at)->format('Y-m-d H:i:s'),
                 'status' => $order->status,
-                'address' => str_replace("\n", ' ', $order->detail->address)
-
+                'address' => str_replace("\n", ' ', $order->detail->address),
+                'products' => collect(json_decode($order->products, true))->map(function($product) use($host) {
+                    return [
+                        'name' => $product['name'],
+                        'img' => $host.$product['img'],
+                        'count' => $product['count'],
+                        'size' => $product['size'],
+                        'price' => $product['price']
+                    ];
+                })->toArray(),
+                'count' => $order->count
             ];
         });
         return $orders;

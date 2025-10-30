@@ -80,13 +80,12 @@ class EmployeePolicy
         return $this->hasPermission($employee, 'find');
     }
 
-    // public function addGoodReceipt(Employee $employee) {
-    //     return $this->hasPermission($employee, 'addReceipt');
-    // }
+    public function addGoodReceipt(Employee $employee) {
+        return $this->hasPermission($employee, 'addReceipt');
+    }
 
     public function viewDelete(Employee $employee) {
         return $this->hasPermission($employee, 'viewDelete');
     }
 }
 
-//   'employee' => ['view', 'viewAny', 'add', 'delete', 'viewDelete', 'forceDelete'],

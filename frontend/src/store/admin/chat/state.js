@@ -3,4 +3,5 @@ export default {
     list_detail_user_chat:{
         
     },
+   
 }

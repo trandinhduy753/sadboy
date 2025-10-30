@@ -28,40 +28,38 @@ const {
     preview_images,
     error_img
 } = opt_show_multiple_img()
-const fetchListUserChat = async (admin_id, start, end) => {
-    const result = await store.dispatch('admin/chat/' + chat.get_list_user_chat, {admin_id, start, end})
+const fetchListUserChat = async (admin_id, page, count) => {
+    const result = await store.dispatch('admin/chat/' + chat.get_list_user_chat, {admin_id, page, count})
 }
-const fetchDetailUserChat = async (admin_id, user_id, start, end) => {
+const fetchDetailUserChat = async (admin_id, user_id, page, count) => {
     user_id_start.value = user_id
-    if(start==0) {
+    if(page == 1) {
         if(!detail_user_chat.value) {
-            console.log('Lấy dữ liệu')
-            const result = await store.dispatch('admin/chat/' + chat.detail_user_chat, {admin_id, user_id, start, end});
-        }
-        else {
-            console.log('Lấy trong getter')
+            const result = await store.dispatch('admin/chat/' + chat.detail_user_chat, {admin_id, user_id, page, count});
         }
     }
     else {
-        const result = await store.dispatch('admin/chat/' + chat.detail_user_chat, {admin_id, user_id, start, end});
+        const result = await store.dispatch('admin/chat/' + chat.detail_user_chat, {admin_id, user_id, page, count});
     }
     
 }
 const load_add_users_chat= (event) => {
     const el = event.target;
     if (Math.abs(el.scrollTop + el.clientHeight - el.scrollHeight) < 1) {
-        var start = users_chat.value.length;
-        fetchListUserChat(12, start, start+5)
+        page_user_chat.value++;
+        fetchListUserChat(12, page_user_chat.value, 10)
     }
 };
-
-
+const fetchAddMessage = async (data) => {
+    const result = await store.dispatch('admin/chat/' + chat.add_message, data);
+} 
 const loadAddMessages = (event) => {
+
     const el = event.target;
     if (el.scrollTop === 0) {
-        // Gọi hàm để tải thêm dữ liệu (ví dụ: lịch sử tin nhắn)
-        const start = detail_user_chat.value?.messages.length;
-        fetchDetailUserChat(12, user_id_start.value, start, start + 5);
+        console.log(222)
+        page_detail_user_chat.value++;
+        fetchDetailUserChat(12, user_id_start.value, page_detail_user_chat.value, 10);
     }
 };
 const handleShowProductChat = () => {
@@ -73,12 +71,13 @@ const handleShowOrderChat = () => {
     show_product.value=false
 }
 const addMessage = (type, content) => {
+    
     var data = {}
     var formData = new FormData();
     if(type == 'product') {
         data = {
             sender_id: 12,
-            conversation_id: detail_user_chat.value?.conversation_id,
+            conversation_id: detail_user_chat.value[0]?.conversation_id,
             sender_type: 'admin',
             type: 'product',
             meta_data: {
@@ -87,11 +86,12 @@ const addMessage = (type, content) => {
                 price: content?.sale_price['S'] ?? content?.original_price['S']
             },                 
         }
+        fetchAddMessage(data)
     }
     else if(type == 'order') {
         data = {
             sender_id: 12,
-            conversation_id: detail_user_chat.value?.conversation_id,
+            conversation_id: detail_user_chat.value[0]?.conversation_id,
             sender_type: 'admin',
             type: 'order',
             meta_data: {
@@ -101,26 +101,36 @@ const addMessage = (type, content) => {
                 products: content?.products
             }
         }
+        fetchAddMessage(data)
     }
     else {
         formData.append('sender_id', 12)
-        formData.append('conversation_id', detail_user_chat.value?.conversation_id)
+        formData.append('conversation_id', detail_user_chat.value[0]?.conversation_id)
         formData.append('sender_type', 'admin')
         formData.append('type', 'mixed')
         if(content_message.value !== '') {
             formData.append('content', content_message.value)
         }
-        if(images.value.length !== 0){
-            formData.append('imgs', images.value)
+        if (images.value.length !== 0) {
+            images.value.forEach((img) => {
+                formData.append('imgs[]', img)
+            })
         }
-        if(videos.value.length !== 0) {
-            formData.append('videos', videos.value)
+
+        if (videos.value.length !== 0) {
+            videos.value.forEach((vid) => {
+                formData.append('videos[]', vid)
+            })
         }
         // for (const [key, value] of formData.entries()) {
         //     console.log(`${key}: ${value}`);
         // }
+        fetchAddMessage(formData);
     }
-    console.log(data)
+    content_message.value ='';
+    //clear_images();
+    //clear_videos();
+    hiddenBox()
 }
 const hiddenBox = () => {
     show_product.value = false
@@ -128,7 +138,7 @@ const hiddenBox = () => {
 }
 const scrollToBottom = () => {
   if (chatContainer.value) {
-    chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
+    //chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
   }
 };
 const detail_user_chat=computed(() => store.getters['admin/chat/get_detail_user_chat'][user_id_start.value])
@@ -140,20 +150,45 @@ const users_chat = computed(() => store.getters['admin/chat/get_user_chat'] )
 const users = computed(() => store.state.admin.user.users)
 const messages = computed(() =>  groupMessages(detail_user_chat.value?.messages)  )
 const user_id_start = ref(-1);
-const content_message = ref("")
+const content_message = ref("");
+const page_user_chat = ref(1);
+const page_detail_user_chat = ref(1);
+const selectUserChat = ref(0);
+
 watch(detail_user_chat, () => {
-  nextTick(() => {
-    scrollToBottom();
-  });
+    // nextTick(() => {
+    //     chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
+    // });
 }, { deep: true });
+
+let currentChannel = null
+
+watch(() => detail_user_chat.value, (newVal) => {
+    if (!newVal || !newVal[0]) return
+    const id = newVal[0].conversation_id
+    if (currentChannel) {
+        Echo.leave(`conversation.${currentChannel}`)
+    }
+    currentChannel = id
+    const channel = Echo.channel(`conversation.${id}`)
+    channel.listen('.MessagesFetched', (payload) => {
+        store.commit('admin/chat/ADD_MESSAGE_TO_LIST', {
+            id: user_id_start.value,
+            data: payload
+        })
+    })
+}, { immediate: true })
+
 onMounted(async () => {
     const [products, orders] = await Promise.all([
-        fetchListUserChat(12, 0, 20),
+        fetchListUserChat(12, page_user_chat.value, 10),
         get_list_product(0, 5),
         fetchListOrder(0, 5),
     ]);
-    user_id_start.value= users_chat.value[0]?.id;
-    fetchDetailUserChat(12, user_id_start.value, 0, 20)
+    user_id_start.value = users_chat.value[0]?.user_id;
+    
+    await fetchDetailUserChat(12, user_id_start.value, page_detail_user_chat.value, 10)
+    chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
 })
 </script>
 
@@ -179,11 +214,11 @@ onMounted(async () => {
                 </div>
             </div>
             <div v-else @scroll="load_add_users_chat" class="max-h-[60vh] overflow-y-auto scrollbar-hide">
-                <div v-for="(user, index) in users_chat" :key="index" @click="fetchDetailUserChat(12, user?.user_id, 0, 20)" class="flex cursor-pointer gap-x-4 items-center mb-5 p-2 bg-gray-200 dark:bg-gray-500 rounded-sm">
+                <div v-for="(user, index) in users_chat" :key="index" @click="() => { fetchDetailUserChat(12, user?.user_id, 1, 10); page_detail_user_chat = 1; selectUserChat = index;}" class="flex cursor-pointer gap-x-4 items-center mb-5 p-2 bg-gray-200 dark:bg-gray-500 rounded-sm">
                     <img class="w-15 h-15 rounded-full" :src="user?.img_user" alt="">
                     <div>
-                        <p class="text-lg font-bold dark:text-white">{{ user?.name_user }}</p>
-                        <p class="dark:text-white">{{ truncateString(user?.last_message, 15) }} <span> . {{ dayjs(user?.last_time).fromNow() }}</span></p>
+                        <p class="text-[0.9rem] font-bold dark:text-white">{{ user?.name_user }}</p>
+                        <p class="dark:text-white">{{ truncateString(user?.last_message, 15) }} <br> <span> . {{ dayjs(user?.last_time).fromNow() }}</span></p>
                     </div>
                 </div>
                 
@@ -193,14 +228,14 @@ onMounted(async () => {
         </div>
         <div class="col-span-8 bg-gray-100 dark:bg-gray-600 h-[70vh] p-2 flex flex-col justify-between">
             <div  class="flex gap-x-4 items-center mb-5 bg-white dark:bg-gray-500 p-2 rounded-xl">
-                <img class="w-15 h-15 rounded-full" src="/public/images/img_chat/product_img-10.png" alt="">
+                <img class="w-15 h-15 rounded-full" :src="users_chat[selectUserChat]?.img_user" alt="">
                 <div>
-                    <p class="text-lg font-bold dark:text-white">Nguyễn Trần Cường</p>
-                    <p class="dark:text-white">ok, tôi đã nhân đdddược <span> . 9h trước</span></p>
+                    <p class="text-lg font-bold dark:text-white">{{ users_chat[selectUserChat]?.name_user }}</p>
+                    <p class="dark:text-white">{{ users_chat[selectUserChat]?.email_user }}</p>
                 </div>
             </div>
             <div @scroll="loadAddMessages" ref="chatContainer" class="bg-white dark:bg-gray-500 flex-1 overflow-y-auto custom-scrollbar p-5">
-                <template v-for="(message, index) in messages" :key="index">
+                <template v-for="(message, index) in detail_user_chat" :key="index">
                     <div v-if="message.type == 'text'" :class="message.sender_type =='admin' ? 'justify-end': 'justify-start'" class="flex  items-center mb-5 ">
                         <div class="inline-block max-w-[80%] pr-5 bg-gray-200 dark:text-gray-700 dark:bg-white p-2 rounded-sm">
                             {{ message?.content}}
@@ -245,13 +280,14 @@ onMounted(async () => {
                     </div>
                     <div v-else-if="message.type == 'image'" :class="message.sender_type =='admin' ? 'justify-end': 'justify-start'" class="mb-5 flex  items-center">
                         <div class="flex items-center justify-end max-w-[70%]  flex-wrap">{{ message?.contents }}
-                            <img v-for="(img, index) in message?.files" :key="index" :src="img" :class="message.sender_type =='admin' ? 'ml-4': 'mr-4'" class="w-15 h-15 mt-3" alt="">
+                            <img :src="message?.file_path" :class="message.sender_type =='admin' ? 'ml-4': 'mr-4'" class="w-15 h-15 mt-3" alt="">
                         </div>
                     </div>
                     <div v-else-if="message.type == 'video'" :class="message.sender_type =='admin' ? 'justify-end': 'justify-start'" class="mb-5 flex  items-center">
                         <div class="flex items-center justify-end max-w-[70%]  flex-wrap">{{ message?.contents }}
-                            <video v-for="(video, index) in message?.files" :key="index" :class="message.sender_type =='admin' ? 'ml-4': 'mr-4'" class="w-15 h-15" controls>
-                                <source :src="video">
+                            
+                            <video :class="message.sender_type =='admin' ? 'ml-4': 'mr-4'" class="w-15 h-15" controls>
+                                <source :src="message?.file_path">
                                 Trình duyệt của bạn không hỗ trợ video tag.
                             </video>
                         </div>
@@ -289,7 +325,7 @@ onMounted(async () => {
                         {{ error_video }}
                     </div>
                 </div>
-                <form action="" class="">
+                <form action="" class="" @submit.prevent>
                     <div class="">
                         <input v-model="content_message" type="text" placeholder="Nhập nội dung tin nhắn" class="dark:text-white dark:placeholder:text-white outline-0 w-full rounded-ssm ">
                     </div>
@@ -359,16 +395,16 @@ onMounted(async () => {
                                         </div>
                                         <div @scroll="load_add_orders" class="max-h-55 overflow-y-auto custom-scrollbar">
                                             <div v-for="(order, index) in list_order" :key="index" class="bg-white p-2 mt-2">
-                                                <div class="flex gap-3">
-                                                    <img :src="order?.products[0]?.img" class="w-10 h-10" alt="" />
+                                                <div class="flex gap-3"> 
+                                                    <img :src="order?.products?.[0]?.img" class="w-10 h-10" alt="" />
                                                     <div class="text-sm flex justify-between flex-1">
                                                         <div>
-                                                            <p>{{ truncateString(order?.products[0]?.sort_description, 30) }}</p>
-                                                            <p>Size: {{ order?.products[0]?.size }}</p>
+                                                            <p>{{ truncateString(order?.products?.[0]?.sort_description, 30) }}</p>
+                                                            <p>Size: {{ order?.products?.[0]?.size }}</p>
                                                         </div>
                                                         <div>
-                                                            <p>{{ formatMoney(order?.products[0]?.price) }}</p>
-                                                            <p class="text-end">x{{ order?.products[0]?.count }}</p>
+                                                            <p>{{ formatMoney(order?.products?.[0]?.price) }}</p>
+                                                            <p class="text-end">x{{ order?.products?.[0]?.count }}</p>
                                                         </div>
                                                     </div>
                                                 </div>

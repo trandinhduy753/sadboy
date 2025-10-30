@@ -1,6 +1,5 @@
 import  axiosInstance from '@/api/axiosClient.js';
 export const infor_user = () => {
-   
     return axiosInstance.get('/auth/me');
 }
 export const edit_user = (user_id, data) => {

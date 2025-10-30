@@ -1,11 +1,19 @@
 <script setup>
     const login = defineAsyncComponent(() => import('@/views/client/form/login.vue'));
     const logout = defineAsyncComponent(() => import('@/views/client/form/register.vue'));
+    const forgot = defineAsyncComponent(() => import('@/views/client/form/forgotPassword.vue'));
+    const reset = defineAsyncComponent(() => import('@/views/client/form/resetPassword.vue'));
     const route = useRoute();
     const opt_form = computed(() => route.query.opt);
     const show_form = computed(() => {
         if(opt_form.value == 'login') {
             return login;
+        }
+        else if(opt_form.value == 'forgot') {
+            return forgot;
+        }
+        else if(opt_form.value == 'reset') {
+            return reset;
         }
         return logout;
     });

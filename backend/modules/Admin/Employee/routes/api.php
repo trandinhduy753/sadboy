@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Admin\Employee\src\Http\Controllers\EmployeeController;
 use Modules\Admin\Employee\src\Http\Controllers\AuthController;
+use Modules\Admin\Employee\src\Http\Controllers\EmployeeAuthorizationController;
 Route::prefix('admin')->middleware('jwt.cookie.employee')->group(function() {
     Route::get('/employees', [EmployeeController::class, 'index']);
 
@@ -34,6 +35,11 @@ Route::prefix('admin')->middleware('jwt.cookie.employee')->group(function() {
 
     Route::get('/departments', [EmployeeController::class, 'getDepartments']);
 
+    Route::get('/employee/authorization/{id}', [EmployeeAuthorizationController::class, 'show']);
+
+    Route::put('/employee/authorization/{id}', [EmployeeAuthorizationController::class, 'update']);
+
+    Route::patch('/employee/authorization/{id}', [EmployeeAuthorizationController::class, 'update']);
 });
 
 Route::prefix('admin/auth')->group(function() {
@@ -42,3 +48,5 @@ Route::prefix('admin/auth')->group(function() {
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/me', [AuthController::class, 'me'])->middleware('jwt.cookie.employee');
 });
+
+

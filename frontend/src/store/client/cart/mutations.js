@@ -55,7 +55,6 @@ export default {
         state.isCallApiCart = opt;
     },
     RESET_CART_CHECKED (state) {
-        console.log(111111)
         state.carts_checked = [];
         state.selected_cart_index = [];
     },

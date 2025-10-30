@@ -87,8 +87,11 @@ export function getFutureDate(daysToAdd = 0) {
 }
 
 export function replaceStringRange(str, replacementChar, start, end) {
-  const replacement = replacementChar.repeat(end - start);
-  return str.slice(0, start) + replacement + str.slice(end);
+  if(str) {
+    const replacement = replacementChar.repeat(end - start);
+    return str.slice(0, start) + replacement + str.slice(end);
+  }
+  return ''
 }
 
 export function groupMessages(messages) {

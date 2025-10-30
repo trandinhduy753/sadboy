@@ -28,6 +28,7 @@ class ClientUserRepository extends BaseRepository implements ClientUserRepositor
             $user = $this->model->create([
                 'code' => Str::random(10),
                 'name' => $data['name'],
+                'img' => '/storage/images/img_user/img_user.jpg',
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
             ]);

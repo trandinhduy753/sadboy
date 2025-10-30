@@ -13,6 +13,7 @@ use Modules\Admin\User\src\Models\UserDetails;
 use Modules\Admin\Voucher\src\Models\Voucher;
 use Modules\Admin\Voucher\src\Models\UserVoucher;
 use Modules\Admin\Order\src\Models\Order;
+use Modules\Admin\Chat\src\Models\Conversation;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 class User extends Authenticatable implements JWTSubject
 {
@@ -24,7 +25,7 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
         'code', 'name', 'email', 'img', 'phone', 'gender', 'password',
-        'status', 'date_birth', 'date_create_account',
+        'status', 'date_birth', 'date_create_account', 'otp_code', 'otp_expires_at'
     ];
 
     protected $table = 'users';
@@ -54,6 +55,14 @@ class User extends Authenticatable implements JWTSubject
             UserVoucher::class,
             'user_id',
             'voucher_id'
+        );
+    }
+
+    public function conversations() {
+        return $this->hasMany(
+            Conversation::class,
+            'user_id',
+            'id'
         );
     }
     protected $hidden = [

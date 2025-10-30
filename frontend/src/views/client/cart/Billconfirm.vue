@@ -20,15 +20,18 @@
         
         if(discount_code.value != '') {
             if(pay.value === 'QRCODE') {
-                console.log(222)
                 onManualSubmit()
             }
+            store.commit('client/CHANGE_LOADING', true);
             const result = await store.dispatch('client/voucher/' + voucherClient.find_voucher, {user_id: user.value?.id, code: discount_code.value})
+            store.commit('client/CHANGE_LOADING', false);
         }
     }
     const fetchAddOrder = async (data) => {
         //console.log(data)
+        store.commit('client/CHANGE_LOADING', true);
         const result=  await store.dispatch('client/order/' + orderClient.add_order, data)
+        store.commit('client/CHANGE_LOADING', false);
     }
     const hiddenInfoBanking = () => {
         show_banking.value = false
@@ -61,11 +64,12 @@
     }
     
     const handle_show_banking = async () => {
+        store.commit('client/CHANGE_LOADING', true);
         showInputDiscountBanking.value = false;
         onManualSubmit()
         show_info_banking.value =true;
         pollingOrderPay()
-        
+         store.commit('client/CHANGE_LOADING', false);
     }
     const schema = object({
         address: string().required('Địa chỉ giao hàng không được để trống').trim(),
@@ -116,8 +120,6 @@
                     router.push({ name: 'bill_finish' })
                 }, 1000)
             }
-            
-            
         },
         (errors) => {
             toast.error('Đặt hàng không thành công')

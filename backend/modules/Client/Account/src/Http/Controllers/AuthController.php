@@ -14,19 +14,17 @@ class AuthController extends Controller
     {
         try {
             $credentials = $request->only('email', 'password');
-
-
             if (! $token = auth()->guard('user')->attempt($credentials)) {
                 throw new \Exception('Unauthorized', 401);
             }
-           
+
             $user=auth()->guard('user')->user();
 
+            JWTAuth::factory()->setTTL(10080);
             $refreshToken = JWTAuth::customClaims([
                 'type' => 'refresh_token'
             ])->fromUser($user);
 
-            JWTAuth::factory()->setTTL(10080);
             $host = env('APP_URL');
             return response()->json([
                 'message' => 'Đăng nhập thành công',

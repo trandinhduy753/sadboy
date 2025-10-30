@@ -42,6 +42,14 @@ use Modules\Client\Order\src\Repositories\ClientOrderRepositoryInterface;
 use Modules\Client\Order\src\Repositories\ClientOrderRepository;
 use Modules\Client\Voucher\src\Repositories\ClientVoucherRepositoryInterface;
 use Modules\Client\Voucher\src\Repositories\ClientVoucherRepository;
+use Modules\Admin\Chat\src\Repositories\ChatRepositoryInterface;
+use Modules\Admin\Chat\src\Repositories\ChatRepository;
+use Modules\Client\Chat\src\Repositories\ClientChatRepositoryInterface;
+use Modules\Client\Chat\src\Repositories\ClientChatRepository;
+use Modules\Admin\Employee\src\Repositories\ModuleRepositoryInterface;
+use Modules\Admin\Employee\src\Repositories\ModuleRepository;
+use Modules\Client\Account\src\Repositories\ClientPasswordRepositoryInterface;
+use Modules\Client\Account\src\Repositories\ClientPasswordRepository;
 
 use Modules\Admin\Order\src\Commands\DeleteOrderPending;
 use Modules\Admin\Order\src\Commands\HandleProfitOrder;
@@ -171,6 +179,23 @@ class ModulesServiceProvider extends ServiceProvider {
             ClientVoucherRepository::class
         );
 
+        $this->app->singleton(
+            ChatRepositoryInterface::class,
+            ChatRepository::class
+        );
+        $this->app->singleton(
+            ClientChatRepositoryInterface::class,
+            ClientChatRepository::class
+        );
+        $this->app->singleton(
+            ModuleRepositoryInterface::class,
+            ModuleRepository::class
+        );
+
+        $this->app->singleton(
+            ClientPasswordRepositoryInterface::class,
+            ClientPasswordRepository::class
+        );
     }
 
     private function getModules(){

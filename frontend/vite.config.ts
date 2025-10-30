@@ -22,12 +22,5 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
-  },
-  server: {
-    host: true, // cho phép truy cập từ ngoài container
-    port: 5173,
-    watch: {
-      usePolling: true, // giúp hot reload ổn định trong Docker
-    },
-  },
+  }
 })

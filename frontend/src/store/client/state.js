@@ -1,3 +1,4 @@
 export default {
-    showChat: false
+    showChat: false,
+    isLoading: false,
 }

@@ -18,13 +18,14 @@ class ModuleSeeder extends Seeder
                 'employee_id' => 1,
                 'permissions' => json_encode([
                     'employee' => ['view', 'viewAny', 'viewDelete'],
-                    'user' => ['view', 'viewAny', 'viewDelete'],
+                    'user' => ['all'],
                     'order' => ['view', 'viewAny', 'viewDelete'],
                     'product' => ['view', 'viewAny', 'viewDelete'],
                     'comment' => ['view', 'viewAny', 'viewDelete'],
                     'voucher' => ['view', 'viewAny', 'viewDelete'],
                     'provide' => ['view', 'viewAny', 'viewDelete'],
                     'cash_book' => ['viewDebt', 'viewIncomeSpend', 'addBill'],
+                    'authorization' => ['all'] 
                 ])
             ]
         );
@@ -41,3 +42,11 @@ class ModuleSeeder extends Seeder
 //                     'provide' => ['viewAny', 'delete', 'viewDelete', 'view'],
 //                     'cash_book' => ['viewDebt', 'viewIncomeSpend', 'addBill'] //addBill
 //                 ])
+// employee => [view, viewAny, 'restore' , 'update', 'delete', 'find', 'viewDelete', 'add', forceDelete]
+// user [view, viewAny, restore' , 'update', 'delete', 'find', 'viewDelete', ,forceDelete]
+// order [view, viewAny, restore' , 'update', 'delete', 'find', 'viewDelete', ,forceDelete]
+// product [view, viewAny, restore' , 'update', 'delete', 'find', 'viewDelete', ,forceDelete, GoodsReceipt]
+// comment [view, viewAny, restore' , 'update', 'delete', 'find', 'viewDelete', ,forceDelete]
+// voucher [view, viewAny, 'restore' , 'update', 'delete', 'find', 'viewDelete', 'add', forceDelete]
+// product [view, viewAny, 'restore' , 'update', 'delete', 'find', 'viewDelete', 'add', forceDelete]
+// cash_book ['viewDebt', 'viewIncomeSpend', 'addBill']

@@ -1,31 +1,33 @@
 FROM php:8.2-fpm
 
-# Install PHP extensions
+# Thư mục làm việc
+WORKDIR /var/www
+
+# Cài các gói cần thiết
 RUN apt-get update && apt-get install -y \
-    git unzip libpq-dev libpng-dev libjpeg-dev libfreetype6-dev \
-    zip curl vim \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql exif
+    git \
+    unzip \
+    zip \
+    curl \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libonig-dev \
+    libzip-dev
 
-# Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Cài extension PHP
+RUN docker-php-ext-install pdo_mysql mbstring zip exif gd
 
-WORKDIR /var/www/html
+# Cài composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy source code
+# Sao chép mã nguồn
 COPY . .
 
-# Tạo folder cần thiết
-RUN mkdir -p database/factories \
-    && mkdir -p database/seeders \
-    && mkdir -p storage/framework/cache/data \
-    && touch database/factories/.gitkeep
+# Cài đặt dependency Laravel
+RUN composer install --no-interaction --prefer-dist
 
-# Set quyền
-RUN chown -R www-data:www-data storage bootstrap/cache
+# Phân quyền
+RUN chown -R www-data:www-data /var/www
 
-# Composer
-RUN composer install --no-dev --optimize-autoloader
-
-EXPOSE 9000
 CMD ["php-fpm"]

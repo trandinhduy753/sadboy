@@ -7,7 +7,19 @@
     const store = useStore();
     const router = useRouter()
     const fetchLogin = async (data) => {
-        const result = store.dispatch('client/form/' + formClient.login, data)
+        store.commit('client/CHANGE_LOADING', true);
+        const result = await store.dispatch('client/form/' + formClient.login, data)
+        store.commit('client/CHANGE_LOADING', false);
+        if(result.ok === 'success') {
+            toast.success('Đăng nhập thành công')
+            setTimeout(() => {
+                router.push('/')
+            }, 1000)
+        }
+        else {
+            toast.error('Đăng nhập không thành công')
+        }
+        
     }
     
     const schema = object({
@@ -28,9 +40,6 @@
     const { handleSubmit } = useForm({ 
         validationSchema: schema,
         initialValues: {
-            password: 'Cuonga@123',
-            password_confirmation: 'Cuonga@123',
-            email: 'trinh.ly@example.org'
             
         }
     })
@@ -41,10 +50,7 @@
     const onManualSubmit = handleSubmit(
         (values) => {
             fetchLogin(values);
-            toast.success('Đăng nhập thành công')
-            setTimeout(() => {
-                router.push('/')
-            }, 1000)
+           
         },
         (errors) => {
             toast.error('Đăng nhập không thành công')
@@ -101,7 +107,12 @@
                 </div>
                 
             </div>
-            <p class="col-span-12 text-blue-500 italic mt-1 cursor-pointer block">Forgot password</p>
+            <div class="col-span-12">
+                <router-link :to="{name: 'form', query: {opt: 'forgot'}}">
+                    <p class="col-span-12 text-blue-500 italic mt-1 cursor-pointer block">Forgot password</p>
+                </router-link>
+            </div>
+            
             <div class="col-span-12 mt-5">
                 <div @click="onManualSubmit" class="text-center font-black bg-blue-300 hover:bg-blue-200 cursor-pointer rounded-lg text-white py-2 uppercase">
                     Sign in
@@ -112,11 +123,7 @@
                 <span class="mx-3 text-gray-500">Hoặc</span>
                 <span class="h-[0.1rem] rounded-sm flex-1 bg-gray-500"></span>
             </div>
-            <div class="col-span-6 mt-4">
-                <div class="border-1 cursor-pointer  border-[var(--color_border)] flex items-center justify-center ">
-                    <img @click="loginGoogle" class="w-35 h-10 scale-[0.5]" src="/public/images/google.png" alt="">
-                </div>
-            </div>
+            
             <div class="col-span-12 text-center mt-2 italic">
                 <router-link :to="{name: 'form', query: {opt: 'logout'}}">
                     <p class="text-gray-500">Bạn đã chưa có tài khoản? <span class="text-blue-500 underline underline-offset-4 cursor-pointer hover:text-orange-500">Đăng ký</span></p>

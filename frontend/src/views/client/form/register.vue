@@ -8,7 +8,18 @@
     const store = useStore();
     const router = useRouter()
     const fetchRegister = async (data) => {
-        const result = store.dispatch('client/form/' + formClient.client_register, data )
+        store.commit('client/CHANGE_LOADING', true);
+        const result = await store.dispatch('client/form/' + formClient.client_register, data )
+        store.commit('client/CHANGE_LOADING', false);
+        if(result.ok === 'success') { 
+            toast.success('Đăng ký tài khoản thành công')
+            setTimeout(() => {
+                router.push({name: 'form', query: {opt: 'login'}})
+            }, 1000)
+        }
+        else {
+            toast.error('Đăng ký không thành công')
+        }
     }
     const schema = object({
         name: string().required('Họ và tên không được bỏ trống').trim().min(8, 'Họ và têb tối thiểu 8 ký tự'),
@@ -41,10 +52,7 @@
     const onManualSubmit = handleSubmit(
         (values) => {
             fetchRegister(values)
-            toast.success('Đăng ký tài khoản thành công')
-            setTimeout(() => {
-                router.push({name: 'form', query: {opt: 'login'}})
-            }, 1000)
+            
         },
         (errors) => {
             toast.error('Đăng ký không thành công')
@@ -116,11 +124,7 @@
                 <span class="mx-3 text-gray-500">Hoặc</span>
                 <span class="h-[0.1rem] rounded-sm flex-1 bg-gray-500"></span>
             </div>
-            <div class="col-span-6 mt-4">
-                <div class="border-1 cursor-pointer  border-[var(--color_border)] flex items-center justify-center ">
-                    <img class="w-35 h-10 scale-[0.5]" src="/public/images//google.png" alt="">
-                </div>
-            </div>
+            
             <div class="col-span-12 text-center mt-2 italic">
                 <router-link :to="{name: 'form', query: {opt: 'login'} }">
                     <p class="text-gray-500">Bạn đã có tài khoản? <span class="text-blue-500 underline underline-offset-4 cursor-pointer hover:text-orange-500">Đăng nhập</span></p>

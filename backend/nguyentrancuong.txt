@@ -1,1 +1,166 @@
-$data['user_id'] = auth()->id();
+dockerfile của laravel
+FROM php:8.2-fpm
+
+# Thư mục làm việc
+WORKDIR /var/www
+
+# Cài các gói cần thiết
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    zip \
+    curl \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libonig-dev \
+    libzip-dev
+
+# Cài extension PHP
+RUN docker-php-ext-install pdo_mysql mbstring zip exif gd
+
+# Cài composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Sao chép mã nguồn
+COPY . .
+
+# Cài đặt dependency Laravel
+RUN composer install --no-interaction --prefer-dist
+
+# Phân quyền
+RUN chown -R www-data:www-data /var/www
+
+CMD ["php-fpm"]
+
+
+dockerfile của vue js
+# frontend/Dockerfile
+FROM node:20-alpine
+
+WORKDIR /app
+COPY . .
+RUN npm install
+
+# Dev server
+EXPOSE 5173
+CMD ["npm", "run", "dev", "--", "--host"]
+
+nginx/default.conf
+server {
+    listen 80;
+    index index.php index.html;
+    server_name localhost;
+
+    root /var/www/public;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass backend:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+}
+
+
+version: '3.8'
+
+services:
+  # 🗄️ MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: laravel
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # 🧰 phpMyAdmin (web UI for MySQL)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root
+      UPLOAD_LIMIT: 100M
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+
+  # 🚀 Laravel backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: laravel
+    restart: always
+    volumes:
+      - ./backend:/var/www
+    environment:
+      APP_ENV: local
+      APP_DEBUG: true
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: laravel
+      DB_USERNAME: laravel
+      DB_PASSWORD: laravel
+      REDIS_HOST: redis
+    depends_on:
+      - mysql
+      - redis
+
+  # 💻 Vue frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: vue
+    restart: always
+    ports:
+      - "5173:5173"
+    volumes:
+       - ./frontend:/app
+       - /app/node_modules
+    depends_on:
+      - backend
+
+  # 🌐 Nginx server
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: always
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend:/var/www
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
+
+  # 🔴 Redis (cache, queue, session)
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  mysql_data:
+  redis_data:

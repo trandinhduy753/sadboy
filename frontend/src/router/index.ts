@@ -141,6 +141,11 @@ const routes=
                     component: () => import('@/views/admin/chat/chat.vue'),
                 },
                 {
+                    path: 'phan-quyen',
+                    name: 'admin_sadboizz.authorization',
+                    component: () => import('@/views/admin/Authorization/authorization.vue'),
+                },
+                {
                     path: 'nhan-vien',
                     name: 'admin_sadboizz.employee',
                     component: () => import('@/views/admin/employee/Compemployee.vue'),

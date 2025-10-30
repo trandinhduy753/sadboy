@@ -14,8 +14,20 @@ export default {
             
         } 
         catch (error) {
-            //await refresh_token()
-           
+            var statusCode = error.response.status;
+            if(statusCode == 401) {
+                try {
+                    await refresh_token()
+                    const res = await await infor_user()
+                    commit('CHANGE_USER', res.data.data)
+                    return { ok: "success" }
+                }
+                catch (error) {
+                    return {
+                        ok: error
+                    }
+                }
+            }
             console.error('❌ Lỗi khi gọi API:', error)
         }
     },

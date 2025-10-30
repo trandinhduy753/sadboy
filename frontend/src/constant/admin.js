@@ -118,11 +118,17 @@ export const cash_book = {
 
 export const chat = {
     get_list_user_chat: 'getListUserChat',
-    detail_user_chat: 'detailUserChat'
+    detail_user_chat: 'detailUserChat',
+    add_message: 'addMessages'
 }
 
 export const account = {
     admin_login: 'adminLogin',
     get_info_admin: 'getInfoAdmin',
     admin_logout: 'adminLogout'
+}
+
+export const authorization = {
+    get_authorization: 'getAuthorization',
+    save_authorization: 'saveAuthorization',
 }

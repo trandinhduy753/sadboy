@@ -70,6 +70,46 @@ class AuthController extends Controller
             return response()->json(['error' => 'Something went wrong'], 500);
         }
     }
+    // public function refresh(Request $request)
+    // {
+    //     try {
+    //         $refreshToken = $request->cookie('refresh_token');
+    //         if (!$refreshToken) {
+    //             return response()->json(['error' => 'Refresh token not found'], 404);
+    //         }
+
+    //         $jwt = app('tymon.jwt');
+    //         $jwt->setToken($refreshToken);
+    //         $payload = $jwt->getPayload();
+
+    //         if ($payload->get('type') !== 'refresh_token') {
+    //             return response()->json(['error' => 'Invalid token type'], 401);
+    //         }
+
+    //         $user = $jwt->authenticate();
+    //         if (!$user) {
+    //             return response()->json(['error' => 'Employee not found'], 401);
+    //         }
+
+    //         // Tạo access_token mới
+    //         $newToken = $jwt->claims(['type' => 'access_token'])->fromUser($user);
+
+    //         return response()
+    //             ->json([
+    //                 'message' => 'Token refreshed successfully',
+    //                 'employee' => $user,
+    //             ])
+    //             ->cookie('access_token', $newToken, 15, '/', null, false, true, false, 'Strict');
+
+    //     } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+    //         return response()->json(['error' => 'Refresh token expired'], 401);
+    //     } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+    //         return response()->json(['error' => 'Invalid token'], 401);
+    //     } catch (\Exception $e) {
+    //         \Log::error('Refresh token error: ' . $e->getMessage());
+    //         return response()->json(['error' => 'Something went wrong'], 500);
+    //     }
+    // }
 
     public function logout(Request $request)
     {

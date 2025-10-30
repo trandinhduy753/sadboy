@@ -14,7 +14,10 @@ export const formClient = {
     client_register: "clientRegister",
     login: "login",
     logout: "logout",
-    loginGoogle: 'loginGoogle'
+    loginGoogle: 'loginGoogle',
+    sendOTP: 'sendOTP',
+    verifyOTP: 'verifyOTP',
+    resetPassword: 'resetPassword'
 }
 export const accountClient = {
     get_infor_user: "getInforUser",
@@ -43,7 +46,8 @@ export const orderClient = {
 
 export const chatClient = {
     get_info_conversation: 'getInfoConversation',
-    get_detail_user_chat: 'getDetailUserChat'
+    get_detail_user_chat: 'getDetailUserChat',
+    add_message: 'addMessage'
 }
 
 export const commentClient = {
